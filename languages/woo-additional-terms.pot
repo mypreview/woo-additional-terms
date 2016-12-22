@@ -1,0 +1,99 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Project-Id-Version: Woo Additional Terms\n"
+"POT-Creation-Date: 2016-11-28 13:31+0400\n"
+"PO-Revision-Date: 2016-11-28 13:31+0400\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.11\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-WPHeader: woo-additioanl-terms.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: includes/WooAdditionalTerms.php:24 includes/back-end.php:17
+msgid "Additional Terms"
+msgstr ""
+
+#: includes/WooAdditionalTerms.php:25
+msgid ""
+"If you define a \"Additional Terms\" page the customer will be asked if they "
+"accept them when checking out."
+msgstr ""
+
+#: includes/WooAdditionalTerms.php:35
+msgid "Additional Terms Title"
+msgstr ""
+
+#: includes/WooAdditionalTerms.php:36
+msgid ""
+"Enter you custom title for additional terms, the title will appear in link "
+"shortcode and order details page."
+msgstr ""
+
+#: includes/WooAdditionalTerms.php:44
+msgid "Additional Terms Notice"
+msgstr ""
+
+#: includes/WooAdditionalTerms.php:45
+msgid "Use %link% for appending terms page link into notice content."
+msgstr ""
+
+#: includes/WooAdditionalTerms.php:49
+msgid ""
+"Enter you custom notice for additional terms, the customer will be asked if "
+"they accept them when checking out."
+msgstr ""
+
+#: includes/WooAdditionalTerms.php:53
+msgid "Additional Terms Notice Error"
+msgstr ""
+
+#: includes/WooAdditionalTerms.php:54
+msgid ""
+"Display friendly notice whenever customer doesn't accept additional terms."
+msgstr ""
+
+#: includes/WooAdditionalTerms.php:57 includes/front-end.php:43
+msgid "You must accept our additional terms."
+msgstr ""
+
+#: includes/WooAdditionalTerms.php:73
+msgid "Settings"
+msgstr ""
+
+#: includes/back-end.php:18
+msgid "Accepted"
+msgstr ""
+
+#: includes/requirements.php:12
+msgid ""
+"Woo Additional Terms is enabled but not effective. It requires WooCommerce "
+"in order to work."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Woo Additional Terms"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+#. Author URI of the plugin/theme
+msgid "https://www.mypreview.one"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Add additional terms and condition checkbox into WooCommerce Checkout."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Mahdi Yazdani"
+msgstr ""
