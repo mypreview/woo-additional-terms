@@ -12,13 +12,13 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Add another I Agree with the terms and conditions checkbox to the WooCommerce checkout page.
 
 == Description ==
-This plugin will be most helpful for e-Commerce stores in EU as many countries in the union require the cancellation policy be displayed as a separate checkbox and agree by customer before placing the order.
+This plugin will be most helpful for e-Commerce stores in Europe as many countries in the union require the cancellation or GDPR (General Data Protection Regulation) policy to be displayed as a separate checkbox and agree by the customer before placing the order.
 
-You can optionally link an article or page that contains your additional terms and conditions. For example you may want to include a cancellation policy and ask customers to agree to it before placing the order. 
+You can optionally link a page that contains your additional terms and conditions. For example, you may want to include a cancellation policy and ask customers to agree to it before placing the order. 
 
-If the checkbox is not checked and the customer attempts to place order, an alert box will be shown that prevents them from moving forward.
+If the checkbox is not checked and the customer attempts to place an order, an alert box will be shown that prevents them from moving forward.
 
-Plugin setup is minimal and requires no knowledge of HTML or CSS. It could not be simpler.
+The plugin setup is minimal and requires no knowledge of HTML or CSS. It could not be simpler.
 
 **Translators & Non-English Speakers**
 
@@ -46,6 +46,9 @@ Don't forget to rate this plugin [5 shining stars](https://wordpress.org/support
 1. Log in to your WordPress dashboard.
 2. Add a new page ie. EU Terms and Conditions with your details.
 3. Navigate to WooCommerce > Settings > Additional Terms tab and select the page you created in step 2.
+
+= Does this plugin supports WPML? =
+Yes. The plugin is translation-ready and has a config file to support WPML fully.
 
 = I need help customizing this plugin? =
 I am a full-stack developer with over five years of experience in WordPress theme and plugin development and customization. I would love to have the opportunity to discuss your project with you.
