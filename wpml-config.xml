@@ -1,0 +1,7 @@
+<wpml-config>
+    <custom-fields>
+        <custom-field action="copy">_woo_additional_terms_page_id</custom-field>
+        <custom-field action="translate">_woo_additional_terms_notice</custom-field>
+        <custom-field action="translate">_woo_additional_terms_error</custom-field>
+    </custom-fields>
+</wpml-config>
