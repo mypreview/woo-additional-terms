@@ -88,6 +88,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		 */
 		protected function __construct() {
 
+			add_action( 'plugins_loaded', 																array( $this, 'maybe_migrate_data' ),  		10 );
 			add_action( 'init', 																		array( $this, 'textdomain' ), 				10 );
 			add_action( 'admin_notices', 																array( $this, 'activation' ), 				10 );
 			add_filter( 'woocommerce_settings_tabs_array', 												array( $this, 'add_settings_tab' ), 	999, 1 );
@@ -120,6 +121,35 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		public function __wakeup() {
 
 			_doing_it_wrong( __FUNCTION__, _x( 'Unserializing instances of this class is forbidden.', 'wakeup', 'woo-additional-terms' ) , WOO_ADDITIONAL_TERMS_VERSION );
+
+		}
+
+		/**
+		 * Migrate data from versions prior to 1.1.0.
+		 *
+		 * @access 	public
+		 * @return  void
+		 */
+		public function maybe_migrate_data() {
+
+			$get_page_id = (int) get_option( 'wc_settings_tab_wat_section_page_id' );
+			$get_notice = (string) get_option( 'wc_settings_tab_wat_section_notice' );
+			$get_error = (string) get_option( 'wc_settings_tab_wat_section_notice_error' );
+
+			if ( isset( $get_page_id ) && ! empty( $get_page_id ) ) {
+				delete_option( 'wc_settings_tab_wat_section_page_id' );
+				update_option( '_woo_additional_terms_page_id', intval( $get_page_id ) );
+			} // End If Statement
+
+			if ( isset( $get_notice ) && ! empty( $get_notice ) ) {
+				delete_option( 'wc_settings_tab_wat_section_notice' );
+				update_option( '_woo_additional_terms_notice', sanitize_textarea_field( $get_notice ) );
+			} // End If Statement
+
+			if ( isset( $get_error ) && ! empty( $get_error ) ) {
+				delete_option( 'wc_settings_tab_wat_section_notice_error' );
+				update_option( '_woo_additional_terms_error', sanitize_text_field( $get_error ) );
+			} // End If Statement
 
 		}
 
@@ -262,8 +292,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 				'section_title' => array(
 					'name' => _x( 'Terms and Conditions', 'settings section name', 'woo-additional-terms' ),
 					'type' => 'title',
-					'desc' => _x( 'This section controls the display of your additional terms and condition fieldset.', 'settings section description', 'woo-additional-terms' ),
-					'id' => '_woo_additional_terms_section_title'
+					'desc' => _x( 'This section controls the display of your additional terms and condition fieldset.', 'settings section description', 'woo-additional-terms' )
 				),
 				'page_id' => array(
 					'name' => _x( 'Terms page', 'settings field name', 'woo-additional-terms' ),
