@@ -251,10 +251,18 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		public static function get_settings() {
 
 			$settings = array(
+				'upsell_title' => array(
+					'name' => _x( 'Looking for help customizing this plugin?', 'upsell', 'woo-additional-terms' ),
+					'type' => 'title',
+					'desc' => sprintf( _x( '%sHire me &#8594;%s', 'upsell', 'woo-additional-terms' ), '<a href="https://www.upwork.com/o/profiles/users/_~016ad17ad3fc5cce94/" class="button-secondary" target="_blank" rel="noopener noreferrer nofollow">', '</a>' )
+				),
+				'section_end_upsell' => array(
+					'type' => 'sectionend'
+				),
 				'section_title' => array(
 					'name' => _x( 'Terms and Conditions', 'settings section name', 'woo-additional-terms' ),
 					'type' => 'title',
-					'desc' => 'This section controls the display of your additional terms and condition fieldset.',
+					'desc' => _x( 'This section controls the display of your additional terms and condition fieldset.', 'settings section description', 'woo-additional-terms' ),
 					'id' => '_woo_additional_terms_section_title'
 				),
 				'page_id' => array(
@@ -288,8 +296,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 					'autoload' => FALSE
 				),
 				'section_end' => array(
-					'type' => 'sectionend',
-					'id' => '_woo_additional_terms_section_end'
+					'type' => 'sectionend'
 				)
         	);
 
