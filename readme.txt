@@ -56,6 +56,12 @@ I am a full-stack developer with over five years of experience in WordPress them
 3. Validation error notice appears if the checkbox is not checked.
 
 == Changelog ==
+= 1.2.0 =
+* Updated language file.
+* Refactored and re-organized underlying code in plugin settings page/ controls.
+* Compatibility with WordPress 5.3.1
+* Compatibility with WooCommerce 3.8.1
+
 = 1.1.0 =
 * Compatible with WordPress 4.9.6
 * Compatible with WordPress 3.4.2
