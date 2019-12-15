@@ -47,6 +47,10 @@ Don't forget to rate this plugin [5 shining stars](https://wordpress.org/support
 2. Add a new page ie. EU Terms and Conditions with your details.
 3. Navigate to WooCommerce > Settings > Additional Terms tab and select the page you created in step 2.
 
+= I need help customizing this plugin? =
+I am a full-stack developer with over five years of experience in WordPress theme and plugin development and customization. I would love to have the opportunity to discuss your project with you.
+[Hire me at UpWork &#8594;](https://www.upwork.com/o/profiles/users/_~016ad17ad3fc5cce94/ "Mahdi Yazdani Freelancer Profile")
+
 == Screenshots ==
 1. Additional terms and condition checkbox on WooCommerce checkout page.
 3. Validation error notice appears if the checkbox is not checked.
