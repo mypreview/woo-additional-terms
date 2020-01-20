@@ -3,11 +3,7 @@
 
 ![Woo Additional Terms](https://ps.w.org/woo-additional-terms/assets/banner-1544x500.jpg?rev=1542924)
 
-▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-
-►► If you are not a developer, please use the offical [plugin post page](https://wordpress.org/plugins/woo-additional-terms "Download Woo Additional Terms plugin") on wordpress.org.
-
-▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+> ⚠️ If you are not a developer, please use the offical [plugin post page](https://wordpress.org/plugins/woo-additional-terms "Download Woo Additional Terms plugin") on wordpress.org.
 
 ## Installation
 
