@@ -59,6 +59,11 @@
             <property name="text_domain" type="array" value="woo-additional-terms" />
         </properties>
     </rule>
+    <rule ref="WordPress.Files.FileName">
+        <properties>
+            <property name="strict_class_file_names" value="false" />
+        </properties>
+    </rule>
     <rule ref="Squiz.Commenting">
         <exclude name="Squiz.Commenting.LongConditionClosingComment" />
         <exclude name="Squiz.Commenting.PostStatementComment" />
