@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Woo Additional Terms\n"
-"POT-Creation-Date: 2019-12-15 23:30+0300\n"
+"POT-Creation-Date: 2020-04-02 17:41+0300\n"
 "PO-Revision-Date: 2016-11-28 13:31+0400\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -20,118 +20,117 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: woo-additioanl-terms.php:110
+#: woo-additioanl-terms.php:109
 msgctxt "clone"
 msgid "Cloning instances of this class is forbidden."
 msgstr ""
 
-#: woo-additioanl-terms.php:122
+#: woo-additioanl-terms.php:120
 msgctxt "wakeup"
 msgid "Unserializing instances of this class is forbidden."
 msgstr ""
 
-#: woo-additioanl-terms.php:148
+#: woo-additioanl-terms.php:173
 #, php-format
 msgctxt "admin notice"
-msgid ""
-"Woo Additional Terms plugin requires the following plugin:%sWooCommerce%s"
+msgid "%1$s requires the following plugin: %2$sWooCommerce%3$s"
 msgstr ""
 
-#: woo-additioanl-terms.php:164
+#: woo-additioanl-terms.php:189
 msgctxt "tab title"
 msgid "Additional Terms"
 msgstr ""
 
-#: woo-additioanl-terms.php:255
+#: woo-additioanl-terms.php:278
 msgctxt "upsell"
 msgid "Looking for help customizing this plugin?"
 msgstr ""
 
-#: woo-additioanl-terms.php:257
+#: woo-additioanl-terms.php:281
 #, php-format
 msgctxt "upsell"
-msgid "%sHire me &#8594;%s"
+msgid "%1$sHire me &#8594;%2$s"
 msgstr ""
 
-#: woo-additioanl-terms.php:263
+#: woo-additioanl-terms.php:287
 msgctxt "settings section name"
 msgid "Terms and Conditions"
 msgstr ""
 
-#: woo-additioanl-terms.php:265
+#: woo-additioanl-terms.php:289
 msgctxt "settings section description"
 msgid ""
 "This section controls the display of your additional terms and condition "
 "fieldset."
 msgstr ""
 
-#: woo-additioanl-terms.php:269
+#: woo-additioanl-terms.php:292
 msgctxt "settings field name"
 msgid "Terms page"
 msgstr ""
 
-#: woo-additioanl-terms.php:270
+#: woo-additioanl-terms.php:293
 msgctxt "settings field description"
 msgid ""
 "If you define a \"Terms\" page the customer will be asked if they accept "
 "additional terms when checking out."
 msgstr ""
 
-#: woo-additioanl-terms.php:279
+#: woo-additioanl-terms.php:302
 msgctxt "settings field name"
 msgid "Notice content"
 msgstr ""
 
-#: woo-additioanl-terms.php:280
+#: woo-additioanl-terms.php:303
 msgctxt "settings field description"
 msgid "Text for the additional terms checkbox that customers must accept."
 msgstr ""
 
-#: woo-additioanl-terms.php:281
+#: woo-additioanl-terms.php:304
 msgctxt "settings field default value"
 msgid "I have read and agree to the website [additional-terms]"
 msgstr ""
 
-#: woo-additioanl-terms.php:289
+#: woo-additioanl-terms.php:312
 msgctxt "settings field name"
 msgid "Error content"
 msgstr ""
 
-#: woo-additioanl-terms.php:290
+#: woo-additioanl-terms.php:313
 msgctxt "settings field description"
 msgid ""
 "Display friendly notice whenever customer doesn&rsquo;t accept additional "
 "terms."
 msgstr ""
 
-#: woo-additioanl-terms.php:291
+#: woo-additioanl-terms.php:314
 msgctxt "settings field default value"
 msgid ""
 "Please read and accept the additional terms and conditions to proceed with "
 "your order. "
 msgstr ""
 
-#: woo-additioanl-terms.php:318
+#: woo-additioanl-terms.php:341
 #, php-format
 msgctxt "plugin link"
-msgid "%sHire Me!%s"
+msgid "%1$sHire Me!%2$s"
 msgstr ""
 
-#: woo-additioanl-terms.php:318
+#: woo-additioanl-terms.php:341
 msgctxt "upsell"
 msgid "Looking for help? Hire Me!"
 msgstr ""
 
-#: woo-additioanl-terms.php:319
+#: woo-additioanl-terms.php:343
 #, php-format
 msgctxt "plugin link"
-msgid "%sSupport%s"
+msgid "%1$sSupport%2$s"
 msgstr ""
 
-#: woo-additioanl-terms.php:323
+#: woo-additioanl-terms.php:353
 #, php-format
 msgctxt "plugin link"
-msgid "%sSettings%s"
+msgid "%1$sSettings%2$s"
 msgstr ""
 
 #. Plugin Name of the plugin/theme
