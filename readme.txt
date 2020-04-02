@@ -61,7 +61,7 @@ Make sure to check the “Notify me of follow-up replies via email” checkbox t
 = Can I help in translating this plugin into a new language? =
 The plugin is fully translation-ready and localized using the GNU framework, and translators are welcome to contribute to the plugin.
 
-Here’s the the [WordPress translation website &#8594;](https://translate.wordpress.org/projects/wp-plugins/woo-additional-terms "WordPress translation website")
+Here’s the [WordPress translation website &#8594;](https://translate.wordpress.org/projects/wp-plugins/woo-additional-terms "WordPress translation website")
 
 = How do I contribute to this plugin? =
 We welcome contributions in any form, and you can help reporting, testing, and detailing bugs.
@@ -77,7 +77,7 @@ I am a full-stack developer with over five years of experience in WordPress them
 [Hire me on UpWork &#8594;](https://www.upwork.com/o/profiles/users/_~016ad17ad3fc5cce94/ "Mahdi Yazdani Freelancer Profile")
 
 == Screenshots ==
-1. Additional terms and condition checkbox on WooCommerce checkout page.
+1. Additional terms and condition checkbox on the WooCommerce checkout page.
 3. Validation error notice appears if the checkbox is not checked.
 
 == Changelog ==
