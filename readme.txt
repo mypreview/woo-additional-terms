@@ -3,9 +3,9 @@ Contributors: mahdiyazdani, mypreview, gookaani
 Tags: woocommerce additional terms, extra checkbox terms and condition, terms and condition plugin, other terms for checkout, cancellation policy checkbox, GDPR
 Donate link: https://www.mypreview.one
 Requires at least: 5.0
-Tested up to: 5.4.0
+Tested up to: 5.4.1
 Requires PHP: 7.2
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,6 +81,11 @@ I am a full-stack developer with over five years of experience in WordPress them
 3. Validation error notice appears if the checkbox is not checked.
 
 == Changelog ==
+= 1.2.2 =
+* Updated language configuration file to support Polylang.
+* Compatibility with WordPress 5.4.1
+* Compatibility with WooCommerce 4.1.1
+
 = 1.2.1 =
 * Multiple code standards improvements.
 * Compatibility with WordPress 5.4.0
