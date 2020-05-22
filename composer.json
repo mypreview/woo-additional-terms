@@ -15,6 +15,7 @@
     "woocommerce/woocommerce-git-hooks": "*",
     "woocommerce/woocommerce-sniffs": "*",
     "wimg/php-compatibility": "^8.0",
+    "wp-cli/i18n-command": "^2.2",
     "dealerdirect/phpcodesniffer-composer-installer": "^0.4.3"
   },
   "scripts": {
@@ -38,6 +39,9 @@
     ],
     "phpcbf": [
       "phpcbf -p"
+    ],
+    "make-pot": [
+      "wp i18n make-pot . languages/woo-additional-terms.pot"
     ]
   },
   "extra": {
