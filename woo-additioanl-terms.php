@@ -20,7 +20,7 @@
  * Plugin Name:             Woo Additional Terms
  * Plugin URI:              https://www.mypreview.one
  * Description:             Add additional terms and condition checkbox to the WooCommerce checkout.
- * Version:                 1.2.1
+ * Version:                 1.2.2
  * Author:                  MyPreview
  * Author URI:              https://www.mypreview.one
  * License:                 GPL-2.0
@@ -28,7 +28,7 @@
  * Text Domain:             woo-additional-terms
  * Domain Path:             /languages
  * WC requires at least:    3.4.0
- * WC tested up to:         4.0.1
+ * WC tested up to:         4.1.1
  */
 
 // If this file is called directly, abort.
@@ -42,8 +42,8 @@ if ( ! defined( 'WPINC' ) ) {
  * @see     https://codex.wordpress.org/Function_Reference/plugin_basename
  * @see     http://php.net/manual/en/language.constants.predefined.php
  */
-define( 'WOO_ADDITIONAL_TERMS_VERSION', '1.2.0' );
 define( 'WOO_ADDITIONAL_TERMS_FILE', __FILE__ );
+define( 'WOO_ADDITIONAL_TERMS_VERSION', get_file_data( WOO_ADDITIONAL_TERMS_FILE, array( 'version' => 'Version' ) )['version'] );
 define( 'WOO_ADDITIONAL_TERMS_NAME', get_file_data( WOO_ADDITIONAL_TERMS_FILE, array( 'name' => 'Plugin Name' ) )['name'] );
 define( 'WOO_ADDITIONAL_TERMS_BASENAME', basename( WOO_ADDITIONAL_TERMS_FILE ) );
 define( 'WOO_ADDITIONAL_TERMS_PLUGIN_BASENAME', plugin_basename( WOO_ADDITIONAL_TERMS_FILE ) );
