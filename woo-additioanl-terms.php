@@ -13,14 +13,14 @@
  * any later version.
  *
  * @link                    https://www.mypreview.one
- * @since                   1.2.1
+ * @since                   1.3.0
  * @package                 woo-additional-terms
  *
  * @wordpress-plugin
  * Plugin Name:             Woo Additional Terms
  * Plugin URI:              https://www.mypreview.one
  * Description:             Add additional terms and condition checkbox to the WooCommerce checkout.
- * Version:                 1.2.2
+ * Version:                 1.3.0
  * Author:                  MyPreview
  * Author URI:              https://www.mypreview.one
  * License:                 GPL-2.0
@@ -28,7 +28,7 @@
  * Text Domain:             woo-additional-terms
  * Domain Path:             /languages
  * WC requires at least:    3.4.0
- * WC tested up to:         4.1.1
+ * WC tested up to:         4.2.0
  */
 
 // If this file is called directly, abort.
@@ -87,15 +87,15 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		 */
 		protected function __construct() {
 
-			add_action( 'plugins_loaded', array( $this, 'maybe_migrate_data' ), 10 );
-			add_action( 'init', array( $this, 'textdomain' ), 10 );
-			add_action( 'admin_notices', array( $this, 'activation' ), 10 );
+			add_action( 'init', array( $this, 'textdomain' ) );
+			add_action( 'admin_notices', array( $this, 'activation' ) );
 			add_filter( 'woocommerce_settings_tabs_array', array( $this, 'add_settings_tab' ), 999, 1 );
-			add_action( 'woocommerce_settings_tabs_woo-additional-terms', array( $this, 'render_plugin_page' ), 10 );
-			add_action( 'woocommerce_update_options_woo-additional-terms', array( $this, 'update_plugin_page' ), 10 );
-			add_action( 'woocommerce_checkout_after_terms_and_conditions', array( $this, 'print_checkbox' ), 10 );
+			add_action( 'woocommerce_settings_tabs_woo-additional-terms', array( $this, 'render_plugin_page' ) );
+			add_action( 'woocommerce_update_options_woo-additional-terms', array( $this, 'update_plugin_page' ) );
+			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue' ) );
+			add_action( 'woocommerce_checkout_after_terms_and_conditions', array( $this, 'print_checkbox' ) );
 			add_action( 'woocommerce_checkout_process', array( $this, 'checkbox_error' ), 99 );
-			add_filter( sprintf( 'plugin_action_links_%s', WOO_ADDITIONAL_TERMS_PLUGIN_BASENAME ), array( $this, 'action_links' ), 10, 1 );
+			add_filter( sprintf( 'plugin_action_links_%s', WOO_ADDITIONAL_TERMS_PLUGIN_BASENAME ), array( $this, 'action_links' ) );
 
 		}
 
@@ -122,34 +122,6 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		}
 
 		/**
-		 * Migrate data from versions prior to 1.1.0.
-		 *
-		 * @return  void
-		 */
-		public function maybe_migrate_data() {
-
-			$get_page_id = (int) get_option( 'wc_settings_tab_wat_section_page_id' );
-			$get_notice  = (string) get_option( 'wc_settings_tab_wat_section_notice' );
-			$get_error   = (string) get_option( 'wc_settings_tab_wat_section_notice_error' );
-
-			if ( isset( $get_page_id ) && ! empty( $get_page_id ) ) {
-				delete_option( 'wc_settings_tab_wat_section_page_id' );
-				update_option( '_woo_additional_terms_page_id', intval( $get_page_id ) );
-			} // End If Statement
-
-			if ( isset( $get_notice ) && ! empty( $get_notice ) ) {
-				delete_option( 'wc_settings_tab_wat_section_notice' );
-				update_option( '_woo_additional_terms_notice', sanitize_textarea_field( $get_notice ) );
-			} // End If Statement
-
-			if ( isset( $get_error ) && ! empty( $get_error ) ) {
-				delete_option( 'wc_settings_tab_wat_section_notice_error' );
-				update_option( '_woo_additional_terms_error', sanitize_text_field( $get_error ) );
-			} // End If Statement
-
-		}
-
-		/**
 		 * Load languages file and text domains.
 		 * Define the internationalization functionality.
 		 *
@@ -168,7 +140,8 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		 */
 		public function activation() {
 
-			if ( ! $this->is_woocommerce() ) {
+			// Query WooCommerce activation.
+			if ( ! $this->_is_woocommerce() ) {
 				/* translators: 1: Dashicon, Open anchor tag, 2: Close anchor tag. */
 				$message = sprintf( esc_html_x( '%1$s requires the following plugin: %2$sWooCommerce%3$s', 'admin notice', 'woo-additional-terms' ), sprintf( '<i class="dashicons dashicons-admin-plugins" style="vertical-align:sub"></i> <strong>%s</strong>', WOO_ADDITIONAL_TERMS_NAME ), '<a href="https://wordpress.org/plugins/woocommerce" target="_blank" rel="noopener noreferrer nofollow"><em>', '</em></a>' );
 				printf( '<div class="notice notice-error notice-alt"><p>%s</p></div>', wp_kses_post( $message ) );
@@ -217,6 +190,28 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		}
 
 		/**
+		 * Enqueue scripts and styles.
+		 *
+		 * @return  void
+		 */
+		public function enqueue() {
+
+			$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+
+			// Enqueue a stylesheet.
+			wp_register_style( 'woo-additional-terms-style', sprintf( '%sassets/style%s.css', WOO_ADDITIONAL_TERMS_DIR_URL, $min ), null, WOO_ADDITIONAL_TERMS_VERSION, 'screen' );
+			// Enqueue a script.
+			wp_register_script( 'woo-additional-terms-script', sprintf( '%sassets/script%s.js', WOO_ADDITIONAL_TERMS_DIR_URL, $min ), array( 'jquery', 'wc-checkout' ), WOO_ADDITIONAL_TERMS_VERSION, true );
+
+			// Make sure the current screen displays plugin’s settings page.
+			if ( $this->_is_woocommerce() && $this->_additional_terms_page_content() ) {
+				wp_enqueue_style( 'woo-additional-terms-style' );
+				wp_enqueue_script( 'woo-additional-terms-script' );
+			} // End If Statement
+
+		}
+
+		/**
 		 * Display additional terms and condition checkbox on
 		 * the checkout page before the submit (place order) button.
 		 *
@@ -224,28 +219,29 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		 */
 		public function print_checkbox() {
 
-			$get_page_id = (int) get_option( '_woo_additional_terms_page_id' );
-			$get_notice  = (string) get_option( '_woo_additional_terms_notice' );
+			$page_id = (int) get_option( '_woo_additional_terms_page_id', null );
+			$notice  = (string) get_option( '_woo_additional_terms_notice' );
 
 			// Bail out, if the page ID is not defined yet!
-			if ( ! isset( $get_page_id ) || empty( $get_page_id ) ) {
+			if ( ! isset( $page_id ) || empty( $page_id ) ) {
 				return;
 			} // End If Statement
 
-			if ( false !== strpos( $get_notice, '[additional-terms]' ) ) {
-    			$get_notice = str_replace( '[additional-terms]', sprintf( '<a href="%s" target="_blank" rel="noopener noreferrer nofollow">%s</a>', esc_url( get_permalink( $get_page_id ) ), esc_html( get_the_title( $get_page_id ) ) ), $get_notice ); // @codingStandardsIgnoreLine
+			if ( false !== strpos( $notice, '[additional-terms]' ) ) {
+    			$notice = str_replace( '[additional-terms]', sprintf( '<a href="%s" class="woo-additional-terms__link" target="_blank" rel="noopener noreferrer nofollow">%s</a>', esc_url( get_permalink( $page_id ) ), esc_html( get_the_title( $page_id ) ) ), $notice ); // @codingStandardsIgnoreLine
 			} // End If Statement
 
-			woocommerce_form_field(
-				'_woo_additional_terms', array(
-					'type'        => 'checkbox',
-					'class'       => array( 'woo-additional-terms woocommerce-terms-and-conditions-wrapper' ),
-					'label_class' => array( 'woocommerce-form__label woocommerce-form__label-for-checkbox checkbox' ),
-					'input_class' => array( 'woocommerce-form__input woocommerce-form__input-checkbox input-checkbox' ),
-					'required'    => true,
-					'label'       => wp_kses_post( $get_notice ),
-				)
-			);
+			?>
+			<div class="woocommerce-terms-and-conditions-wrapper woo-additional-terms">
+				<?php $this->_additional_terms_page_content( $page_id, true ); ?>
+				<p class="form-row validate-required">
+					<label class="woocommerce-form__label woocommerce-form__label-for-checkbox checkbox">
+					<input type="checkbox" class="woocommerce-form__input woocommerce-form__input-checkbox input-checkbox" name="_woo_additional_terms" id="_woo_additional_terms" />
+						<span class="woocommerce-terms-and-conditions-checkbox-text"><?php echo wp_kses_post( $notice ); ?></span>&nbsp;<span class="required">*</span>
+					</label>
+				</p>
+			</div>
+			<?php
 
 		}
 
@@ -256,13 +252,43 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		 */
 		public function checkbox_error() {
 
-			$get_page_id = (int) get_option( '_woo_additional_terms_page_id' );
-			$get_error   = (string) get_option( '_woo_additional_terms_error' );
+			$page_id = (int) get_option( '_woo_additional_terms_page_id' );
+			$error   = (string) get_option( '_woo_additional_terms_error' );
+			$data    = wp_unslash( $_POST ); //phpcs:ignore WordPress.VIP.SuperGlobalInputUsage.AccessDetected, WordPress.CSRF.NonceVerification.NoNonceVerification
 
-			// phpcs:ignore WordPress.CSRF.NonceVerification.NoNonceVerification
-			if ( ! (int) isset( $_POST['_woo_additional_terms'], $get_page_id ) && ! empty( $get_page_id ) ) {
-				wc_add_notice( wp_kses_post( $get_error ), 'error' );
+			if ( ! (int) isset( $data['_woo_additional_terms'], $page_id ) && ! empty( $page_id ) ) {
+				wc_add_notice( wp_kses_post( $error ), 'error' );
 			} // End If Statement
+
+		}
+
+		/**
+		 * Display additional links in plugins table page.
+		 * Filters the list of action links displayed for a specific plugin in the Plugins list table.
+		 *
+		 * @param   array $links Plugin table/item action links.
+		 * @return  array
+		 */
+		public function action_links( $links ) {
+
+			$plugin_links = array();
+			/* translators: 1: Open anchor tag, 2: Close anchor tag. */
+			$plugin_links[] = sprintf( _x( '%1$sHire Me!%2$s', 'plugin link', 'woo-additional-terms' ), sprintf( '<a href="https://www.upwork.com/o/profiles/users/_~016ad17ad3fc5cce94/" class="button-link-delete" target="_blank" rel="noopener noreferrer nofollow" title="%s">', esc_attr_x( 'Looking for help? Hire Me!', 'upsell', 'woo-additional-terms' ) ), '</a>' );
+			/* translators: 1: Open anchor tag, 2: Close anchor tag. */
+			$plugin_links[] = sprintf( _x( '%1$sSupport%2$s', 'plugin link', 'woo-additional-terms' ), '<a href="https://wordpress.org/support/plugin/woo-additional-terms" target="_blank" rel="noopener noreferrer nofollow">', '</a>' );
+
+			if ( $this->_is_woocommerce() ) {
+				$settings_url = add_query_arg(
+					array(
+						'page' => 'wc-settings',
+						'tab'  => 'woo-additional-terms',
+					), admin_url( 'admin.php' )
+				);
+				/* translators: 1: Open anchor tag, 2: Close anchor tag. */
+				$plugin_links[] = sprintf( _x( '%1$sSettings%2$s', 'plugin settings page', 'woo-additional-terms' ), sprintf( '<a href="%s" target="_self">', esc_url( $settings_url ) ), '</a>' );
+			} // End If Statement
+
+			return array_merge( $plugin_links, $links );
 
 		}
 
@@ -328,43 +354,53 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		}
 
 		/**
-		 * Display additional links in plugins table page.
-		 * Filters the list of action links displayed for a specific plugin in the Plugins list table.
+		 * Output additional terms page's content (if set).
+		 * The page can be set from the plugin settings page.
+		 * “WooCommerce” » “Settings” » “Additional Terms”
 		 *
-		 * @param   array $links Plugin table/item action links.
-		 * @return  array
+		 * @param   int  $terms_page_id  Additional terms page ID.
+		 * @param   bool $echo           Output additional terms page content on the page.
+		 * @return  void
+		 * @phpcs:disable PSR2.Methods.MethodDeclaration.Underscore
 		 */
-		public function action_links( $links ) {
+		private function _additional_terms_page_content( $terms_page_id = null, $echo = false ) {
 
-			$plugin_links = array();
-			/* translators: 1: Open anchor tag, 2: Close anchor tag. */
-			$plugin_links[] = sprintf( _x( '%1$sHire Me!%2$s', 'plugin link', 'woo-additional-terms' ), sprintf( '<a href="https://www.upwork.com/o/profiles/users/_~016ad17ad3fc5cce94/" class="button-link-delete" target="_blank" rel="noopener noreferrer nofollow" title="%s">', esc_attr_x( 'Looking for help? Hire Me!', 'upsell', 'woo-additional-terms' ) ), '</a>' );
-			/* translators: 1: Open anchor tag, 2: Close anchor tag. */
-			$plugin_links[] = sprintf( _x( '%1$sSupport%2$s', 'plugin link', 'woo-additional-terms' ), '<a href="https://wordpress.org/support/plugin/woo-additional-terms" target="_blank" rel="noopener noreferrer nofollow">', '</a>' );
+			$terms_page_id = $terms_page_id ? intval( $terms_page_id ) : get_option( '_woo_additional_terms_page_id', null );
 
-			if ( $this->is_woocommerce() ) {
-				$settings_url = add_query_arg(
-					array(
-						'page' => 'wc-settings',
-						'tab'  => 'woo-additional-terms',
-					), admin_url( 'admin.php' )
-				);
-				/* translators: 1: Open anchor tag, 2: Close anchor tag. */
-				$plugin_links[] = sprintf( _x( '%1$sSettings%2$s', 'plugin link', 'woo-additional-terms' ), sprintf( '<a href="%s" target="_self">', esc_url( $settings_url ) ), '</a>' );
+			// Bail early, in case the page ID is not available or not a number.
+			if ( ! $terms_page_id || ! is_numeric( $terms_page_id ) ) {
+				return;
 			} // End If Statement
 
-			return array_merge( $plugin_links, $links );
+			$page = get_post( $terms_page_id );
 
+			if ( $page && 'publish' === $page->post_status && $page->post_content && ! has_shortcode( $page->post_content, 'woocommerce_checkout' ) ) {
+				// Print on the page, only if needed.
+				if ( $echo ) {
+					printf( '<div class="woo-additional-terms__content">%s</div>', wp_kses_post( wc_format_content( $page->post_content ) ) );
+				}
+				return true;
+			}
+
+			return false;
 		}
 
 		/**
 		 * Query WooCommerce activation
 		 *
 		 * @return  bool
+		 * @phpcs:disable PSR2.Methods.MethodDeclaration.Underscore
 		 */
-		private function is_woocommerce() {
+		private function _is_woocommerce() {
 
-			if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+			// This statement prevents from producing fatal errors,
+			// in case the WooCommerce plugin is not activated on the site.
+			$woocommerce_plugin     = apply_filters( 'woo_additional_terms_woocommerce_path', 'woocommerce/woocommerce.php' );
+			$subsite_active_plugins = apply_filters( 'active_plugins', get_option( 'active_plugins' ) );
+			$network_active_plugins = apply_filters( 'active_plugins', get_site_option( 'active_sitewide_plugins' ) );
+
+			// Bail early in case the plugin is not activated on the website.
+			if ( ( empty( $subsite_active_plugins ) || ! in_array( $woocommerce_plugin, $subsite_active_plugins ) ) && ( empty( $network_active_plugins ) || ! array_key_exists( $woocommerce_plugin, $network_active_plugins ) ) ) {
 				return false;
 			} // End If Statement
 
