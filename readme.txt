@@ -3,7 +3,7 @@ Contributors: mahdiyazdani, mypreview, gookaani
 Tags: woocommerce additional terms, extra checkbox terms and condition, terms and condition plugin, other terms for checkout, cancellation policy checkbox, GDPR
 Donate link: https://www.mypreview.one
 Requires at least: 5.0
-Tested up to: 5.4.1
+Tested up to: 5.4
 Requires PHP: 7.2
 Stable tag: 1.3.0
 License: GPLv2 or later
