@@ -5,7 +5,7 @@ Donate link: https://www.mypreview.one
 Requires at least: 5.0
 Tested up to: 5.4.1
 Requires PHP: 7.2
-Stable tag: 1.2.2
+Stable tag: 1.3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -14,7 +14,7 @@ Add another “I Agree with the terms and conditions” checkbox to the WooComme
 == Description ==
 This plugin will be most helpful for e-Commerce stores in Europe as many countries in the union require the cancellation or GDPR (General Data Protection Regulation) policy to be displayed as a separate checkbox and agree by the customer before placing the order.
 
-You can optionally link a page that contains your additional terms and conditions. For example, you may want to include a cancellation policy and ask customers to agree to it before placing the order. 
+Linking an optional page to the additional term’s notice will allow you to present customers with Additional Terms and Conditions to accept during checkout. “Terms” open up on the page when the link is clicked, and customers can review without leaving checkout. As an example, you may want to include a cancellation policy and ask customers to agree to it before placing the order.
 
 If the checkbox is not checked and the customer attempts to place an order, an alert box will be shown that prevents them from moving forward.
 
@@ -49,7 +49,7 @@ Automatic updates should work smoothly, but we still recommend you back up your 
 3. Navigate to “WooCommerce” » “Settings” » “Additional Terms” tab and select the page you created in step 2.
 
 = Does this plugin supports WPML? =
-Yes. The plugin is translation-ready and has a config file to support WPML fully.
+Yes. The plugin is translation-ready and has a config file to support both WPML and Polylang plugins fully.
 
 = How do I get help with the plugin? =
 The easiest way to receive support is to “Create a new topic” by visiting Community Forums page [here](https://wordpress.org/support/plugin/woo-additional-terms "Woo Additional Terms Support Forum").
@@ -81,8 +81,12 @@ I am a full-stack developer with over five years of experience in WordPress them
 3. Validation error notice appears if the checkbox is not checked.
 
 == Changelog ==
+= 1.3.0 =
+* Additional terms content can now open up on the page when the link is clicked, and customers can review without leaving checkout.
+* Compatibility with WooCommerce 4.2.0
+
 = 1.2.2 =
-* Updated language configuration file to support Polylang.
+* Added language configuration file to support WPML/Polylang.
 * Compatibility with WordPress 5.4.1
 * Compatibility with WooCommerce 4.1.1
 
@@ -104,10 +108,11 @@ I am a full-stack developer with over five years of experience in WordPress them
 = 1.0.3 =
 
 = 1.0.2 =
-* Compatible with WordPress 4.7 and WooCommerce 2.6.9.
+* Compatible with WordPress 4.7.0
+* Compatible with WordPress 2.6.9
 
 = 1.0.1 =
-* Plugin screenshots added.
+* Added screenshots.
 
 = 1.0.0 =
 * Initial release.
