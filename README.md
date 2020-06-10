@@ -23,7 +23,7 @@
 
 This plugin will be most helpful for e-Commerce stores in Europe as many countries in the union require the cancellation or GDPR (General Data Protection Regulation) policy to be displayed as a separate checkbox and agree by the customer before placing the order.
 
-You can optionally link a page that contains your additional terms and conditions. For example, you may want to include a cancellation policy and ask customers to agree to it before placing the order. 
+Linking an optional page to the additional term’s notice will allow you to present customers with Additional Terms and Conditions to accept during checkout. “Terms” open up on the page when the link is clicked, and customers can review without leaving checkout. As an example, you may want to include a cancellation policy and ask customers to agree to it before placing the order.
 
 If the checkbox is not checked and the customer attempts to place an order, an alert box will be shown that prevents them from moving forward.
 
