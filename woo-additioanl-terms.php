@@ -13,14 +13,14 @@
  * any later version.
  *
  * @link                    https://www.mypreview.one
- * @since                   1.3.0
+ * @since                   1.3.1
  * @package                 woo-additional-terms
  *
  * @wordpress-plugin
  * Plugin Name:             Woo Additional Terms
  * Plugin URI:              https://www.mypreview.one
  * Description:             Add additional terms and condition checkbox to the WooCommerce checkout.
- * Version:                 1.3.0
+ * Version:                 1.3.1
  * Author:                  MyPreview
  * Author URI:              https://www.mypreview.one
  * License:                 GPL-2.0
@@ -95,6 +95,8 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue' ) );
 			add_action( 'woocommerce_checkout_after_terms_and_conditions', array( $this, 'print_checkbox' ) );
 			add_action( 'woocommerce_checkout_process', array( $this, 'checkbox_error' ), 99 );
+			add_action( 'woocommerce_checkout_update_order_meta', array( $this, 'save_terms_acceptance' ) );
+			add_action( 'woocommerce_admin_order_data_after_billing_address', array( $this, 'terms_acceptance' ) );
 			add_filter( sprintf( 'plugin_action_links_%s', WOO_ADDITIONAL_TERMS_PLUGIN_BASENAME ), array( $this, 'action_links' ) );
 
 		}
@@ -204,7 +206,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 			wp_register_script( 'woo-additional-terms-script', sprintf( '%sassets/script%s.js', WOO_ADDITIONAL_TERMS_DIR_URL, $min ), array( 'jquery', 'wc-checkout' ), WOO_ADDITIONAL_TERMS_VERSION, true );
 
 			// Make sure the current screen displays plugin’s settings page.
-			if ( $this->_is_woocommerce() && $this->_additional_terms_page_content() ) {
+			if ( $this->_is_woocommerce() && $this->_terms_page_content() ) {
 				wp_enqueue_style( 'woo-additional-terms-style' );
 				wp_enqueue_script( 'woo-additional-terms-script' );
 			} // End If Statement
@@ -233,10 +235,10 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 
 			?>
 			<div class="woocommerce-terms-and-conditions-wrapper woo-additional-terms">
-				<?php $this->_additional_terms_page_content( $page_id, true ); ?>
+				<?php $this->_terms_page_content( $page_id, true ); ?>
 				<p class="form-row validate-required">
 					<label class="woocommerce-form__label woocommerce-form__label-for-checkbox checkbox">
-					<input type="checkbox" class="woocommerce-form__input woocommerce-form__input-checkbox input-checkbox" name="_woo_additional_terms" id="_woo_additional_terms" />
+					<input type="checkbox" class="woocommerce-form__input woocommerce-form__input-checkbox input-checkbox" name="_woo_additional_terms" id="_woo_additional_terms" value="1" />
 						<span class="woocommerce-terms-and-conditions-checkbox-text"><?php echo wp_kses_post( $notice ); ?></span>&nbsp;<span class="required">*</span>
 					</label>
 				</p>
@@ -259,6 +261,54 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 			if ( ! (int) isset( $data['_woo_additional_terms'], $page_id ) && ! empty( $page_id ) ) {
 				wc_add_notice( wp_kses_post( $error ), 'error' );
 			} // End If Statement
+
+		}
+
+		/**
+		 * Fires after an order saved into the databse.
+		 * We will update the post meta
+		 *
+		 * @since    1.0.0
+		 * @param    int $order_id    Order ID.
+		 * @return   void
+		 */
+		public function save_terms_acceptance( $order_id ) {
+
+			$data       = wp_unslash( $_POST ); //phpcs:ignore WordPress.VIP.SuperGlobalInputUsage.AccessDetected, WordPress.CSRF.NonceVerification.NoNonceVerification
+			$acceptance = isset( $data['_woo_additional_terms'] ) ? wc_string_to_bool( $data['_woo_additional_terms'] ) : null;
+			$order      = wc_get_order( $order_id );
+
+			if ( $acceptance && ( $order instanceof WC_Order ) ) {
+				update_post_meta( $order_id, '_woo_additional_terms', $acceptance );
+			} // End If Statement
+
+		}
+
+		/**
+		 * Display the acceptance of terms & conditions on the order edit page.
+		 *
+		 * @since    1.0.0
+		 * @param    object $order  The current order object.
+		 * @return   void
+		 */
+		public function terms_acceptance( $order ) {
+
+			$page_id = (int) get_option( '_woo_additional_terms_page_id', null );
+
+			// Bail out, if the page ID is not defined yet!
+			if ( ! isset( $page_id ) || empty( $page_id ) ) {
+				return;
+			} // End If Statement
+
+			/* incorrect CSS class added here so it adopts styling we want */
+			?>
+			<div class="address">
+			<?php
+				$value = $order->get_meta( '_woo_additional_terms' ) ? esc_html__( 'Accepted', 'woo-additional-terms' ) : esc_html__( 'N/A', 'woo-additional-terms' );
+				printf( '<p><strong>%s:</strong>%s</p>', get_the_title( $page_id ), esc_html( $value ) );
+			?>
+			</div>
+			<?php
 
 		}
 
@@ -363,7 +413,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		 * @return  void
 		 * @phpcs:disable PSR2.Methods.MethodDeclaration.Underscore
 		 */
-		private function _additional_terms_page_content( $terms_page_id = null, $echo = false ) {
+		private function _terms_page_content( $terms_page_id = null, $echo = false ) {
 
 			$terms_page_id = $terms_page_id ? intval( $terms_page_id ) : get_option( '_woo_additional_terms_page_id', null );
 
