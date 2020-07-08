@@ -13,14 +13,14 @@
  * any later version.
  *
  * @link                    https://www.mypreview.one
- * @since                   1.3.1
+ * @since                   1.3.2
  * @package                 woo-additional-terms
  *
  * @wordpress-plugin
  * Plugin Name:             Woo Additional Terms
  * Plugin URI:              https://www.mypreview.one
  * Description:             Add additional terms and condition checkbox to the WooCommerce checkout.
- * Version:                 1.3.1
+ * Version:                 1.3.2
  * Author:                  MyPreview
  * Author URI:              https://www.mypreview.one
  * License:                 GPL-2.0
@@ -28,7 +28,7 @@
  * Text Domain:             woo-additional-terms
  * Domain Path:             /languages
  * WC requires at least:    3.4.0
- * WC tested up to:         4.2.0
+ * WC tested up to:         4.3
  */
 
 // If this file is called directly, abort.
