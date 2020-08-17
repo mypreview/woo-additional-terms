@@ -10,7 +10,7 @@
 // If uninstall not called from WordPress, then exit.
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
-} // End If Statement
+}
 
 delete_option( '_woo_additional_terms_page_id' );
 delete_option( '_woo_additional_terms_notice' );
