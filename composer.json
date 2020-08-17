@@ -1,54 +1,36 @@
 {
-  "name": "mypreview/woo-additional-terms",
-  "description": "Add additional terms and condition checkbox to the WooCommerce checkout.",
-  "homepage": "https://wordpress.org/plugins/woo-additional-terms/",
-  "type": "wordpress-plugin",
-  "license": "GPL-3.0+",
-  "require": {
-    "php": ">=7.2",
-    "composer/installers": "~1.2"
-  },
-  "require-dev": {
-    "squizlabs/php_codesniffer": "*",
-    "wp-coding-standards/wpcs": "^0.14",
-    "phpunit/phpunit": "6.*",
-    "woocommerce/woocommerce-git-hooks": "*",
-    "woocommerce/woocommerce-sniffs": "*",
-    "wimg/php-compatibility": "^8.0",
-    "wp-cli/i18n-command": "^2.2",
-    "dealerdirect/phpcodesniffer-composer-installer": "^0.4.3"
-  },
-  "scripts": {
-    "pre-update-cmd": [
-      "WooCommerce\\GitHooks\\Hooks::preHooks"
-    ],
-    "pre-install-cmd": [
-      "WooCommerce\\GitHooks\\Hooks::preHooks"
-    ],
-    "post-install-cmd": [
-      "WooCommerce\\GitHooks\\Hooks::postHooks"
-    ],
-    "post-update-cmd": [
-      "WooCommerce\\GitHooks\\Hooks::postHooks"
-    ],
-    "test": [
-      "phpunit"
-    ],
-    "phpcs": [
-      "phpcs -s -p"
-    ],
-    "phpcbf": [
-      "phpcbf -p"
-    ],
-    "make-pot": [
-      "wp i18n make-pot . languages/woo-additional-terms.pot"
-    ]
-  },
-  "extra": {
-    "scripts-description": {
-      "test": "Run unit tests",
-      "phpcs": "Analyze code against the WordPress coding standards with PHP_CodeSniffer",
-      "phpcbf": "Fix coding standards warnings/errors automatically with PHP Code Beautifier"
-    }
-  }
+	"name": "mypreview/woo-additional-terms",
+	"type": "wordpress-plugin",
+	"description": "Add additional terms and condition checkbox to the WooCommerce checkout.",
+	"keywords": [
+		"WordPress",
+		"Plugin"
+	],
+	"homepage": "https://wordpress.org/plugins/woo-additional-terms",
+	"license": "GPL-3.0",
+	"authors": [
+		{
+			"name": "Mahdi Yazdani",
+			"homepage": "https://mahdiyazdani.com"
+		}
+	],
+	"require": {
+		"php": ">=7.2"
+	},
+	"require-dev": {
+		"dealerdirect/phpcodesniffer-composer-installer": "^0.6.2",
+		"wp-coding-standards/wpcs": "^2.3.0",
+		"phpunit/phpunit": "^7",
+		"phpcompatibility/phpcompatibility-wp": "^2.1",
+		"php-parallel-lint/php-parallel-lint": "^1.2.0",
+		"woocommerce/woocommerce-git-hooks": "*",
+		"woocommerce/woocommerce-sniffs": "*",
+		"wp-cli/i18n-command": "^2.2"
+	},
+	"scripts": {
+		"lint:wpcs": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs",
+		"lint:wpcbf": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcbf",
+		"lint:php": "@php ./vendor/bin/parallel-lint --exclude .git --exclude vendor --exclude node_modules .",
+		"make-pot": "wp i18n make-pot . languages/woo-additional-terms.pot"
+	}
 }
