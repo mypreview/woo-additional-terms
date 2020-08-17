@@ -3,9 +3,9 @@ Contributors: mahdiyazdani, mypreview, gookaani
 Tags: woocommerce, extra checkbox, terms and conditions, woocommerce plugin, cancellation policy, GDPR
 Donate link: https://www.mypreview.one
 Requires at least: 5.0
-Tested up to: 5.4
+Tested up to: 5.5
 Requires PHP: 7.2
-Stable tag: 1.3.2
+Stable tag: 1.3.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -72,15 +72,20 @@ Here’s the [GitHub development repository &#8594;](https://github.com/myprevie
 Please share your experience by leaving this plugin [5 shining stars](https://wordpress.org/support/plugin/woo-additional-terms/reviews/ "Rate Woo Additional Terms 5 stars") if you like it, thanks!
 
 = I need help customizing this plugin? =
-I am a full-stack developer with over five years of experience in WordPress theme and plugin development and customization. I would love to have the opportunity to discuss your project with you.
+Professional engineer and independent creative technologist in tech · over 6 years experience working from prototype to production · developing WordPress products, services, and eCommerce solutions.
 
-[Hire me on UpWork &#8594;](https://www.upwork.com/o/profiles/users/_~016ad17ad3fc5cce94/ "Mahdi Yazdani Freelancer Profile")
+[Available for hire &#8594;](https://mahdiyazdani.com "Mahdi Yazdani’s personal website")
 
 == Screenshots ==
 1. Additional terms and condition checkbox on the WooCommerce checkout page.
 3. Validation error notice appears if the checkbox is not checked.
 
 == Changelog ==
+= 1.3.3 =
+* Multiple code standards improvements.
+* Compatibility with WordPress 5.5
+* Compatibility with WooCommerce 4.4
+
 = 1.3.2 =
 * Compatibility with WooCommerce 4.3
 
