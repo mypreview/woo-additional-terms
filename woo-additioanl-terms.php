@@ -251,7 +251,6 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		 * Fires after an order saved into the databse.
 		 * We will update the post meta
 		 *
-		 * @since    1.0.0
 		 * @param    int $order_id    Order ID.
 		 * @return   void
 		 */
@@ -268,7 +267,6 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		/**
 		 * Display the acceptance of terms & conditions on the order edit page.
 		 *
-		 * @since    1.0.0
 		 * @param    object $order  The current order object.
 		 * @return   void
 		 */
