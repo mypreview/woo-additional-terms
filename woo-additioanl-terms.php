@@ -361,7 +361,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 					'autoload'    => false,
 				),
 				'error'              => array(
-					'name'        => _x( 'Error content', 'settings field name', 'woo-additional-terms' ),
+					'name'        => _x( 'Error message', 'settings field name', 'woo-additional-terms' ),
 					'desc'        => _x( 'Display friendly notice whenever customer doesn&rsquo;t accept additional terms.', 'settings field description', 'woo-additional-terms' ),
 					'default'     => _x( 'Please read and accept the additional terms and conditions to proceed with your order. ', 'settings field default value', 'woo-additional-terms' ),
 					'placeholder' => _x( 'You must accept our additional terms.', 'setting field placeholder', 'woo-additional-terms' ),
