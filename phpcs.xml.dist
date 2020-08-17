@@ -7,7 +7,6 @@
     <!-- Set a description for this ruleset. -->
     <description>A custom set of code standard rules to check for WordPress plugins.</description>
 
-
     <!--
     #############################################################################
     COMMAND LINE ARGUMENTS
@@ -51,14 +50,9 @@
 
      <!-- Include the WordPress ruleset, with select exclusions. -->
     <rule ref="WordPress">
-        <exclude name="WordPress.Files.FileName.InvalidClassFileName" />
-        <exclude name="WordPress.VIP.DirectDatabaseQuery.NoCaching" />
-        <exclude name="WordPress.VIP.DirectDatabaseQuery.DirectQuery" />
-        <exclude name="WordPress.VIP.DirectDatabaseQuery.SchemaChange" />
-        <exclude name="WordPress.VIP.FileSystemWritesDisallow.file_ops_fwrite" />
-        <exclude name="WordPress.VIP.RestrictedVariables.user_meta__wpdb__usermeta" />
-        <exclude name="WordPress.VIP.PostsPerPage.posts_per_page_posts_per_page" />
-        <exclude name="WordPress.VIP.RestrictedVariables.cache_constraints___COOKIE" />
+        <exclude name="WordPress.NamingConventions.PrefixAllGlobals.ShortPrefixPassed" />
+        <exclude name="Core.Commenting.CommentTags.AccessTag" />
+        <exclude name="Core.Commenting.CommentTags.AuthorTag" />
     </rule>
     <rule ref="WooCommerce-Core" />
     <!-- Let's also check that everything is properly documented. -->
@@ -106,7 +100,6 @@
         </properties>
     </rule>
 
-
     <!--
     #############################################################################
     USE THE PHPCompatibility RULESET
@@ -115,6 +108,6 @@
 
     <config name="testVersion" value="7.2-" />
     <!-- Include sniffs for PHP cross-version compatibility. -->
-    <rule ref="PHPCompatibilityWP"/>
+    <rule ref="PHPCompatibilityWP" />
 
 </ruleset>
