@@ -9,7 +9,7 @@
  *
  * Woo Additional Terms is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
+ * the Free Software Foundation, either version 3 of the License, or
  * any later version.
  *
  * @link                    https://www.mypreview.one
@@ -23,8 +23,8 @@
  * Version:                 1.3.3
  * Author:                  MyPreview
  * Author URI:              https://mahdiyazdani.com
- * License:                 GPL-2.0
- * License URI:             http://www.gnu.org/licenses/gpl-2.0.txt
+ * License:                 GPL-3.0
+ * License URI:             http://www.gnu.org/licenses/gpl-3.0.txt
  * Text Domain:             woo-additional-terms
  * Domain Path:             /languages
  * WC requires at least:    3.4.0
