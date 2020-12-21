@@ -13,14 +13,16 @@
  * any later version.
  *
  * @link                    https://www.mypreview.one
- * @since                   1.3.3
+ * @since                   1.3.4
  * @package                 woo-additional-terms
  *
  * @wordpress-plugin
  * Plugin Name:             Woo Additional Terms
  * Plugin URI:              https://www.mypreview.one
  * Description:             Add additional terms and condition checkbox to the WooCommerce checkout.
- * Version:                 1.3.3
+ * Version:                 1.3.4
+ * Requires at least:       WordPress 5.0
+ * Requires PHP:            7.2.0
  * Author:                  MyPreview
  * Author URI:              https://mahdiyazdani.com
  * License:                 GPL-3.0
@@ -28,7 +30,7 @@
  * Text Domain:             woo-additional-terms
  * Domain Path:             /languages
  * WC requires at least:    3.4.0
- * WC tested up to:         4.4
+ * WC tested up to:         4.8
  */
 
 // If this file is called directly, abort.
@@ -45,19 +47,19 @@ if ( ! defined( 'WPINC' ) ) {
 $woo_additional_terms_plugin_data = get_file_data(
 	__FILE__,
 	array(
+		'name'       => 'Plugin Name',
 		'author_uri' => 'Author URI',
 		'version'    => 'Version',
 	),
 	'plugin'
 );
+define( 'WOO_ADDITIONAL_TERMS_NAME', $woo_additional_terms_plugin_data['name'] );
 define( 'WOO_ADDITIONAL_TERMS_VERSION', $woo_additional_terms_plugin_data['version'] );
 define( 'WOO_ADDITIONAL_TERMS_AUTHOR_URI', $woo_additional_terms_plugin_data['author_uri'] );
 define( 'WOO_ADDITIONAL_TERMS_SLUG', 'woo-additional-terms' );
 define( 'WOO_ADDITIONAL_TERMS_FILE', __FILE__ );
-define( 'WOO_ADDITIONAL_TERMS_BASENAME', basename( WOO_ADDITIONAL_TERMS_FILE ) );
 define( 'WOO_ADDITIONAL_TERMS_PLUGIN_BASENAME', plugin_basename( WOO_ADDITIONAL_TERMS_FILE ) );
 define( 'WOO_ADDITIONAL_TERMS_DIR_URL', plugin_dir_url( WOO_ADDITIONAL_TERMS_FILE ) );
-define( 'WOO_ADDITIONAL_TERMS_DIR_PATH', plugin_dir_path( WOO_ADDITIONAL_TERMS_FILE ) );
 
 if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 
@@ -69,7 +71,8 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		/**
 		 * Instance of the class.
 		 *
-		 * @var  object   $instance
+		 * @since   1.3.3
+		 * @var  	object   $instance
 		 */
 		private static $instance = null;
 
@@ -77,6 +80,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		 * Main `Woo_Additional_Terms` instance
 		 * Ensures only one instance of `Woo_Additional_Terms` is loaded or can be loaded.
 		 *
+		 * @since   1.3.3
 		 * @return  instance
 		 */
 		public static function instance() {
@@ -90,11 +94,12 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		/**
 		 * Setup class.
 		 *
+		 * @since   1.3.3
 		 * @return  void
 		 */
 		protected function __construct() {
 			add_action( 'init', array( $this, 'textdomain' ) );
-			add_action( 'admin_notices', array( $this, 'activation' ) );
+			add_action( 'admin_notices', array( $this, 'admin_notices' ) );
 			add_filter( 'woocommerce_settings_tabs_array', array( $this, 'add_settings_tab' ), 999, 1 );
 			add_action( 'woocommerce_settings_tabs_woo-additional-terms', array( $this, 'render_plugin_page' ) );
 			add_action( 'woocommerce_update_options_woo-additional-terms', array( $this, 'update_plugin_page' ) );
@@ -104,11 +109,14 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 			add_action( 'woocommerce_checkout_update_order_meta', array( $this, 'save_terms_acceptance' ) );
 			add_action( 'woocommerce_admin_order_data_after_billing_address', array( $this, 'terms_acceptance' ) );
 			add_filter( sprintf( 'plugin_action_links_%s', WOO_ADDITIONAL_TERMS_PLUGIN_BASENAME ), array( $this, 'action_links' ) );
+			register_activation_hook( WOO_ADDITIONAL_TERMS_FILE, array( $this, 'activation' ) );
+			register_deactivation_hook( WOO_ADDITIONAL_TERMS_FILE, array( $this, 'deactivation' ) );
 		}
 
 		/**
 		 * Cloning instances of this class is forbidden.
 		 *
+		 * @since   1.3.3
 		 * @return  void
 		 */
 		protected function __clone() {
@@ -118,6 +126,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		/**
 		 * Unserializing instances of this class is forbidden.
 		 *
+		 * @since   1.3.3
 		 * @return  void
 		 */
 		public function __wakeup() {
@@ -128,6 +137,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		 * Load languages file and text domains.
 		 * Define the internationalization functionality.
 		 *
+		 * @since   1.3.3
 		 * @return  void
 		 */
 		public function textdomain() {
@@ -135,17 +145,25 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		}
 
 		/**
-		 * Query WooCommerce activation.
+		 * Prints admin screen notices.
 		 *
+		 * @since   1.3.4
 		 * @return  void
 		 */
-		public function activation() {
+		public function admin_notices() {
 			// Query WooCommerce activation.
 			if ( ! $this->_is_woocommerce() ) {
 				/* translators: 1: Dashicon, Open anchor tag, 2: Close anchor tag. */
 				$message = sprintf( esc_html_x( '%1$s requires the following plugin: %2$sWooCommerce%3$s', 'admin notice', 'woo-additional-terms' ), sprintf( '<i class="dashicons dashicons-admin-plugins" style="vertical-align:sub"></i> <strong>%s</strong>', WOO_ADDITIONAL_TERMS_NAME ), '<a href="https://wordpress.org/plugins/woocommerce" target="_blank" rel="noopener noreferrer nofollow"><em>', '</em></a>' );
 				printf( '<div class="notice notice-error notice-alt"><p>%s</p></div>', wp_kses_post( $message ) );
-				return;
+			} else {
+				// Display a friendly admin notice upon plugin activation.
+				$welcome_notice_transient = 'woo_additional_terms_welcome_notice';
+				$welcome_notice           = get_transient( $welcome_notice_transient );
+				if ( $welcome_notice ) {
+					printf( '<div class="notice notice-info"><p>%s</p></div>', wp_kses_post( $welcome_notice ) );
+					delete_transient( $welcome_notice_transient );
+				}
 			}
 		}
 
@@ -153,6 +171,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		 * Create plugin options tab (page).
 		 * Add a new settings tab to the WooCommerce settings tabs array.
 		 *
+		 * @since   1.3.3
 		 * @param   array $settings_tabs   Array of WooCommerce setting tabs & their labels.
 		 * @return  array
 		 */
@@ -165,6 +184,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		 * Render and display plugin options page.
 		 * Uses the WooCommerce admin fields API to output settings.
 		 *
+		 * @since   1.3.3
 		 * @return  void
 		 */
 		public function render_plugin_page() {
@@ -175,6 +195,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		 * Render and display plugin options page.
 		 * Uses the WooCommerce options API to save settings.
 		 *
+		 * @since   1.3.3
 		 * @return  void
 		 */
 		public function update_plugin_page() {
@@ -184,6 +205,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		/**
 		 * Enqueue scripts and styles.
 		 *
+		 * @since   1.3.3
 		 * @return  void
 		 */
 		public function enqueue() {
@@ -204,6 +226,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		 * Display additional terms and condition checkbox on
 		 * the checkout page before the submit (place order) button.
 		 *
+		 * @since   1.3.3
 		 * @return  void
 		 */
 		public function print_checkbox() {
@@ -235,6 +258,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		/**
 		 * Show notice if customer does not accept additional terms and conditions.
 		 *
+		 * @since   1.3.3
 		 * @return  void
 		 */
 		public function checkbox_error() {
@@ -251,8 +275,9 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		 * Fires after an order saved into the databse.
 		 * We will update the post meta
 		 *
-		 * @param    int $order_id    Order ID.
-		 * @return   void
+		 * @since   1.3.3
+		 * @param   int $order_id    Order ID.
+		 * @return  void
 		 */
 		public function save_terms_acceptance( $order_id ) {
 			$data       = wp_unslash( $_POST ); //phpcs:ignore WordPress.VIP.SuperGlobalInputUsage.AccessDetected, WordPress.CSRF.NonceVerification.NoNonceVerification
@@ -267,8 +292,9 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		/**
 		 * Display the acceptance of terms & conditions on the order edit page.
 		 *
-		 * @param    object $order  The current order object.
-		 * @return   void
+		 * @since   1.3.3
+		 * @param   object $order  The current order object.
+		 * @return  void
 		 */
 		public function terms_acceptance( $order ) {
 			$page_id = (int) get_option( '_woo_additional_terms_page_id', null );
@@ -293,6 +319,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		 * Display additional links in plugins table page.
 		 * Filters the list of action links displayed for a specific plugin in the Plugins list table.
 		 *
+		 * @since   1.3.3
 		 * @param   array $links Plugin table/item action links.
 		 * @return  array
 		 */
@@ -319,8 +346,39 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		}
 
 		/**
+		 * Set the activation hook for a plugin.
+		 *
+		 * @since   1.3.4
+		 * @return  void
+		 */
+		public function activation() {
+			// Set up the admin notice to be displayed on activation.
+			$settings_url = add_query_arg(
+				array(
+					'page' => 'wc-settings',
+					'tab'  => 'woo-additional-terms',
+				),
+				admin_url( 'admin.php' )
+			);
+			/* translators: 1: Dashicon, 2: Plugin name, 3: Open anchor tag, 4: Close anchor tag. */
+			$welcome_notice = sprintf( esc_html_x( '%1$s Thanks for installing %2$s plugin! To get started, visit the %3$splugin’s settings page%4$s.', 'admin notice', 'woo-additional-terms' ), '<i class="dashicons dashicons-admin-settings" style="vertical-align:sub"></i>', sprintf( '<strong>%s</strong>', WOO_ADDITIONAL_TERMS_NAME ), sprintf( '<a href="%s" target="_self">', esc_url( $settings_url ) ), '</a>' );
+			set_transient( 'woo_additional_terms_welcome_notice', $welcome_notice, MINUTE_IN_SECONDS );
+		}
+
+		/**
+		 * Set the deactivation hook for a plugin.
+		 *
+		 * @since   1.3.4
+		 * @return  void
+		 */
+		public function deactivation() {
+			delete_transient( 'woo_additional_terms_welcome_notice' );
+		}
+
+		/**
 		 * Get all the settings for this plugin.
 		 *
+		 * @since   1.3.3
 		 * @return  array
 		 */
 		public static function get_settings() {
@@ -384,6 +442,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		 * The page can be set from the plugin settings page.
 		 * “WooCommerce” » “Settings” » “Additional Terms”
 		 *
+		 * @since   1.3.3
 		 * @param   int  $terms_page_id  Additional terms page ID.
 		 * @param   bool $echo           Output additional terms page content on the page.
 		 * @return  void
@@ -413,6 +472,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		/**
 		 * Query WooCommerce activation
 		 *
+		 * @since   1.3.3
 		 * @return  bool
 		 * @phpcs:disable PSR2.Methods.MethodDeclaration.Underscore, WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 		 */
@@ -440,6 +500,7 @@ if ( ! function_exists( 'woo_additional_terms_init' ) ) :
 	/**
 	 * Returns the main instance of Woo_Additional_Terms to prevent the need to use globals.
 	 *
+	 * @since   1.3.3
 	 * @return  object(class)   Woo_Additional_Terms::instance
 	 */
 	function woo_additional_terms_init() {
