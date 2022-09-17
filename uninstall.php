@@ -3,8 +3,8 @@
  * Unistall Woo Additional Terms.
  * Fired when the plugin is uninstalled.
  *
- * @package     Woo Additional Terms
- * @since       1.3.3
+ * @package    Woo Additional Terms
+ * @since      1.3.3
  */
 
 // If uninstall not called from WordPress, then exit.
