@@ -1,36 +1,66 @@
 {
-	"name": "mypreview/woo-additional-terms",
-	"type": "wordpress-plugin",
+	"archive": {
+		"exclude": [
+			"!/languages",
+			"/vendor",
+			"/src",
+			"node_modules",
+			"CONTRIBUTING.md",
+			"CODE_OF_CONDUCT.md",
+			"composer.json",
+			"composer.lock",
+			"package.json",
+			"package-lock.json",
+			"phpcs.xml.dist",
+			"README.md",
+			"/.*"
+		]
+	},
+	"authors": [
+		{
+			"homepage": "https://www.mahdiyazdani.com",
+			"name": "Mahdi Yazdani"
+		}
+	],
+	"config": {
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
+	},
 	"description": "Add additional terms and condition checkbox to the WooCommerce checkout.",
+	"extra": {
+		"scripts-description": {
+			"lint:wpcbf": "Fix coding standards warnings/errors automatically with PHP Code Beautifier",
+			"lint:wpcs": "Analyze code against the WordPress coding standards with PHP_CodeSniffer",
+			"make-pot": "Create a POT file for the WordPress plugin in the current directory"
+		}
+	},
+	"homepage": "https://wordpress.org/plugins/woo-additional-terms",
 	"keywords": [
 		"WordPress",
 		"Plugin"
 	],
-	"homepage": "https://wordpress.org/plugins/woo-additional-terms",
 	"license": "GPL-3.0",
-	"authors": [
-		{
-			"name": "Mahdi Yazdani",
-			"homepage": "https://mahdiyazdani.com"
-		}
-	],
+	"name": "mypreview/woo-additional-terms",
 	"require": {
 		"php": ">=7.2"
 	},
 	"require-dev": {
-		"dealerdirect/phpcodesniffer-composer-installer": "^0.6.2",
-		"wp-coding-standards/wpcs": "^2.3.0",
-		"phpunit/phpunit": "^7",
-		"phpcompatibility/phpcompatibility-wp": "^2.1",
-		"php-parallel-lint/php-parallel-lint": "^1.2.0",
+		"dealerdirect/phpcodesniffer-composer-installer": "0.7.2",
+		"php-parallel-lint/php-parallel-lint": "1.3.2",
+		"phpcompatibility/phpcompatibility-wp": "2.1.3",
+		"phpunit/phpunit": "9.5.24",
+		"squizlabs/php_codesniffer": "3.7.1",
 		"woocommerce/woocommerce-git-hooks": "*",
 		"woocommerce/woocommerce-sniffs": "*",
-		"wp-cli/i18n-command": "^2.2"
+		"wp-cli/i18n-command": "2.4.0",
+		"wp-coding-standards/wpcs": "2.3.0"
 	},
 	"scripts": {
-		"lint:wpcs": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs",
-		"lint:wpcbf": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcbf",
 		"lint:php": "@php ./vendor/bin/parallel-lint --exclude .git --exclude vendor --exclude node_modules .",
+		"lint:wpcs": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs",
+		"lint:wpcs-fix": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcbf",
 		"make-pot": "wp i18n make-pot . languages/woo-additional-terms.pot"
-	}
+	},
+	"type": "wordpress-plugin"
 }
