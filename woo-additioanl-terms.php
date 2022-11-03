@@ -22,7 +22,7 @@
  * Plugin Name:             Woo Additional Terms
  * Plugin URI:              https://www.mypreview.one
  * Description:             Add additional terms and condition checkbox to the WooCommerce checkout.
- * Version:                 1.3.5
+ * Version:                 1.3.6
  * Author:                  Mahdi Yazdani
  * Author URI:              https://www.mahdiyazdani.com
  * Requires at least:       5.0
@@ -32,7 +32,7 @@
  * Text Domain:             woo-additional-terms
  * Domain Path:             /languages
  * WC requires at least:    3.4
- * WC tested up to:         6.9
+ * WC tested up to:         7.0
  */
 
 // If this file is called directly, abort.

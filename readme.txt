@@ -3,9 +3,9 @@ Contributors: mahdiyazdani, mypreview, gookaani
 Tags: woocommerce, extra checkbox, terms and conditions, woocommerce plugin, cancellation policy, GDPR
 Donate link: https://www.buymeacoffee.com/mahdiyazdani
 Requires at least: 5.0
-Tested up to: 6.0
+Tested up to: 6.1
 Requires PHP: 7.2
-Stable tag: 1.3.5
+Stable tag: 1.3.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -85,6 +85,10 @@ Professional engineer and independent creative technologist in tech · over 6 ye
 3. Validation error notice appears if the checkbox is not checked.
 
 == Changelog ==
+= 1.3.6 =
+* Compatibility with WordPress 6.1
+* Compatibility with WooCommerce 7.0
+
 = 1.3.5 =
 * Compatibility with WordPress 6.0
 * Compatibility with WooCommerce 6.9
