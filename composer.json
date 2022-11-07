@@ -57,9 +57,8 @@
 		"wp-coding-standards/wpcs": "2.3.0"
 	},
 	"scripts": {
-		"lint:php": "@php ./vendor/bin/parallel-lint --exclude .git --exclude vendor --exclude node_modules .",
-		"lint:wpcs": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs",
-		"lint:wpcs-fix": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcbf",
+		"lint:wpcbf": "phpcbf --extensions=php -p --runtime-set testVersion 7.4-",
+		"lint:wpcs": "phpcs --extensions=php -s -p --runtime-set testVersion 7.4-",
 		"make-pot": "wp i18n make-pot . languages/woo-additional-terms.pot"
 	},
 	"type": "wordpress-plugin"
