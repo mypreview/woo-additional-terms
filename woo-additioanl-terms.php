@@ -23,15 +23,15 @@
  * Plugin URI:              https://www.mypreview.one
  * Description:             Add additional terms and condition checkbox to the WooCommerce checkout.
  * Version:                 1.3.6
- * Author:                  Mahdi Yazdani
+ * Author:                  MyPreview
  * Author URI:              https://www.mahdiyazdani.com
  * Requires at least:       5.0
- * Requires PHP:            7.2
+ * Requires PHP:            7.4
  * License:                 GPL-3.0
  * License URI:             http://www.gnu.org/licenses/gpl-3.0.txt
  * Text Domain:             woo-additional-terms
  * Domain Path:             /languages
- * WC requires at least:    3.4
+ * WC requires at least:    4.0
  * WC tested up to:         7.0
  */
 
@@ -217,14 +217,14 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		public function enqueue() {
 			$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 			// Register the plugin stylesheet.
-			wp_register_style( WOO_ADDITIONAL_TERMS_SLUG . '-style', trailingslashit( WOO_ADDITIONAL_TERMS_DIR_URL ) . 'assets/css/style' . $min . '.css', null, WOO_ADDITIONAL_TERMS_VERSION, 'screen' );
+			wp_register_style( WOO_ADDITIONAL_TERMS_SLUG, trailingslashit( WOO_ADDITIONAL_TERMS_DIR_URL ) . 'assets/css/style' . $min . '.css', null, WOO_ADDITIONAL_TERMS_VERSION, 'screen' );
 			// Register the plugin script.
-			wp_register_script( WOO_ADDITIONAL_TERMS_SLUG . '-script', trailingslashit( WOO_ADDITIONAL_TERMS_DIR_URL ) . 'assets/js/script' . $min . '.js', array( 'jquery', 'wc-checkout' ), WOO_ADDITIONAL_TERMS_VERSION, true );
+			wp_register_script( WOO_ADDITIONAL_TERMS_SLUG, trailingslashit( WOO_ADDITIONAL_TERMS_DIR_URL ) . 'assets/js/script' . $min . '.js', array( 'jquery', 'wc-checkout' ), WOO_ADDITIONAL_TERMS_VERSION, true );
 
 			// Make sure the current screen displays plugin’s settings page.
 			if ( $this->_is_woocommerce() && $this->_terms_page_content() ) {
-				wp_enqueue_style( WOO_ADDITIONAL_TERMS_SLUG . '-style' );
-				wp_enqueue_script( WOO_ADDITIONAL_TERMS_SLUG . '-script' );
+				wp_enqueue_style( WOO_ADDITIONAL_TERMS_SLUG );
+				wp_enqueue_script( WOO_ADDITIONAL_TERMS_SLUG );
 			}
 		}
 
@@ -245,7 +245,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 			}
 
 			if ( false !== strpos( $notice, '[additional-terms]' ) ) {
-    			$notice = str_replace( '[additional-terms]', sprintf( '<a href="%s" class="woo-additional-terms__link" target="_blank" rel="noopener noreferrer nofollow">%s</a>', esc_url( get_permalink( $page_id ) ), esc_html( get_the_title( $page_id ) ) ), $notice ); // @codingStandardsIgnoreLine
+				$notice = str_replace( '[additional-terms]', sprintf( '<a href="%s" class="woo-additional-terms__link" target="_blank" rel="noopener noreferrer nofollow">%s</a>', esc_url( get_permalink( $page_id ) ), esc_html( get_the_title( $page_id ) ) ), $notice ); // @codingStandardsIgnoreLine
 			}
 
 			?>
