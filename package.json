@@ -18,16 +18,15 @@
 		"format": "prettier --ignore-path .prettierignore --write \"**/*.{js,jsx,json,ts,tsx}\"",
 		"lint:js": "eslint assets --ext=js,jsx,json,ts,tsx",
 		"lint:js-fix": "eslint assets --ext=js,jsx,json,ts,tsx --fix",
-		"lint:php": "composer lint:php",
 		"lint:wpcs": "composer lint:wpcs",
-		"lint:wpcs-fix": "composer lint:wpcs-fix",
+		"lint:wpcs-fix": "composer lint:wpcbf",
 		"makepot": "composer make-pot",
 		"pre-archive": "npm run format && npm run lint:wpcs-fix"
 	},
 	"devDependencies": {
-		"@babel/core": "7.19.1",
-		"@wordpress/eslint-plugin": "13.1.0",
-		"@wordpress/prettier-config": "2.0.0",
+		"@babel/core": "7.20.2",
+		"@wordpress/eslint-plugin": "13.5.0",
+		"@wordpress/prettier-config": "2.4.0",
 		"lint-staged": "13.0.3",
 		"prettier": "npm:wp-prettier@^2.6.2",
 		"wp-prettier": "2.6.2"
