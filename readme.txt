@@ -4,7 +4,7 @@ Tags: woocommerce, extra checkbox, terms and conditions, woocommerce plugin, can
 Donate link: https://www.buymeacoffee.com/mahdiyazdani
 Requires at least: 5.0
 Tested up to: 6.1
-Requires PHP: 7.2
+Requires PHP: 7.4
 Stable tag: 1.3.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -23,7 +23,7 @@ The plugin setup is minimal and requires no knowledge of HTML or CSS. It could n
 == Installation ==
 = Minimum Requirements =
 
-* PHP version 7.2 or greater.
+* PHP version 7.4 or greater.
 * MySQL version 5.6 or greater or MariaDB version 10.0 or greater.
 * WordPress version 5.0 or greater.
 * WooCommerce version 3.4 or greater.
@@ -31,7 +31,7 @@ The plugin setup is minimal and requires no knowledge of HTML or CSS. It could n
 = Automatic installation =
 
 Automatic installation is the easiest option — WordPress will handle the file transfer, and you won’t need to leave your web browser. To do an automatic install of the plugin, log in to your WordPress dashboard, navigate to the Plugins menu, and click “Add New.”
- 
+
 In the search field type “Woo Additional Terms”, then click “Search Plugins.” Once you’ve found the plugin, you can view details about it such as the point release, rating, and description. Click “Install Now,” and WordPress will take it from there.
 
 = Manual installation =
@@ -74,11 +74,6 @@ If you or your company use any of my projects or like what I’m doing, please c
 --AND/OR--
 
 Please share your experience by leaving this plugin [5 shining stars](https://wordpress.org/support/plugin/woo-additional-terms/reviews/ "Rate Woo Additional Terms 5 stars") if you like it, thanks!
-
-= I need help customizing this plugin? =
-Professional engineer and independent creative technologist in tech · over 6 years experience working from prototype to production · developing WordPress products, services, and eCommerce solutions.
-
-[Available for hire &#8594;](https://mahdiyazdani.com "Mahdi Yazdani’s personal website")
 
 == Screenshots ==
 1. Additional terms and condition checkbox on the WooCommerce checkout page.
