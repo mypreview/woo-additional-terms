@@ -331,8 +331,6 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		 */
 		public function add_action_links( $links ) {
 			$plugin_links = array();
-			/* translators: 1: Open anchor tag, 2: Close anchor tag. */
-			$plugin_links[] = sprintf( _x( '%1$sHire Me!%2$s', 'plugin link', 'woo-additional-terms' ), sprintf( '<a href="%s" class="button-link-delete" target="_blank" rel="noopener noreferrer nofollow" title="%s">', esc_url( WOO_ADDITIONAL_TERMS_AUTHOR_URI ), esc_attr_x( 'Looking for help? Hire Me!', 'upsell', 'woo-additional-terms' ) ), '</a>' );
 
 			if ( $this->_is_woocommerce() ) {
 				$settings_url = add_query_arg(
