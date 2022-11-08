@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-11-07T21:21:25+00:00\n"
+"POT-Creation-Date: 2022-11-08T07:41:41+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: woo-additional-terms\n"
@@ -68,114 +68,107 @@ msgid "N/A"
 msgstr ""
 
 #. translators: 1: Open anchor tag, 2: Close anchor tag.
-#: woo-additioanl-terms.php:335
-msgctxt "plugin link"
-msgid "%1$sHire Me!%2$s"
-msgstr ""
-
-#. translators: 1: Open anchor tag, 2: Close anchor tag.
-#: woo-additioanl-terms.php:335
-#: woo-additioanl-terms.php:416
-msgctxt "upsell"
-msgid "Looking for help? Hire Me!"
-msgstr ""
-
-#. translators: 1: Open anchor tag, 2: Close anchor tag.
-#: woo-additioanl-terms.php:346
+#: woo-additioanl-terms.php:344
 msgctxt "plugin settings page"
 msgid "%1$sSettings%2$s"
 msgstr ""
 
 #. translators: 1: Open anchor tag, 2: Close anchor tag.
-#: woo-additioanl-terms.php:367
+#: woo-additioanl-terms.php:365
 msgctxt "plugin link"
 msgid "%1$sCommunity support%2$s"
 msgstr ""
 
 #. translators: 1: Open anchor tag, 2: Close anchor tag.
-#: woo-additioanl-terms.php:369
+#: woo-additioanl-terms.php:367
 msgctxt "plugin link"
 msgid "%1$sDonate%2$s"
 msgstr ""
 
 #. translators: 1: Open anchor tag, 2: Close anchor tag.
-#: woo-additioanl-terms.php:369
+#: woo-additioanl-terms.php:367
 msgid "Donate to support this plugin"
 msgstr ""
 
 #. translators: 1: Dashicon, 2: Plugin name, 3: Open anchor tag, 4: Close anchor tag.
-#: woo-additioanl-terms.php:390
+#: woo-additioanl-terms.php:388
 msgctxt "admin notice"
 msgid "%1$s Thanks for installing %2$s plugin! To get started, visit the %3$splugin’s settings page%4$s."
 msgstr ""
 
-#: woo-additioanl-terms.php:413
+#: woo-additioanl-terms.php:411
 msgctxt "upsell"
 msgid "Looking for help customizing this plugin?"
 msgstr ""
 
 #. translators: 1: Open anchor tag, 2: Close anchor tag.
-#: woo-additioanl-terms.php:416
+#: woo-additioanl-terms.php:414
 msgctxt "upsell"
 msgid "%1$sHire me &#8594;%2$s"
 msgstr ""
 
-#: woo-additioanl-terms.php:422
+#. translators: 1: Open anchor tag, 2: Close anchor tag.
+#: woo-additioanl-terms.php:414
+msgctxt "upsell"
+msgid "Looking for help? Hire Me!"
+msgstr ""
+
+#: woo-additioanl-terms.php:420
 msgctxt "settings section name"
 msgid "Terms and Conditions"
 msgstr ""
 
-#: woo-additioanl-terms.php:424
+#: woo-additioanl-terms.php:422
 msgctxt "settings section description"
 msgid "This section controls the display of your additional terms and condition fieldset."
 msgstr ""
 
-#: woo-additioanl-terms.php:427
+#: woo-additioanl-terms.php:425
 msgctxt "settings field name"
 msgid "Terms page"
 msgstr ""
 
-#: woo-additioanl-terms.php:428
+#: woo-additioanl-terms.php:426
 msgctxt "settings field description"
 msgid "If you define a \"Terms\" page the customer will be asked if they accept additional terms when checking out."
 msgstr ""
 
-#: woo-additioanl-terms.php:437
+#: woo-additioanl-terms.php:435
 msgctxt "settings field name"
 msgid "Notice content"
 msgstr ""
 
-#: woo-additioanl-terms.php:438
+#: woo-additioanl-terms.php:436
 msgctxt "settings field description"
 msgid "Text for the additional terms checkbox that customers must accept."
 msgstr ""
 
-#: woo-additioanl-terms.php:439
+#: woo-additioanl-terms.php:437
 msgctxt "settings field default value"
 msgid "I have read and agree to the website [additional-terms]"
 msgstr ""
 
-#: woo-additioanl-terms.php:440
+#: woo-additioanl-terms.php:438
 msgctxt "settings field placeholder"
 msgid "I have read and agree to the website [additional-terms]"
 msgstr ""
 
-#: woo-additioanl-terms.php:448
+#: woo-additioanl-terms.php:446
 msgctxt "settings field name"
 msgid "Error message"
 msgstr ""
 
-#: woo-additioanl-terms.php:449
+#: woo-additioanl-terms.php:447
 msgctxt "settings field description"
 msgid "Display friendly notice whenever customer doesn&rsquo;t accept additional terms."
 msgstr ""
 
-#: woo-additioanl-terms.php:450
+#: woo-additioanl-terms.php:448
 msgctxt "settings field default value"
 msgid "Please read and accept the additional terms and conditions to proceed with your order. "
 msgstr ""
 
-#: woo-additioanl-terms.php:451
+#: woo-additioanl-terms.php:449
 msgctxt "setting field placeholder"
 msgid "You must accept our additional terms."
 msgstr ""
