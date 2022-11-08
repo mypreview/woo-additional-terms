@@ -1,5 +1,5 @@
 # Woo Additional Terms
-[![Woo Additional Terms Downloads](https://img.shields.io/wordpress/plugin/dt/woo-additional-terms.svg)](https://wordpress.org/plugins/woo-additional-terms) [![Woo Additional Terms Active Installs](https://img.shields.io/wordpress/plugin/installs/woo-additional-terms.svg)](https://wordpress.org/plugins/woo-additional-terms) [![Woo Additional Terms Ratings](https://img.shields.io/wordpress/plugin/r/woo-additional-terms.svg)](https://wordpress.org/plugins/woo-additional-terms) [![Woo Additional Terms Tested](https://img.shields.io/wordpress/plugin/tested/woo-additional-terms.svg)](https://wordpress.org/plugins/woo-additional-terms) [![Woo Additional Terms Version](https://img.shields.io/wordpress/plugin/v/woo-additional-terms.svg)](https://wordpress.org/plugins/woo-additional-terms) [![Woo Additional Terms License](https://img.shields.io/github/license/mypreview/woo-additional-terms)](https://wordpress.org/plugins/woo-additional-terms) [![Hire Mahdi Yazdani at Upwork](https://img.shields.io/badge/Hire%20Me-Upwork-37A000)](https://www.upwork.com/o/profiles/users/_~016ad17ad3fc5cce94)
+[![Woo Additional Terms Downloads](https://img.shields.io/wordpress/plugin/dt/woo-additional-terms.svg)](https://wordpress.org/plugins/woo-additional-terms) [![Woo Additional Terms Active Installs](https://img.shields.io/wordpress/plugin/installs/woo-additional-terms.svg)](https://wordpress.org/plugins/woo-additional-terms) [![Woo Additional Terms Ratings](https://img.shields.io/wordpress/plugin/r/woo-additional-terms.svg)](https://wordpress.org/plugins/woo-additional-terms) [![Woo Additional Terms Tested](https://img.shields.io/wordpress/plugin/tested/woo-additional-terms.svg)](https://wordpress.org/plugins/woo-additional-terms) [![Woo Additional Terms Version](https://img.shields.io/wordpress/plugin/v/woo-additional-terms.svg)](https://wordpress.org/plugins/woo-additional-terms) [![Woo Additional Terms License](https://img.shields.io/github/license/mypreview/woo-additional-terms)](https://wordpress.org/plugins/woo-additional-terms) [![Donate to support this plugin](https://img.shields.io/badge/☕-Buy%20me%20a%20coffee-%23fedd04)](https://www.buymeacoffee.com/mahdiyazdani)
 
 ![Woo Additional Terms](https://ps.w.org/woo-additional-terms/assets/banner-1544x500.jpg?rev=1542924)
 
@@ -14,10 +14,10 @@
 
 ## Requirements
 
-* PHP version 7.2 or greater.
+* PHP version 7.4 or greater.
 * MySQL version 5.6 or greater OR MariaDB version 10.0 or greater.
 * WordPress version 5.0 or greater.
-* WooCommerce version 3.4 or greater.
+* WooCommerce version 4.0 or greater.
 
 ## Description
 
