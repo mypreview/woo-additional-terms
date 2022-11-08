@@ -1,12 +1,15 @@
 {
 	"archive": {
 		"exclude": [
+			"!/build",
 			"!/languages",
-			"/vendor",
+			"/@mypreview",
 			"/src",
+			"/vendor",
 			"node_modules",
 			"CONTRIBUTING.md",
 			"CODE_OF_CONDUCT.md",
+			"babel.config.js",
 			"composer.json",
 			"composer.lock",
 			"package.json",
