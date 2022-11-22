@@ -5,7 +5,7 @@ Donate link: https://www.buymeacoffee.com/mahdiyazdani
 Requires at least: 5.0
 Tested up to: 6.1
 Requires PHP: 7.4
-Stable tag: 1.3.6
+Stable tag: 1.4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -77,7 +77,8 @@ Please share your experience by leaving this plugin [5 shining stars](https://wo
 
 == Screenshots ==
 1. Additional terms and condition checkbox on the WooCommerce checkout page.
-3. Validation error notice appears if the checkbox is not checked.
+2. Validation error notice appears if the checkbox is not checked.
+3. Plugin settings page.
 
 == Changelog ==
 = 1.3.6 =
