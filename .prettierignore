@@ -2,4 +2,5 @@ node_modules
 vendor
 docs
 package-lock.json
-*.min.js
+assets/css/minified
+assets/js/minified
