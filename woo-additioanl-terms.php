@@ -199,7 +199,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		 * @return    array
 		 */
 		public function add_settings_tab( $settings_tabs ) {
-			$settings_tabs['woo-additional-terms'] = _x( 'Additional Terms', 'tab title', 'woo-additional-terms' );
+			$settings_tabs['woo-additional-terms'] = esc_html_x( 'Additional Terms', 'tab title', 'woo-additional-terms' );
 			return $settings_tabs;
 		}
 
@@ -371,7 +371,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 					admin_url( 'admin.php' )
 				);
 				/* translators: 1: Open anchor tag, 2: Close anchor tag. */
-				$plugin_links[] = sprintf( _x( '%1$sSettings%2$s', 'plugin settings page', 'woo-additional-terms' ), sprintf( '<a href="%s" target="_self">', esc_url( $settings_url ) ), '</a>' );
+				$plugin_links[] = sprintf( esc_html_x( '%1$sSettings%2$s', 'plugin settings page', 'woo-additional-terms' ), sprintf( '<a href="%s" target="_self">', esc_url( $settings_url ) ), '</a>' );
 			}
 
 			return array_merge( $plugin_links, $links );
@@ -392,11 +392,11 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 
 			$plugin_links = array();
 			/* translators: 1: Open anchor tag, 2: Close anchor tag. */
-			$plugin_links[] = sprintf( _x( '%1$sCommunity support%2$s', 'plugin link', 'woo-additional-terms' ), sprintf( '<a href="https://wordpress.org/support/plugin/%s" target="_blank" rel="noopener noreferrer nofollow">', esc_html( WOO_ADDITIONAL_TERMS_SLUG ) ), '</a>' );
+			$plugin_links[] = sprintf( esc_html_x( '%1$sCommunity support%2$s', 'plugin link', 'woo-additional-terms' ), sprintf( '<a href="https://wordpress.org/support/plugin/%s" target="_blank" rel="noopener noreferrer nofollow">', esc_html( WOO_ADDITIONAL_TERMS_SLUG ) ), '</a>' );
 			/* translators: 1: Open anchor tag, 2: Close anchor tag. */
-			$plugin_links[] = sprintf( _x( '%1$sDonate%2$s', 'plugin link', 'woo-additional-terms' ), sprintf( '<a href="https://www.buymeacoffee.com/mahdiyazdani" target="_blank" rel="noopener noreferrer nofollow" title="%s">☕ ', esc_attr__( 'Donate to support this plugin', 'woo-additional-terms' ) ), '</a>' );
+			$plugin_links[] = sprintf( esc_html_x( '%1$sDonate%2$s', 'plugin link', 'woo-additional-terms' ), sprintf( '<a href="https://www.buymeacoffee.com/mahdiyazdani" target="_blank" rel="noopener noreferrer nofollow" title="%s">☕ ', esc_attr__( 'Donate to support this plugin', 'woo-additional-terms' ) ), '</a>' );
 			/* translators: 1: Open anchor tag, 2: Close anchor tag. */
-			$plugin_links[] = sprintf( _x( '%1$sUpgrade to PRO%2$s', 'plugin link', 'woo-additional-terms' ), sprintf( '<a href="%s" target="_blank" rel="noopener noreferrer nofollow" class="button-link-delete"><span class="dashicons dashicons-cart" style="font-size:16px;vertical-align:middle;"></span> ', esc_url( WOO_ADDITIONAL_TERMS_URI ) ), '</a>' );
+			$plugin_links[] = sprintf( esc_html_x( '%1$sUpgrade to PRO%2$s', 'plugin link', 'woo-additional-terms' ), sprintf( '<a href="%s" target="_blank" rel="noopener noreferrer nofollow" class="button-link-delete"><span class="dashicons dashicons-cart" style="font-size:16px;vertical-align:middle;"></span> ', esc_url( WOO_ADDITIONAL_TERMS_URI ) ), '</a>' );
 
 			return array_merge( $links, $plugin_links );
 		}
@@ -441,22 +441,22 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		public static function get_settings() {
 			$settings = array(
 				'upsell_title'       => array(
-					'name' => _x( 'Looking to add more terms & condition checkboxes?', 'upsell', 'woo-additional-terms' ),
+					'name' => esc_html_x( 'Looking to add more terms & condition checkboxes?', 'upsell', 'woo-additional-terms' ),
 					'type' => 'title',
 					/* translators: 1: Open anchor tag, 2: Close anchor tag. */
-					'desc' => sprintf( _x( '%1$sUpgrade to PRO &#8594;%2$s', 'upsell', 'woo-additional-terms' ), sprintf( '<div class="woocommerce-message"><a href="%s" class="button-primary" target="_blank" rel="noopener noreferrer nofollow" title="%s">', esc_url( WOO_ADDITIONAL_TERMS_URI ), esc_attr_x( 'Upgrade to premium version to unlock more features!', 'upsell', 'woo-additional-terms' ) ), '</a></div>' ),
+					'desc' => sprintf( esc_html_x( '%1$sUpgrade to PRO &#8594;%2$s', 'upsell', 'woo-additional-terms' ), sprintf( '<div class="woocommerce-message"><a href="%s" class="button-primary" target="_blank" rel="noopener noreferrer nofollow" title="%s">', esc_url( WOO_ADDITIONAL_TERMS_URI ), esc_attr_x( 'Upgrade to premium version to unlock more features!', 'upsell', 'woo-additional-terms' ) ), '</a></div>' ),
 				),
 				'section_end_upsell' => array(
 					'type' => 'sectionend',
 				),
 				'section_title'      => array(
-					'name' => _x( 'Terms and Conditions', 'settings section name', 'woo-additional-terms' ),
+					'name' => esc_html_x( 'Terms and Conditions', 'settings section name', 'woo-additional-terms' ),
 					'type' => 'title',
-					'desc' => _x( 'This section controls the display of your additional terms and condition fieldset.', 'settings section description', 'woo-additional-terms' ),
+					'desc' => esc_html_x( 'This section controls the display of your additional terms and condition fieldset.', 'settings section description', 'woo-additional-terms' ),
 				),
 				'page_id'            => array(
-					'name'     => _x( 'Terms page', 'settings field name', 'woo-additional-terms' ),
-					'desc'     => _x( 'If you define a "Terms" page the customer will be asked if they accept additional terms when checking out.', 'settings field description', 'woo-additional-terms' ),
+					'name'     => esc_html_x( 'Terms page', 'settings field name', 'woo-additional-terms' ),
+					'desc'     => esc_html_x( 'If you define a "Terms" page the customer will be asked if they accept additional terms when checking out.', 'settings field description', 'woo-additional-terms' ),
 					'type'     => 'single_select_page',
 					'class'    => 'wc-enhanced-select-nostd',
 					'css'      => 'min-width:300px;',
@@ -465,10 +465,10 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 					'autoload' => false,
 				),
 				'notice'             => array(
-					'name'        => _x( 'Notice content', 'settings field name', 'woo-additional-terms' ),
-					'desc'        => _x( 'Text for the additional terms checkbox that customers must accept.', 'settings field description', 'woo-additional-terms' ),
-					'default'     => _x( 'I have read and agree to the website [additional-terms]', 'settings field default value', 'woo-additional-terms' ),
-					'placeholder' => _x( 'I have read and agree to the website [additional-terms]', 'settings field placeholder', 'woo-additional-terms' ),
+					'name'        => esc_html_x( 'Notice content', 'settings field name', 'woo-additional-terms' ),
+					'desc'        => esc_html_x( 'Text for the additional terms checkbox that customers must accept.', 'settings field description', 'woo-additional-terms' ),
+					'default'     => esc_html_x( 'I have read and agree to the website [additional-terms]', 'settings field default value', 'woo-additional-terms' ),
+					'placeholder' => esc_html_x( 'I have read and agree to the website [additional-terms]', 'settings field placeholder', 'woo-additional-terms' ),
 					'type'        => 'textarea',
 					'css'         => 'min-width:300px;',
 					'id'          => '_woo_additional_terms_notice',
@@ -476,10 +476,10 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 					'autoload'    => false,
 				),
 				'error'              => array(
-					'name'        => _x( 'Error message', 'settings field name', 'woo-additional-terms' ),
-					'desc'        => _x( 'Display friendly notice whenever customer doesn&rsquo;t accept additional terms.', 'settings field description', 'woo-additional-terms' ),
-					'default'     => _x( 'Please read and accept the additional terms and conditions to proceed with your order. ', 'settings field default value', 'woo-additional-terms' ),
-					'placeholder' => _x( 'You must accept our additional terms.', 'setting field placeholder', 'woo-additional-terms' ),
+					'name'        => esc_html_x( 'Error message', 'settings field name', 'woo-additional-terms' ),
+					'desc'        => esc_html_x( 'Display friendly notice whenever customer doesn&rsquo;t accept additional terms.', 'settings field description', 'woo-additional-terms' ),
+					'default'     => esc_html_x( 'Please read and accept the additional terms and conditions to proceed with your order. ', 'settings field default value', 'woo-additional-terms' ),
+					'placeholder' => esc_html_x( 'You must accept our additional terms.', 'setting field placeholder', 'woo-additional-terms' ),
 					'type'        => 'text',
 					'css'         => 'min-width:300px;',
 					'id'          => '_woo_additional_terms_error',
