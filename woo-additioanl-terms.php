@@ -96,7 +96,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		/**
 		 * Load actions.
 		 *
-		 * @since     1.3.5
+		 * @since     1.4.0
 		 * @return    void
 		 */
 		private function init() {
