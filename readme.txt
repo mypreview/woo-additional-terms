@@ -1,13 +1,13 @@
 === Woo Additional Terms ===
 Contributors: mahdiyazdani, mypreview, gookaani
-Tags: woocommerce, extra checkbox, terms and conditions, woocommerce plugin, cancellation policy, GDPR
-Donate link: https://www.buymeacoffee.com/mahdiyazdani
+Tags: woocommerce, terms and conditions, woocommerce plugin, GDPR
+Donate link: https://mypreview.one/woo-additional-terms
 Requires at least: 5.0
 Tested up to: 6.1
 Requires PHP: 7.4
 Stable tag: 1.4.0
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+License: GPLv3 or later
+License URI: http://www.gnu.org/licenses/gpl-3.0.txt
 
 Add another “I Agree with the terms and conditions” checkbox to the WooCommerce checkout page.
 
@@ -20,13 +20,25 @@ If the checkbox is not checked and the customer attempts to place an order, an a
 
 The plugin setup is minimal and requires no knowledge of HTML or CSS. It could not be simpler.
 
+> **BECOME A PREMIUM USER**
+>
+> “Additional Terms” plugin has a premium version which comes with several extra benefits:
+>
+> * Display terms in a modal.
+> * (Not) Skippable checkboxes.
+> * Unlimited T&C checkboxes.
+> * Unlimited ToS page links.
+> * Detailed acceptance summary.
+>
+> [Upgrade to premium! &#8594;](https://mypreview.one/woo-additional-terms "Woo Additional Terms (PRO)")
+
 == Installation ==
 = Minimum Requirements =
 
 * PHP version 7.4 or greater.
 * MySQL version 5.6 or greater or MariaDB version 10.0 or greater.
 * WordPress version 5.0 or greater.
-* WooCommerce version 3.4 or greater.
+* WooCommerce version 4.0 or greater.
 
 = Automatic installation =
 
@@ -75,12 +87,28 @@ If you or your company use any of my projects or like what I’m doing, please c
 
 Please share your experience by leaving this plugin [5 shining stars](https://wordpress.org/support/plugin/woo-additional-terms/reviews/ "Rate Woo Additional Terms 5 stars") if you like it, thanks!
 
+= Is there a premium version to upgrade? =
+Yes, there is!
+
+Currently, the key features offered by the premium (paid) version of the plugin are:
+
+* Display terms in a modal.
+* (Not) Skippable checkboxes.
+* Unlimited T&C checkboxes.
+* Unlimited ToS page links.
+* Detailed acceptance summary.
+
+[Go Premium, Be Happy! &#8594;](https://mypreview.one/woo-additional-terms "Woo Additional Terms (PRO)")
+
 == Screenshots ==
 1. Additional terms and condition checkbox on the WooCommerce checkout page.
 2. Validation error notice appears if the checkbox is not checked.
 3. Plugin settings page.
 
 == Changelog ==
+= 1.4.0 =
+* Compatibility with WooCommerce 7.1
+
 = 1.3.6 =
 * Compatibility with WordPress 6.1
 * Compatibility with WooCommerce 7.0
