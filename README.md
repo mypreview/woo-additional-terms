@@ -47,4 +47,4 @@ Don't forget to rate this plugin [5 shining stars](https://wordpress.org/support
 
 ## Go premium 💰
 
-The premium (paid) version of the plugin is available to purchase! &#8594; [Upgrade to PRO](https://mypreview.github.io/woo-additional-terms)
+The premium (paid) version of the plugin is available to purchase! &#8594; [Upgrade to PRO](https://mypreview.one/woo-additional-terms)
