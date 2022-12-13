@@ -45,8 +45,6 @@ All support is handled via a dedicated support forum, available at [Community Fo
 
 Don't forget to rate this plugin [5 shining stars](https://wordpress.org/support/plugin/woo-additional-terms/reviews/ "5 shining stars") if you like it, thanks!
 
-## Donate
+## Go premium 💰
 
-If you or your company use any of my projects or like what I’m doing, please consider [making a donation](https://www.buymeacoffee.com/mahdiyazdani) so I can continue maintaining and evolving all my projects and new ones. I’m in this for the long run. 
-
-<a href="https://www.buymeacoffee.com/mahdiyazdani" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" width="165" height="40" /></a>
+The premium (paid) version of the plugin is available to purchase! &#8594; [Upgrade to PRO](https://mypreview.one/woo-additional-terms)

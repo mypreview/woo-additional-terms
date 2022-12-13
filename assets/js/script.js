@@ -1,10 +1,5 @@
 /* global jQuery */
 
-/**
- * Toggles the visibility of the additional terms content.
- *
- * @since    1.3.3
- */
 ( function ( $ ) {
 	const wooTermsToggle = {
 		init() {

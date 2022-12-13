@@ -1,11 +1,8 @@
 {
 	"archive": {
 		"exclude": [
-			"!/build",
 			"!/languages",
-			"/@mypreview",
-			"/src",
-			"/vendor",
+			"vendor",
 			"node_modules",
 			"CONTRIBUTING.md",
 			"CODE_OF_CONDUCT.md",
@@ -16,7 +13,7 @@
 			"package-lock.json",
 			"phpcs.xml.dist",
 			"README.md",
-			"/.*"
+			".*"
 		]
 	},
 	"authors": [
@@ -46,7 +43,7 @@
 	"license": "GPL-3.0",
 	"name": "mypreview/woo-additional-terms",
 	"require": {
-		"php": ">=7.2"
+		"php": ">=7.4"
 	},
 	"require-dev": {
 		"dealerdirect/phpcodesniffer-composer-installer": "0.7.2",
@@ -60,6 +57,13 @@
 		"wp-coding-standards/wpcs": "2.3.0"
 	},
 	"scripts": {
+		"bundle": [
+			"composer lint:wpcbf",
+			"rm -rf woo-additional-terms.zip",
+			"composer install --no-dev",
+			"composer archive --file=woo-additional-terms --format=zip",
+			"composer install -vvv"
+		],
 		"lint:wpcbf": "phpcbf --extensions=php -p --runtime-set testVersion 7.4-",
 		"lint:wpcs": "phpcs --extensions=php -s -p --runtime-set testVersion 7.4-",
 		"make-pot": "wp i18n make-pot . languages/woo-additional-terms.pot"
