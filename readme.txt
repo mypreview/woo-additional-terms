@@ -107,7 +107,7 @@ Currently, the key features offered by the premium (paid) version of the plugin 
 
 == Changelog ==
 = 1.4.0 =
-* Compatibility with WooCommerce 7.1
+* Compatibility with WooCommerce 7.2
 
 = 1.3.6 =
 * Compatibility with WordPress 6.1
