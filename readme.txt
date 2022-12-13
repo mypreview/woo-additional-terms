@@ -1,6 +1,6 @@
 === Woo Additional Terms ===
 Contributors: mahdiyazdani, mypreview, gookaani
-Tags: woocommerce, terms and conditions, woocommerce plugin, GDPR
+Tags: terms and conditions, I agree, age verification, terms of service, custom terms, woocommerce plugin, GDPR
 Donate link: https://mypreview.one/woo-additional-terms
 Requires at least: 5.0
 Tested up to: 6.1
