@@ -1,7 +1,7 @@
 # Woo Additional Terms
 [![Woo Additional Terms Downloads](https://img.shields.io/wordpress/plugin/dt/woo-additional-terms.svg)](https://wordpress.org/plugins/woo-additional-terms) [![Woo Additional Terms Active Installs](https://img.shields.io/wordpress/plugin/installs/woo-additional-terms.svg)](https://wordpress.org/plugins/woo-additional-terms) [![Woo Additional Terms Ratings](https://img.shields.io/wordpress/plugin/r/woo-additional-terms.svg)](https://wordpress.org/plugins/woo-additional-terms) [![Woo Additional Terms Tested](https://img.shields.io/wordpress/plugin/tested/woo-additional-terms.svg)](https://wordpress.org/plugins/woo-additional-terms) [![Woo Additional Terms Version](https://img.shields.io/wordpress/plugin/v/woo-additional-terms.svg)](https://wordpress.org/plugins/woo-additional-terms) [![Woo Additional Terms License](https://img.shields.io/github/license/mypreview/woo-additional-terms)](https://wordpress.org/plugins/woo-additional-terms) [![Donate to support this plugin](https://img.shields.io/badge/☕-Buy%20me%20a%20coffee-%23fedd04)](https://www.buymeacoffee.com/mahdiyazdani)
 
-![Woo Additional Terms](https://ps.w.org/woo-additional-terms/assets/banner-1544x500.png?rev=1542924)
+[![Woo Additional Terms](https://ps.w.org/woo-additional-terms/assets/banner-1544x500.jpg?rev=1542924)](https://mypreview.one/woo-additional-terms)
 
 > ⚠️ If you are not a developer, please use the official [plugin post page](https://wordpress.org/plugins/woo-additional-terms "Download Woo Additional Terms plugin") on wordpress.org.
 
