@@ -71,9 +71,9 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		 * Instance of the class.
 		 *
 		 * @since    1.0.0
-		 * @var      object    $_instance
+		 * @var      object    $instance
 		 */
-		private static $_instance = null;
+		private static $instance = null;
 
 		/**
 		 * Main `Woo_Additional_Terms` instance.
@@ -85,12 +85,12 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		 * @return    object|Woo_Additional_Terms    The one true Woo_Additional_Terms
 		 */
 		public static function instance() {
-			if ( ! isset( self::$_instance ) && ! ( self::$_instance instanceof Woo_Additional_Terms ) ) {
-				self::$_instance = new Woo_Additional_Terms();
-				self::$_instance->init();
+			if ( ! isset( self::$instance ) && ! ( self::$instance instanceof Woo_Additional_Terms ) ) {
+				self::$instance = new Woo_Additional_Terms();
+				self::$instance->init();
 			}
 
-			return self::$_instance;
+			return self::$instance;
 		}
 
 		/**
