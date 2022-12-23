@@ -1,6 +1,12 @@
 /* global jQuery, ajaxurl, watVars */
 
 ( function ( wp, $ ) {
+	'use strict';
+
+	if ( ! wp ) {
+		return;
+	}
+
 	const watAdmin = {
 		cache() {
 			this.vars = {};
