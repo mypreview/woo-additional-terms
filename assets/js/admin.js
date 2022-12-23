@@ -1,29 +1,33 @@
 /* global jQuery, ajaxurl, watVars */
 
 ( function ( wp, $ ) {
-	const wooTermsAdmin = {
+	const watAdmin = {
 		cache() {
 			this.vars = {};
-			this.vars.upsell = '.notice-info.woocommerce-message.is-dismissible .notice-dismiss';
+			this.vars.rate = '#woo-additional-terms-dismiss-rate .notice-dismiss';
+			this.vars.upsell = '#woo-additional-terms-dismiss-upsell .notice-dismiss';
 		},
 
 		init() {
 			this.cache();
-			$( document.body ).on( 'click', this.vars.upsell, this.handleOnDismiss );
+			$( document.body ).on( 'click', this.vars.rate, ( event ) => this.handleOnDismiss( event, 'rate' ) );
+			$( document.body ).on( 'click', this.vars.upsell, ( event ) => this.handleOnDismiss( event, 'upsell' ) );
 		},
 
-		handleOnDismiss() {
+		handleOnDismiss( event, action ) {
+			event.preventDefault();
+
 			$.ajax( {
 				type: 'POST',
 				url: ajaxurl,
 				data: {
 					_ajax_nonce: watVars.dismiss_nonce,
-					action: 'woo_additional_terms_dismiss_upsell',
+					action: `woo_additional_terms_dismiss_${ action }`,
 				},
 				dataType: 'json',
 			} );
 		},
 	};
 
-	wooTermsAdmin.init();
+	watAdmin.init();
 } )( window.wp, jQuery );
