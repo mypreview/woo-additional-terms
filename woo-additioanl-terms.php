@@ -108,6 +108,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 			add_filter( 'woocommerce_settings_tabs_array', array( self::instance(), 'add_settings_tab' ), 999, 1 );
 			add_action( 'woocommerce_settings_tabs_' . WOO_ADDITIONAL_TERMS_SLUG, array( self::instance(), 'render_plugin_page' ) );
 			add_action( 'woocommerce_update_options_' . WOO_ADDITIONAL_TERMS_SLUG, array( self::instance(), 'update_plugin_page' ) );
+			add_action( 'woocommerce_after_settings_' . WOO_ADDITIONAL_TERMS_SLUG, array( self::instance(), 'upsell_after_settings' ) );
 			add_action( 'admin_enqueue_scripts', array( self::instance(), 'admin_enqueue' ) );
 			add_action( 'wp_enqueue_scripts', array( self::instance(), 'enqueue' ) );
 			add_action( 'woocommerce_checkout_after_terms_and_conditions', array( self::instance(), 'print_checkbox' ) );
@@ -262,6 +263,19 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		 */
 		public function update_plugin_page() {
 			woocommerce_update_options( self::get_settings() );
+		}
+
+		/**
+		 * Promote PRO version adequately!
+		 *
+		 * @since     1.3.3
+		 * @return    void
+		 */
+		public function upsell_after_settings() {
+			/* translators: 1: Open H2 tag, 2: Close H2 tag. */
+			printf( esc_html_x( '%1$sLooking to add more terms & condition checkboxes?%2$s', 'upsell', 'woo-additional-terms' ), '<h2>', '</h2>' );
+			/* translators: 1: Open anchor tag, 2: Close anchor tag. */
+			printf( esc_html_x( '%1$sBuy PRO &#8594;%2$s', 'upsell', 'woo-additional-terms' ), sprintf( '<div class="woocommerce-message"><a href="%s" class="button-primary" target="_blank" rel="noopener noreferrer nofollow" title="%s"><span class="dashicons dashicons-cart" style="vertical-align:middle;font-size:16px;"></span> ', esc_url( WOO_ADDITIONAL_TERMS_URI ), esc_attr_x( 'Upgrade to premium version to unlock more features!', 'upsell', 'woo-additional-terms' ) ), '</a></div>' );
 		}
 
 		/**
@@ -483,21 +497,12 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		 */
 		public static function get_settings() {
 			$settings = array(
-				'upsell_title'       => array(
-					'name' => esc_html_x( 'Looking to add more terms & condition checkboxes?', 'upsell', 'woo-additional-terms' ),
-					'type' => 'title',
-					/* translators: 1: Open anchor tag, 2: Close anchor tag. */
-					'desc' => sprintf( esc_html_x( '%1$sUpgrade to PRO &#8594;%2$s', 'upsell', 'woo-additional-terms' ), sprintf( '<div class="woocommerce-message"><a href="%s" class="button-primary" target="_blank" rel="noopener noreferrer nofollow" title="%s">', esc_url( WOO_ADDITIONAL_TERMS_URI ), esc_attr_x( 'Upgrade to premium version to unlock more features!', 'upsell', 'woo-additional-terms' ) ), '</a></div>' ),
-				),
-				'section_end_upsell' => array(
-					'type' => 'sectionend',
-				),
-				'section_title'      => array(
+				'section_title' => array(
 					'name' => esc_html_x( 'Terms and Conditions', 'settings section name', 'woo-additional-terms' ),
 					'type' => 'title',
 					'desc' => esc_html_x( 'This section controls the display of your additional terms and condition fieldset.', 'settings section description', 'woo-additional-terms' ),
 				),
-				'page_id'            => array(
+				'page_id' => array(
 					'name'     => esc_html_x( 'Terms page', 'settings field name', 'woo-additional-terms' ),
 					'desc'     => esc_html_x( 'If you define a "Terms" page the customer will be asked if they accept additional terms when checking out.', 'settings field description', 'woo-additional-terms' ),
 					'type'     => 'single_select_page',
@@ -507,7 +512,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 					'desc_tip' => true,
 					'autoload' => false,
 				),
-				'notice'             => array(
+				'notice' => array(
 					'name'        => esc_html_x( 'Notice content', 'settings field name', 'woo-additional-terms' ),
 					'desc'        => esc_html_x( 'Text for the additional terms checkbox that customers must accept.', 'settings field description', 'woo-additional-terms' ),
 					'default'     => esc_html_x( 'I have read and agree to the website [additional-terms]', 'settings field default value', 'woo-additional-terms' ),
@@ -518,7 +523,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 					'desc_tip'    => true,
 					'autoload'    => false,
 				),
-				'error'              => array(
+				'error' => array(
 					'name'        => esc_html_x( 'Error message', 'settings field name', 'woo-additional-terms' ),
 					'desc'        => esc_html_x( 'Display friendly notice whenever customer doesn&rsquo;t accept additional terms.', 'settings field description', 'woo-additional-terms' ),
 					'default'     => esc_html_x( 'Please read and accept the additional terms and conditions to proceed with your order. ', 'settings field default value', 'woo-additional-terms' ),
@@ -529,7 +534,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 					'desc_tip'    => true,
 					'autoload'    => false,
 				),
-				'section_end'        => array(
+				'section_end' => array(
 					'type' => 'sectionend',
 				),
 			);
