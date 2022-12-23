@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-12-23T11:17:24+00:00\n"
+"POT-Creation-Date: 2022-12-23T17:55:56+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: woo-additional-terms\n"
@@ -31,159 +31,160 @@ msgstr ""
 msgid "MyPreview"
 msgstr ""
 
-#: woo-additioanl-terms.php:130
+#: woo-additioanl-terms.php:131
 msgctxt "clone"
 msgid "Cloning instances of this class is forbidden."
 msgstr ""
 
-#: woo-additioanl-terms.php:140
+#: woo-additioanl-terms.php:141
 msgctxt "wakeup"
 msgid "Unserializing instances of this class is forbidden."
 msgstr ""
 
 #. translators: 1: Dashicon, Open anchor tag, 2: Close anchor tag.
-#: woo-additioanl-terms.php:185
+#: woo-additioanl-terms.php:186
 msgctxt "admin notice"
 msgid "%1$s requires the following plugin: %2$sWooCommerce%3$s"
 msgstr ""
 
 #. translators: 1: HTML Symbol, 2: HTML symbol, 3: Open anchor tag, 4: Close anchor tag.
-#: woo-additioanl-terms.php:197
+#: woo-additioanl-terms.php:198
 msgctxt "admin notice"
 msgid "%1$s Add unlimited “I Agree with terms & conditions” checkboxes to the WooCommerce checkout without any manual effort needed. %2$s %3$sUpgrade to PRO%4$s"
 msgstr ""
 
 #. translators: 1: HTML symbol, 2: Plugin name, 3: Activation duration, 4: HTML symbol, 5: Open anchor tag, 6: Close anchor tag.
-#: woo-additioanl-terms.php:201
+#: woo-additioanl-terms.php:202
 msgctxt "admin notice"
 msgid "%1$s You have been using the %2$s plugin for %3$s now, do you like it as much as we like you? %4$s %5$sRate 5-Stars%6$s"
 msgstr ""
 
-#: woo-additioanl-terms.php:241
+#: woo-additioanl-terms.php:242
 msgctxt "tab title"
 msgid "Additional Terms"
 msgstr ""
 
-#: woo-additioanl-terms.php:329
+#. translators: 1: Open H2 tag, 2: Close H2 tag.
+#: woo-additioanl-terms.php:276
+msgctxt "upsell"
+msgid "%1$sLooking to add more terms & condition checkboxes?%2$s"
+msgstr ""
+
+#. translators: 1: Open anchor tag, 2: Close anchor tag.
+#: woo-additioanl-terms.php:278
+msgctxt "upsell"
+msgid "%1$sBuy PRO &#8594;%2$s"
+msgstr ""
+
+#. translators: 1: Open anchor tag, 2: Close anchor tag.
+#: woo-additioanl-terms.php:278
+msgctxt "upsell"
+msgid "Upgrade to premium version to unlock more features!"
+msgstr ""
+
+#: woo-additioanl-terms.php:343
 msgid "required"
 msgstr ""
 
-#: woo-additioanl-terms.php:389
+#: woo-additioanl-terms.php:403
 msgid "Accepted"
 msgstr ""
 
-#: woo-additioanl-terms.php:389
+#: woo-additioanl-terms.php:403
 msgid "N/A"
 msgstr ""
 
 #. translators: 1: Open anchor tag, 2: Close anchor tag.
-#: woo-additioanl-terms.php:416
+#: woo-additioanl-terms.php:430
 msgctxt "plugin settings page"
 msgid "%1$sSettings%2$s"
 msgstr ""
 
 #. translators: 1: Open anchor tag, 2: Close anchor tag.
-#: woo-additioanl-terms.php:437
+#: woo-additioanl-terms.php:451
 msgctxt "plugin link"
 msgid "%1$sCommunity support%2$s"
 msgstr ""
 
 #. translators: 1: Open anchor tag, 2: Close anchor tag.
-#: woo-additioanl-terms.php:439
+#: woo-additioanl-terms.php:453
 msgctxt "plugin link"
 msgid "%1$sDonate%2$s"
 msgstr ""
 
 #. translators: 1: Open anchor tag, 2: Close anchor tag.
-#: woo-additioanl-terms.php:439
+#: woo-additioanl-terms.php:453
 msgid "Donate to support this plugin"
 msgstr ""
 
 #. translators: 1: Open anchor tag, 2: Close anchor tag.
-#: woo-additioanl-terms.php:441
+#: woo-additioanl-terms.php:455
 msgctxt "plugin link"
 msgid "%1$sUpgrade to PRO%2$s"
 msgstr ""
 
 #. translators: 1: Dashicon, 2: Plugin name, 3: Open anchor tag, 4: Close anchor tag.
-#: woo-additioanl-terms.php:462
+#: woo-additioanl-terms.php:476
 msgctxt "admin notice"
 msgid "%1$s Thanks for installing %2$s plugin! To get started, visit the %3$splugin’s settings page%4$s."
 msgstr ""
 
-#: woo-additioanl-terms.php:487
-msgctxt "upsell"
-msgid "Looking to add more terms & condition checkboxes?"
-msgstr ""
-
-#. translators: 1: Open anchor tag, 2: Close anchor tag.
-#: woo-additioanl-terms.php:490
-msgctxt "upsell"
-msgid "%1$sUpgrade to PRO &#8594;%2$s"
-msgstr ""
-
-#. translators: 1: Open anchor tag, 2: Close anchor tag.
-#: woo-additioanl-terms.php:490
-msgctxt "upsell"
-msgid "Upgrade to premium version to unlock more features!"
-msgstr ""
-
-#: woo-additioanl-terms.php:496
+#: woo-additioanl-terms.php:501
 msgctxt "settings section name"
 msgid "Terms and Conditions"
 msgstr ""
 
-#: woo-additioanl-terms.php:498
+#: woo-additioanl-terms.php:503
 msgctxt "settings section description"
 msgid "This section controls the display of your additional terms and condition fieldset."
 msgstr ""
 
-#: woo-additioanl-terms.php:501
+#: woo-additioanl-terms.php:506
 msgctxt "settings field name"
 msgid "Terms page"
 msgstr ""
 
-#: woo-additioanl-terms.php:502
+#: woo-additioanl-terms.php:507
 msgctxt "settings field description"
 msgid "If you define a \"Terms\" page the customer will be asked if they accept additional terms when checking out."
 msgstr ""
 
-#: woo-additioanl-terms.php:511
+#: woo-additioanl-terms.php:516
 msgctxt "settings field name"
 msgid "Notice content"
 msgstr ""
 
-#: woo-additioanl-terms.php:512
+#: woo-additioanl-terms.php:517
 msgctxt "settings field description"
 msgid "Text for the additional terms checkbox that customers must accept."
 msgstr ""
 
-#: woo-additioanl-terms.php:513
+#: woo-additioanl-terms.php:518
 msgctxt "settings field default value"
 msgid "I have read and agree to the website [additional-terms]"
 msgstr ""
 
-#: woo-additioanl-terms.php:514
+#: woo-additioanl-terms.php:519
 msgctxt "settings field placeholder"
 msgid "I have read and agree to the website [additional-terms]"
 msgstr ""
 
-#: woo-additioanl-terms.php:522
+#: woo-additioanl-terms.php:527
 msgctxt "settings field name"
 msgid "Error message"
 msgstr ""
 
-#: woo-additioanl-terms.php:523
+#: woo-additioanl-terms.php:528
 msgctxt "settings field description"
 msgid "Display friendly notice whenever customer doesn&rsquo;t accept additional terms."
 msgstr ""
 
-#: woo-additioanl-terms.php:524
+#: woo-additioanl-terms.php:529
 msgctxt "settings field default value"
 msgid "Please read and accept the additional terms and conditions to proceed with your order. "
 msgstr ""
 
-#: woo-additioanl-terms.php:525
+#: woo-additioanl-terms.php:530
 msgctxt "setting field placeholder"
 msgid "You must accept our additional terms."
 msgstr ""
