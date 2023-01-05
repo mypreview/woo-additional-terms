@@ -1,6 +1,6 @@
 {
 	"name": "@mypreview/woo-additional-terms",
-	"version": "1.4.0",
+	"version": "1.4.1",
 	"private": true,
 	"description": "Add additional terms and condition checkbox to the WooCommerce checkout.",
 	"homepage": "https://github.com/mypreview/woo-additional-terms#readme",
@@ -21,7 +21,7 @@
 		"lint:js": "eslint assets/js/*.js",
 		"lint:js:fix": "eslint assets/js/*.js --fix",
 		"lint:wpcs": "composer lint:wpcs",
-		"lint:wpcs-fix": "composer lint:wpcbf",
+		"lint:wpcs:fix": "composer lint:wpcbf",
 		"makepot": "composer make-pot",
 		"minify": "cross-env BABEL_ENV=default NODE_ENV=production npm run minify:css && npm run minify:js",
 		"minify:css": "rimraf assets/css/minified && cleancss --batch --batch-suffix '' assets/css/*.css --output assets/css/minified",

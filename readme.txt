@@ -5,7 +5,7 @@ Donate link: https://mypreview.one/woo-additional-terms
 Requires at least: 5.0
 Tested up to: 6.1
 Requires PHP: 7.4
-Stable tag: 1.4.0
+Stable tag: 1.4.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.txt
 
@@ -81,10 +81,6 @@ We welcome contributions in any form, and you can help reporting, testing, and d
 Here’s the [GitHub development repository &#8594;](https://github.com/mypreview/woo-additional-terms "GitHub development repository")
 
 = Did you like the idea behind this plugin? =
-If you or your company use any of my projects or like what I’m doing, please consider [making a donation](https://www.buymeacoffee.com/mahdiyazdani) so I can continue maintaining and evolving all my projects and new ones. I’m in this for the long run.
-
---AND/OR--
-
 Please share your experience by leaving this plugin [5 shining stars](https://wordpress.org/support/plugin/woo-additional-terms/reviews/ "Rate Woo Additional Terms 5 stars") if you like it, thanks!
 
 = Is there a premium version to upgrade? =
@@ -106,6 +102,9 @@ Currently, the key features offered by the premium (paid) version of the plugin 
 3. Plugin settings page.
 
 == Changelog ==
+= 1.4.1 =
+* Improved logic in displaying admin-notices.
+
 = 1.4.0 =
 * Compatibility with WooCommerce 7.2
 

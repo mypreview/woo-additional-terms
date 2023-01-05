@@ -13,7 +13,7 @@
  * any later version.
  *
  * @link                    https://www.mypreview.one
- * @since                   1.4.0
+ * @since                   1.0.0
  * @package                 woo-additional-terms
  * @author                  MyPreview (Github: @mahdiyazdani, @gooklani, @mypreview)
  * @copyright               © 2015 - 2022 MyPreview. All Rights Reserved.
@@ -22,7 +22,7 @@
  * Plugin Name:             Woo Additional Terms
  * Plugin URI:              https://mypreview.one/woo-additional-terms
  * Description:             Add additional terms and condition checkbox to the WooCommerce checkout.
- * Version:                 1.4.0
+ * Version:                 1.4.1
  * Author:                  MyPreview
  * Author URI:              https://mypreview.one/woo-additional-terms
  * Requires at least:       5.0
@@ -71,9 +71,9 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		 * Instance of the class.
 		 *
 		 * @since    1.0.0
-		 * @var      object    $_instance
+		 * @var      object    $instance
 		 */
-		private static $_instance = null;
+		private static $instance = null;
 
 		/**
 		 * Main `Woo_Additional_Terms` instance.
@@ -85,27 +85,30 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		 * @return    object|Woo_Additional_Terms    The one true Woo_Additional_Terms
 		 */
 		public static function instance() {
-			if ( ! isset( self::$_instance ) && ! ( self::$_instance instanceof Woo_Additional_Terms ) ) {
-				self::$_instance = new Woo_Additional_Terms();
-				self::$_instance->init();
+			if ( ! isset( self::$instance ) && ! ( self::$instance instanceof Woo_Additional_Terms ) ) {
+				self::$instance = new Woo_Additional_Terms();
+				self::$instance->init();
 			}
 
-			return self::$_instance;
+			return self::$instance;
 		}
 
 		/**
 		 * Load actions.
 		 *
-		 * @since     1.4.0
+		 * @since     1.0.0
 		 * @return    void
 		 */
 		private function init() {
 			add_action( 'init', array( self::instance(), 'textdomain' ) );
+			add_action( 'admin_init', array( self::instance(), 'check_activation_timestamp' ) );
 			add_action( 'admin_notices', array( self::instance(), 'admin_notices' ) );
 			add_action( 'wp_ajax_woo_additional_terms_dismiss_upsell', array( self::instance(), 'dismiss_upsell' ) );
+			add_action( 'wp_ajax_woo_additional_terms_dismiss_rate', array( self::instance(), 'dismiss_rate' ) );
 			add_filter( 'woocommerce_settings_tabs_array', array( self::instance(), 'add_settings_tab' ), 999, 1 );
 			add_action( 'woocommerce_settings_tabs_' . WOO_ADDITIONAL_TERMS_SLUG, array( self::instance(), 'render_plugin_page' ) );
 			add_action( 'woocommerce_update_options_' . WOO_ADDITIONAL_TERMS_SLUG, array( self::instance(), 'update_plugin_page' ) );
+			add_action( 'woocommerce_after_settings_' . WOO_ADDITIONAL_TERMS_SLUG, array( self::instance(), 'upsell_after_settings' ) );
 			add_action( 'admin_enqueue_scripts', array( self::instance(), 'admin_enqueue' ) );
 			add_action( 'wp_enqueue_scripts', array( self::instance(), 'enqueue' ) );
 			add_action( 'woocommerce_checkout_after_terms_and_conditions', array( self::instance(), 'print_checkbox' ) );
@@ -142,11 +145,32 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		 * Load languages file and text domains.
 		 * Define the internationalization functionality.
 		 *
-		 * @since     1.3.3
+		 * @since     1.0.0
 		 * @return    void
 		 */
 		public function textdomain() {
-			load_plugin_textdomain( 'woo-additional-terms', false, dirname( dirname( WOO_ADDITIONAL_TERMS_PLUGIN_BASENAME ) ) . '/languages/' );
+			load_plugin_textdomain( 'woo-additional-terms', false, dirname( WOO_ADDITIONAL_TERMS_PLUGIN_BASENAME ) . '/languages/' );
+		}
+
+		/**
+		 * Check date on admin initiation and add to admin notice if it was more than the time limit.
+		 *
+		 * @since     1.4.1
+		 * @return    void
+		 */
+		public function check_activation_timestamp() {
+			if ( get_transient( 'woo_additional_terms_rate' ) ) {
+				return;
+			}
+
+			// If not installation date set, then add it.
+			$option_name          = 'woo_additional_terms_activation_timestamp';
+			$activation_timestamp = get_site_option( $option_name );
+
+			if ( ! $activation_timestamp ) {
+				add_site_option( $option_name, time() );
+				$activation_timestamp = get_site_option( $option_name );
+			}
 		}
 
 		/**
@@ -157,7 +181,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		 */
 		public function admin_notices() {
 			// Query WooCommerce activation.
-			if ( ! $this->_is_woocommerce() ) {
+			if ( ! $this->is_woocommerce() ) {
 				/* translators: 1: Dashicon, Open anchor tag, 2: Close anchor tag. */
 				$message = sprintf( esc_html_x( '%1$s requires the following plugin: %2$sWooCommerce%3$s', 'admin notice', 'woo-additional-terms' ), sprintf( '<i class="dashicons dashicons-admin-plugins" style="vertical-align:sub"></i> <strong>%s</strong>', WOO_ADDITIONAL_TERMS_NAME ), '<a href="https://wordpress.org/plugins/woocommerce" target="_blank" rel="noopener noreferrer nofollow"><em>', '</em></a>' );
 				printf( '<div class="notice notice-error notice-alt"><p>%s</p></div>', wp_kses_post( $message ) );
@@ -169,10 +193,14 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 					printf( '<div class="notice notice-info"><p>%s</p></div>', wp_kses_post( $welcome_notice ) );
 					delete_transient( $welcome_notice_transient );
 				} else {
-					if ( ! get_transient( 'woo_additional_terms_upsell' ) ) {
-						/* translators: 1: Dashicon, 2: HTML symbol, 3: Open anchor tag, 4: Close anchor tag. */
-						$message = sprintf( esc_html_x( '%1$s Add unlimited “I Agree with terms & conditions” checkboxes to the WooCommerce checkout without any manual effort needed. %2$s %3$sUpgrade to PRO%4$s', 'admin notice', 'woo-additional-terms' ), '<i class="dashicons dashicons-yes-alt" style="vertical-align:sub"></i>', '&#8594;', sprintf( '<a href="%s" class="button-primary" target="_blank" rel="noopener noreferrer nofollow">', esc_url( WOO_ADDITIONAL_TERMS_URI ) ), '</a>' );
+					if ( ! get_transient( 'woo_additional_terms_upsell' ) && ( time() - (int) get_site_option( 'woo_additional_terms_activation_timestamp' ) ) > DAY_IN_SECONDS ) {
+						/* translators: 1: HTML Symbol, 2: HTML symbol, 3: Open anchor tag, 4: Close anchor tag. */
+						$message = sprintf( esc_html_x( '%1$s Add unlimited “I Agree with terms & conditions” checkboxes to the WooCommerce checkout without any manual effort needed. %2$s %3$sUpgrade to PRO%4$s', 'admin notice', 'woo-additional-terms' ), '&#9745;', '&#8594;', sprintf( '<a href="%s" class="button-primary" target="_blank" rel="noopener noreferrer nofollow">', esc_url( WOO_ADDITIONAL_TERMS_URI ) ), '</a>' );
 						printf( '<div id="%s-dismiss-upsell" class="notice notice-info woocommerce-message notice-alt is-dismissible"><p>%s</p></div>', esc_attr( WOO_ADDITIONAL_TERMS_SLUG ), wp_kses_post( $message ) );
+					} elseif ( ! get_transient( 'woo_additional_terms_rate' ) && ( time() - (int) get_site_option( 'woo_additional_terms_activation_timestamp' ) ) > WEEK_IN_SECONDS ) {
+						/* translators: 1: HTML symbol, 2: Plugin name, 3: Activation duration, 4: HTML symbol, 5: Open anchor tag, 6: Close anchor tag. */
+						$message = sprintf( esc_html_x( '%1$s You have been using the %2$s plugin for %3$s now, do you like it as much as we like you? %4$s %5$sRate 5-Stars%6$s', 'admin notice', 'woo-additional-terms' ), '&#9733;', esc_html( WOO_ADDITIONAL_TERMS_NAME ), human_time_diff( (int) get_site_option( 'woo_additional_terms_activation_timestamp' ), time() ), '&#8594;', sprintf( '<a href="https://wordpress.org/support/plugin/%s/reviews?rate=5#new-post" class="button-primary" target="_blank" rel="noopener noreferrer nofollow">&#9733; ', esc_attr( WOO_ADDITIONAL_TERMS_SLUG ) ), '</a>' );
+						printf( '<div id="%s-dismiss-rate" class="notice notice-info is-dismissible"><p>%s</p></div>', esc_attr( WOO_ADDITIONAL_TERMS_SLUG ), wp_kses_post( $message ) );
 					}
 				}
 			}
@@ -185,8 +213,20 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		 * @return    void
 		 */
 		public function dismiss_upsell() {
-			check_ajax_referer( WOO_ADDITIONAL_TERMS_SLUG . '-upsell' );
+			check_ajax_referer( WOO_ADDITIONAL_TERMS_SLUG . '-dismiss' );
 			set_transient( 'woo_additional_terms_upsell', true, WEEK_IN_SECONDS );
+			wp_die();
+		}
+
+		/**
+		 * AJAX dismiss ask-to-rate admin notice.
+		 *
+		 * @since     1.4.1
+		 * @return    void
+		 */
+		public function dismiss_rate() {
+			check_ajax_referer( WOO_ADDITIONAL_TERMS_SLUG . '-dismiss' );
+			set_transient( 'woo_additional_terms_rate', true, 3 * MONTH_IN_SECONDS );
 			wp_die();
 		}
 
@@ -226,6 +266,19 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		}
 
 		/**
+		 * Promote PRO version adequately!
+		 *
+		 * @since     1.3.3
+		 * @return    void
+		 */
+		public function upsell_after_settings() {
+			/* translators: 1: Open H2 tag, 2: Close H2 tag. */
+			printf( esc_html_x( '%1$sLooking to add more terms & condition checkboxes?%2$s', 'upsell', 'woo-additional-terms' ), '<h2>', '</h2>' );
+			/* translators: 1: Open anchor tag, 2: Close anchor tag. */
+			printf( esc_html_x( '%1$sBuy PRO &#8594;%2$s', 'upsell', 'woo-additional-terms' ), sprintf( '<div class="woocommerce-message"><a href="%s" class="button-primary" target="_blank" rel="noopener noreferrer nofollow" title="%s"><span class="dashicons dashicons-cart" style="vertical-align:middle;font-size:16px;"></span> ', esc_url( WOO_ADDITIONAL_TERMS_URI ), esc_attr_x( 'Upgrade to premium version to unlock more features!', 'upsell', 'woo-additional-terms' ) ), '</a></div>' );
+		}
+
+		/**
 		 * Enqueue scripts and styles for admin pages.
 		 *
 		 * @since     1.4.0
@@ -234,8 +287,12 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		public function admin_enqueue() {
 			$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : trailingslashit( 'minified' );
 
-			wp_enqueue_script( WOO_ADDITIONAL_TERMS_SLUG . '-upsell', trailingslashit( WOO_ADDITIONAL_TERMS_DIR_URL ) . 'assets/js/' . $min . 'admin.js', array( 'jquery' ), WOO_ADDITIONAL_TERMS_VERSION, true );
-			wp_localize_script( WOO_ADDITIONAL_TERMS_SLUG . '-upsell', 'watVars', array( 'dismiss_nonce' => wp_create_nonce( WOO_ADDITIONAL_TERMS_SLUG . '-upsell' ) ) );
+			wp_register_script( WOO_ADDITIONAL_TERMS_SLUG, trailingslashit( WOO_ADDITIONAL_TERMS_DIR_URL ) . 'assets/js/' . $min . 'admin.js', array( 'jquery' ), WOO_ADDITIONAL_TERMS_VERSION, true );
+			wp_localize_script( WOO_ADDITIONAL_TERMS_SLUG, 'watVars', array( 'dismiss_nonce' => wp_create_nonce( WOO_ADDITIONAL_TERMS_SLUG . '-dismiss' ) ) );
+
+			if ( ! get_transient( 'woo_additional_terms_rate' ) || ! get_transient( 'woo_additional_terms_upsell' ) ) {
+				wp_enqueue_script( WOO_ADDITIONAL_TERMS_SLUG );
+			}
 		}
 
 		/**
@@ -246,13 +303,12 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		 */
 		public function enqueue() {
 			$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : trailingslashit( 'minified' );
-			// Register the plugin stylesheet.
+
 			wp_register_style( WOO_ADDITIONAL_TERMS_SLUG, trailingslashit( WOO_ADDITIONAL_TERMS_DIR_URL ) . 'assets/css/' . $min . 'style.css', null, WOO_ADDITIONAL_TERMS_VERSION, 'screen' );
-			// Register the plugin script.
 			wp_register_script( WOO_ADDITIONAL_TERMS_SLUG, trailingslashit( WOO_ADDITIONAL_TERMS_DIR_URL ) . 'assets/js/' . $min . 'script.js', array( 'jquery', 'wc-checkout' ), WOO_ADDITIONAL_TERMS_VERSION, true );
 
 			// Make sure the current screen displays plugin’s settings page.
-			if ( $this->_is_woocommerce() && $this->_terms_page_content() ) {
+			if ( $this->is_woocommerce() && $this->terms_page_content() ) {
 				wp_enqueue_style( WOO_ADDITIONAL_TERMS_SLUG );
 				wp_enqueue_script( WOO_ADDITIONAL_TERMS_SLUG );
 			}
@@ -280,7 +336,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 
 			?>
 			<div class="woocommerce-terms-and-conditions-wrapper woo-additional-terms">
-				<?php $this->_terms_page_content( $page_id, true ); ?>
+			<?php $this->terms_page_content( $page_id, true ); ?>
 				<p class="form-row validate-required">
 					<label class="woocommerce-form__label woocommerce-form__label-for-checkbox checkbox">
 					<input type="checkbox" class="woocommerce-form__input woocommerce-form__input-checkbox input-checkbox" name="_woo_additional_terms" id="_woo_additional_terms" value="1" />
@@ -344,8 +400,8 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 			?>
 			<div class="address">
 			<?php
-				$value = $order->get_meta( '_woo_additional_terms' ) ? esc_html__( 'Accepted', 'woo-additional-terms' ) : esc_html__( 'N/A', 'woo-additional-terms' );
-				printf( '<p><strong>%s:</strong>%s</p>', wp_kses_post( get_the_title( $page_id ) ), esc_html( $value ) );
+			$value = $order->get_meta( '_woo_additional_terms' ) ? esc_html__( 'Accepted', 'woo-additional-terms' ) : esc_html__( 'N/A', 'woo-additional-terms' );
+			printf( '<p><strong>%s:</strong>%s</p>', wp_kses_post( get_the_title( $page_id ) ), esc_html( $value ) );
 			?>
 			</div>
 			<?php
@@ -362,7 +418,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		public function add_action_links( $links ) {
 			$plugin_links = array();
 
-			if ( $this->_is_woocommerce() ) {
+			if ( $this->is_woocommerce() ) {
 				$settings_url = add_query_arg(
 					array(
 						'page' => 'wc-settings',
@@ -428,6 +484,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		 * @return    void
 		 */
 		public function deactivation() {
+			delete_transient( 'woo_additional_terms_rate' );
 			delete_transient( 'woo_additional_terms_upsell' );
 			delete_transient( 'woo_additional_terms_welcome_notice' );
 		}
@@ -440,21 +497,12 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		 */
 		public static function get_settings() {
 			$settings = array(
-				'upsell_title'       => array(
-					'name' => esc_html_x( 'Looking to add more terms & condition checkboxes?', 'upsell', 'woo-additional-terms' ),
-					'type' => 'title',
-					/* translators: 1: Open anchor tag, 2: Close anchor tag. */
-					'desc' => sprintf( esc_html_x( '%1$sUpgrade to PRO &#8594;%2$s', 'upsell', 'woo-additional-terms' ), sprintf( '<div class="woocommerce-message"><a href="%s" class="button-primary" target="_blank" rel="noopener noreferrer nofollow" title="%s">', esc_url( WOO_ADDITIONAL_TERMS_URI ), esc_attr_x( 'Upgrade to premium version to unlock more features!', 'upsell', 'woo-additional-terms' ) ), '</a></div>' ),
-				),
-				'section_end_upsell' => array(
-					'type' => 'sectionend',
-				),
-				'section_title'      => array(
+				'section_title' => array(
 					'name' => esc_html_x( 'Terms and Conditions', 'settings section name', 'woo-additional-terms' ),
 					'type' => 'title',
 					'desc' => esc_html_x( 'This section controls the display of your additional terms and condition fieldset.', 'settings section description', 'woo-additional-terms' ),
 				),
-				'page_id'            => array(
+				'page_id' => array(
 					'name'     => esc_html_x( 'Terms page', 'settings field name', 'woo-additional-terms' ),
 					'desc'     => esc_html_x( 'If you define a "Terms" page the customer will be asked if they accept additional terms when checking out.', 'settings field description', 'woo-additional-terms' ),
 					'type'     => 'single_select_page',
@@ -464,7 +512,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 					'desc_tip' => true,
 					'autoload' => false,
 				),
-				'notice'             => array(
+				'notice' => array(
 					'name'        => esc_html_x( 'Notice content', 'settings field name', 'woo-additional-terms' ),
 					'desc'        => esc_html_x( 'Text for the additional terms checkbox that customers must accept.', 'settings field description', 'woo-additional-terms' ),
 					'default'     => esc_html_x( 'I have read and agree to the website [additional-terms]', 'settings field default value', 'woo-additional-terms' ),
@@ -475,7 +523,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 					'desc_tip'    => true,
 					'autoload'    => false,
 				),
-				'error'              => array(
+				'error' => array(
 					'name'        => esc_html_x( 'Error message', 'settings field name', 'woo-additional-terms' ),
 					'desc'        => esc_html_x( 'Display friendly notice whenever customer doesn&rsquo;t accept additional terms.', 'settings field description', 'woo-additional-terms' ),
 					'default'     => esc_html_x( 'Please read and accept the additional terms and conditions to proceed with your order. ', 'settings field default value', 'woo-additional-terms' ),
@@ -486,7 +534,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 					'desc_tip'    => true,
 					'autoload'    => false,
 				),
-				'section_end'        => array(
+				'section_end' => array(
 					'type' => 'sectionend',
 				),
 			);
@@ -503,9 +551,8 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		 * @param     int  $terms_page_id    Additional terms page ID.
 		 * @param     bool $echo             Output additional terms page content on the page.
 		 * @return    void|bool
-		 * @phpcs:disable PSR2.Methods.MethodDeclaration.Underscore
 		 */
-		private function _terms_page_content( $terms_page_id = null, $echo = false ) {
+		private function terms_page_content( $terms_page_id = null, $echo = false ) {
 			$terms_page_id = $terms_page_id ? intval( $terms_page_id ) : get_option( '_woo_additional_terms_page_id', null );
 
 			// Bail early, in case the page ID is not available or not a number.
@@ -529,11 +576,11 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		/**
 		 * Query WooCommerce activation
 		 *
-		 * @since     1.3.5
+		 * @since     1.0.0
 		 * @return    bool
 		 * @phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 		 */
-		private function _is_woocommerce() {
+		private function is_woocommerce() {
 			// This statement prevents from producing fatal errors,
 			// in case the WooCommerce plugin is not activated on the site.
 			$woocommerce_plugin     = apply_filters( 'woo_additional_terms_woocommerce_path', 'woocommerce/woocommerce.php' ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.HookCommentWrongStyle
@@ -544,11 +591,10 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 			// phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict
 			if ( ( empty( $subsite_active_plugins ) || ! in_array( $woocommerce_plugin, $subsite_active_plugins ) ) && ( empty( $network_active_plugins ) || ! array_key_exists( $woocommerce_plugin, $network_active_plugins ) ) ) {
 				return false;
-			} // End If Statement
+			}
 
 			return true;
 		}
-
 	}
 endif;
 
