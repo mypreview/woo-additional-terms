@@ -57,8 +57,6 @@
 				} )
 			);
 		},
-		save: () => {
-			return el( 'div', useBlockProps.save() );
-		},
+		save: () => el( 'div', useBlockProps.save() ),
 	} );
 } )( window.wp, window.wc );
