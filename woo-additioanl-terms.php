@@ -22,7 +22,7 @@
  * Plugin Name:             Woo Additional Terms
  * Plugin URI:              https://mypreview.one/woo-additional-terms
  * Description:             Add additional terms and condition checkbox to the WooCommerce checkout.
- * Version:                 1.4.2
+ * Version:                 1.5.0
  * Author:                  MyPreview
  * Author URI:              https://mypreview.one/woo-additional-terms
  * Requires at least:       5.0
@@ -59,6 +59,12 @@ define( 'WOO_ADDITIONAL_TERMS_SLUG', 'woo-additional-terms' );
 define( 'WOO_ADDITIONAL_TERMS_FILE', __FILE__ );
 define( 'WOO_ADDITIONAL_TERMS_PLUGIN_BASENAME', plugin_basename( WOO_ADDITIONAL_TERMS_FILE ) );
 define( 'WOO_ADDITIONAL_TERMS_DIR_URL', plugin_dir_url( WOO_ADDITIONAL_TERMS_FILE ) );
+define( 'WOO_ADDITIONAL_TERMS_MIN_DIR', defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : trailingslashit( 'minified' ) );
+
+/**
+ * Loads the autoloader implementation.
+ */
+require trailingslashit( plugin_dir_path( __FILE__ ) ) . 'vendor/autoload.php';
 
 if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 
@@ -76,14 +82,6 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		private static $instance = null;
 
 		/**
-		 * Minified directory name.
-		 *
-		 * @since    1.4.2
-		 * @var      string    $min
-		 */
-		private static $min = null;
-
-		/**
 		 * Main `Woo_Additional_Terms` instance.
 		 *
 		 * Insures that only one instance of Woo_Additional_Terms exists in memory at any one
@@ -95,21 +93,10 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		public static function instance() {
 			if ( ! isset( self::$instance ) && ! ( self::$instance instanceof Woo_Additional_Terms ) ) {
 				self::$instance = new Woo_Additional_Terms();
-				self::$instance->bootstrap();
 				self::$instance->init();
 			}
 
 			return self::$instance;
-		}
-
-		/**
-		 * Bootstrap the class.
-		 *
-		 * @since     1.4.2
-		 * @return    void
-		 */
-		private function bootstrap() {
-			self::$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : trailingslashit( 'minified' );
 		}
 
 		/**
@@ -129,11 +116,12 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 			add_action( 'woocommerce_update_options_' . WOO_ADDITIONAL_TERMS_SLUG, array( self::instance(), 'update_plugin_page' ) );
 			add_action( 'woocommerce_after_settings_' . WOO_ADDITIONAL_TERMS_SLUG, array( self::instance(), 'upsell_after_settings' ) );
 			add_action( 'admin_enqueue_scripts', array( self::instance(), 'admin_enqueue' ) );
-			add_action( 'enqueue_block_editor_assets', array( self::instance(), 'editor_enqueue' ) );
 			add_action( 'wp_enqueue_scripts', array( self::instance(), 'enqueue' ) );
+			add_action( 'woocommerce_blocks_checkout_block_registration', array( self::instance(), 'checkbox_block' ) );
 			add_action( 'woocommerce_checkout_after_terms_and_conditions', array( self::instance(), 'print_checkbox' ) );
 			add_action( 'woocommerce_checkout_process', array( self::instance(), 'checkbox_error' ), 99 );
 			add_action( 'woocommerce_checkout_update_order_meta', array( self::instance(), 'save_terms_acceptance' ) );
+			add_action( 'woocommerce_store_api_checkout_update_order_from_request', array( self::instance(), 'save_terms_acceptance' ), 10, 2 );
 			add_action( 'woocommerce_admin_order_data_after_billing_address', array( self::instance(), 'terms_acceptance' ) );
 			add_filter( 'plugin_action_links_' . WOO_ADDITIONAL_TERMS_PLUGIN_BASENAME, array( self::instance(), 'add_action_links' ) );
 			add_filter( 'plugin_row_meta', array( self::instance(), 'add_meta_links' ), 10, 2 );
@@ -306,22 +294,12 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		 * @return    void
 		 */
 		public function admin_enqueue() {
-			wp_register_script( WOO_ADDITIONAL_TERMS_SLUG, trailingslashit( WOO_ADDITIONAL_TERMS_DIR_URL ) . 'assets/js/' . self::$min . 'admin.js', array( 'jquery' ), WOO_ADDITIONAL_TERMS_VERSION, true );
+			wp_register_script( WOO_ADDITIONAL_TERMS_SLUG, trailingslashit( WOO_ADDITIONAL_TERMS_DIR_URL ) . 'assets/js/' . WOO_ADDITIONAL_TERMS_MIN_DIR . 'admin.js', array( 'jquery' ), WOO_ADDITIONAL_TERMS_VERSION, true );
 			wp_localize_script( WOO_ADDITIONAL_TERMS_SLUG, 'watVars', array( 'dismiss_nonce' => wp_create_nonce( WOO_ADDITIONAL_TERMS_SLUG . '-dismiss' ) ) );
 
 			if ( ! get_transient( 'woo_additional_terms_rate' ) || ! get_transient( 'woo_additional_terms_upsell' ) ) {
 				wp_enqueue_script( WOO_ADDITIONAL_TERMS_SLUG );
 			}
-		}
-
-		/**
-		 * Enqueue static resources for the editor.
-		 *
-		 * @since     1.4.2
-		 * @return    void
-		 */
-		public function editor_enqueue(): void {
-			wp_enqueue_script( WOO_ADDITIONAL_TERMS_SLUG . '-editor', trailingslashit( WOO_ADDITIONAL_TERMS_DIR_URL ) . 'assets/js/' . self::$min . 'block.js', array( 'react', 'wp-components', 'wp-element', 'wp-i18n', 'wc-blocks-checkout' ), WOO_ADDITIONAL_TERMS_VERSION, true );
 		}
 
 		/**
@@ -331,14 +309,25 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		 * @return    void
 		 */
 		public function enqueue() {
-			wp_register_style( WOO_ADDITIONAL_TERMS_SLUG, trailingslashit( WOO_ADDITIONAL_TERMS_DIR_URL ) . 'assets/css/' . self::$min . 'style.css', null, WOO_ADDITIONAL_TERMS_VERSION, 'screen' );
-			wp_register_script( WOO_ADDITIONAL_TERMS_SLUG, trailingslashit( WOO_ADDITIONAL_TERMS_DIR_URL ) . 'assets/js/' . self::$min . 'script.js', array( 'jquery', 'wc-checkout' ), WOO_ADDITIONAL_TERMS_VERSION, true );
+			wp_register_style( WOO_ADDITIONAL_TERMS_SLUG, trailingslashit( WOO_ADDITIONAL_TERMS_DIR_URL ) . 'assets/css/' . WOO_ADDITIONAL_TERMS_MIN_DIR . 'style.css', null, WOO_ADDITIONAL_TERMS_VERSION, 'screen' );
+			wp_register_script( WOO_ADDITIONAL_TERMS_SLUG, trailingslashit( WOO_ADDITIONAL_TERMS_DIR_URL ) . 'assets/js/' . WOO_ADDITIONAL_TERMS_MIN_DIR . 'script.js', array( 'jquery', 'wc-checkout' ), WOO_ADDITIONAL_TERMS_VERSION, true );
 
 			// Make sure the current screen displays plugin’s settings page.
-			if ( $this->is_woocommerce() && $this->terms_page_content() ) {
+			if ( $this->is_woocommerce() && self::terms_page_content() ) {
 				wp_enqueue_style( WOO_ADDITIONAL_TERMS_SLUG );
 				wp_enqueue_script( WOO_ADDITIONAL_TERMS_SLUG );
 			}
+		}
+
+		/**
+		 * Registers block type and registers with WC Blocks Integration Interface.
+		 *
+		 * @since     1.5.0
+		 * @param     object $integration_registry    WC Blocks integration registry.
+		 * @return    void
+		 */
+		public function checkbox_block( $integration_registry ) {
+			$integration_registry->register( new WAT_Checkout_Blocks_Integration() );
 		}
 
 		/**
@@ -358,15 +347,15 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 			}
 
 			if ( false !== strpos( $notice, '[additional-terms]' ) ) {
-				$notice = str_replace( '[additional-terms]', sprintf( '<a href="%s" class="woo-additional-terms__link" target="_blank" rel="noopener noreferrer nofollow">%s</a>', esc_url( get_permalink( $page_id ) ), esc_html( get_the_title( $page_id ) ) ), $notice ); // @codingStandardsIgnoreLine
+				$notice = str_replace( '[additional-terms]', sprintf( '<a href="%s" class="woo-additional-terms__link" target="_blank" rel="noopener noreferrer nofollow">%s</a>', esc_url( get_permalink( $page_id ) ), esc_html( get_the_title( $page_id ) ) ), $notice );
 			}
 
 			?>
 			<div class="woocommerce-terms-and-conditions-wrapper woo-additional-terms">
-			<?php $this->terms_page_content( $page_id, true ); ?>
+			<?php self::terms_page_content( $page_id, true ); ?>
 				<p class="form-row validate-required">
 					<label class="woocommerce-form__label woocommerce-form__label-for-checkbox checkbox">
-					<input type="checkbox" class="woocommerce-form__input woocommerce-form__input-checkbox input-checkbox" name="_woo_additional_terms" id="_woo_additional_terms" value="1" aria-invalid="false" />
+					<input type="checkbox" class="woocommerce-form__input woocommerce-form__input-checkbox input-checkbox" name="_woo_additional_terms" id="_woo_additional_terms" value="1" />
 						<span class="woocommerce-terms-and-conditions-checkbox-text"><?php echo wp_kses_post( $notice ); ?></span>&nbsp;<abbr class="required" title="<?php esc_attr_e( 'required', 'woo-additional-terms' ); ?>">*</abbr>
 					</label>
 				</p>
@@ -391,20 +380,38 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		}
 
 		/**
-		 * Fires after an order saved into the databse.
+		 * Fires after an order saved into the database.
 		 * We will update the post meta
 		 *
 		 * @since     1.3.3
-		 * @param     int $order_id    Order ID.
+		 * @param     WC_Order|int         $order      Order ID or order object.
+		 * @param     null|WP_REST_Request $request    The API request currently being processed.
 		 * @return    void
+		 * @phpcs:disable WordPress.Security.NonceVerification.Missing
 		 */
-		public function save_terms_acceptance( $order_id ) {
-			$data       = wp_unslash( $_POST ); //phpcs:ignore WordPress.VIP.SuperGlobalInputUsage.AccessDetected, WordPress.CSRF.NonceVerification.NoNonceVerification
-			$acceptance = isset( $data['_woo_additional_terms'] ) ? wc_string_to_bool( $data['_woo_additional_terms'] ) : null;
-			$order      = wc_get_order( $order_id );
+		public function save_terms_acceptance( $order, $request = null ) {
+			if ( ! ( $order instanceof WC_Order ) ) {
+				$order = wc_get_order( $order );
+			}
 
-			if ( $acceptance && ( $order instanceof WC_Order ) ) {
-				update_post_meta( $order_id, '_woo_additional_terms', $acceptance );
+			$acceptance = null;
+
+			if (
+				(
+					$request
+					&& isset( $request['extensions'], $request['extensions']['_woo_additional_terms'], $request['extensions']['_woo_additional_terms']['_woo_additional_terms'] )
+				)
+				||
+				(
+					! empty( $_POST )
+					&& isset( $_POST['_woo_additional_terms'] )
+				)
+			) {
+				$acceptance = '1';
+			}
+
+			if ( $acceptance ) {
+				$order->update_meta_data( '_woo_additional_terms', $acceptance );
 			}
 		}
 
@@ -519,7 +526,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		/**
 		 * Returns checkbox element when shortcode is found among the post content.
 		 *
-		 * @since     1.4.2
+		 * @since     1.5.0
 		 * @return    string
 		 */
 		public function return_checkbox() {
@@ -605,7 +612,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		 * @param     bool $echo             Output additional terms page content on the page.
 		 * @return    void|bool
 		 */
-		private function terms_page_content( $terms_page_id = null, $echo = false ) {
+		public static function terms_page_content( $terms_page_id = null, $echo = false ) {
 			$terms_page_id = $terms_page_id ? intval( $terms_page_id ) : get_option( '_woo_additional_terms_page_id', null );
 
 			// Bail early, in case the page ID is not available or not a number.
@@ -616,11 +623,14 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 			$page = get_post( $terms_page_id );
 
 			if ( $page && 'publish' === $page->post_status && $page->post_content && ! has_shortcode( $page->post_content, 'woocommerce_checkout' ) ) {
+				$return = sprintf( '<div class="woo-additional-terms__content">%s</div>', wp_kses_post( wc_format_content( $page->post_content ) ) );
+
 				// Print on the page, only if needed.
 				if ( $echo ) {
-					printf( '<div class="woo-additional-terms__content">%s</div>', wp_kses_post( wc_format_content( $page->post_content ) ) );
+					echo $return; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				}
-				return true;
+
+				return $return;
 			}
 
 			return false;
