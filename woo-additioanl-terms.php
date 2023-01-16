@@ -22,7 +22,7 @@
  * Plugin Name:             Woo Additional Terms
  * Plugin URI:              https://mypreview.one/woo-additional-terms
  * Description:             Add additional terms and condition checkbox to the WooCommerce checkout.
- * Version:                 1.4.1
+ * Version:                 1.4.2
  * Author:                  MyPreview
  * Author URI:              https://mypreview.one/woo-additional-terms
  * Requires at least:       5.0
@@ -32,7 +32,7 @@
  * Text Domain:             woo-additional-terms
  * Domain Path:             /languages
  * WC requires at least:    4.0
- * WC tested up to:         7.2
+ * WC tested up to:         7.3
  */
 
 defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
@@ -76,6 +76,14 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		private static $instance = null;
 
 		/**
+		 * Minified directory name.
+		 *
+		 * @since    1.4.2
+		 * @var      string    $min
+		 */
+		private static $min = null;
+
+		/**
 		 * Main `Woo_Additional_Terms` instance.
 		 *
 		 * Insures that only one instance of Woo_Additional_Terms exists in memory at any one
@@ -87,10 +95,21 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		public static function instance() {
 			if ( ! isset( self::$instance ) && ! ( self::$instance instanceof Woo_Additional_Terms ) ) {
 				self::$instance = new Woo_Additional_Terms();
+				self::$instance->bootstrap();
 				self::$instance->init();
 			}
 
 			return self::$instance;
+		}
+
+		/**
+		 * Bootstrap the class.
+		 *
+		 * @since     1.4.2
+		 * @return    void
+		 */
+		private function bootstrap() {
+			self::$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : trailingslashit( 'minified' );
 		}
 
 		/**
@@ -110,6 +129,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 			add_action( 'woocommerce_update_options_' . WOO_ADDITIONAL_TERMS_SLUG, array( self::instance(), 'update_plugin_page' ) );
 			add_action( 'woocommerce_after_settings_' . WOO_ADDITIONAL_TERMS_SLUG, array( self::instance(), 'upsell_after_settings' ) );
 			add_action( 'admin_enqueue_scripts', array( self::instance(), 'admin_enqueue' ) );
+			add_action( 'enqueue_block_editor_assets', array( self::instance(), 'editor_enqueue' ) );
 			add_action( 'wp_enqueue_scripts', array( self::instance(), 'enqueue' ) );
 			add_action( 'woocommerce_checkout_after_terms_and_conditions', array( self::instance(), 'print_checkbox' ) );
 			add_action( 'woocommerce_checkout_process', array( self::instance(), 'checkbox_error' ), 99 );
@@ -119,6 +139,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 			add_filter( 'plugin_row_meta', array( self::instance(), 'add_meta_links' ), 10, 2 );
 			register_activation_hook( WOO_ADDITIONAL_TERMS_FILE, array( self::instance(), 'activation' ) );
 			register_deactivation_hook( WOO_ADDITIONAL_TERMS_FILE, array( self::instance(), 'deactivation' ) );
+			add_shortcode( 'wat_checkbox', array( self::instance(), 'return_checkbox' ) );
 		}
 
 		/**
@@ -128,7 +149,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		 * @return    void
 		 */
 		protected function __clone() {
-			_doing_it_wrong( __FUNCTION__, esc_html_x( 'Cloning instances of this class is forbidden.', 'clone', 'woo-additional-terms' ), esc_html( WSVPRO_VERSION ) );
+			_doing_it_wrong( __FUNCTION__, esc_html_x( 'Cloning instances of this class is forbidden.', 'clone', 'woo-additional-terms' ), esc_html( WOO_ADDITIONAL_TERMS_VERSION ) );
 		}
 
 		/**
@@ -138,7 +159,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		 * @return    void
 		 */
 		public function __wakeup() {
-			_doing_it_wrong( __FUNCTION__, esc_html_x( 'Unserializing instances of this class is forbidden.', 'wakeup', 'woo-additional-terms' ), esc_html( WSVPRO_VERSION ) );
+			_doing_it_wrong( __FUNCTION__, esc_html_x( 'Unserializing instances of this class is forbidden.', 'wakeup', 'woo-additional-terms' ), esc_html( WOO_ADDITIONAL_TERMS_VERSION ) );
 		}
 
 		/**
@@ -214,7 +235,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		 */
 		public function dismiss_upsell() {
 			check_ajax_referer( WOO_ADDITIONAL_TERMS_SLUG . '-dismiss' );
-			set_transient( 'woo_additional_terms_upsell', true, WEEK_IN_SECONDS );
+			set_transient( 'woo_additional_terms_upsell', true, MONTH_IN_SECONDS );
 			wp_die();
 		}
 
@@ -285,14 +306,22 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		 * @return    void
 		 */
 		public function admin_enqueue() {
-			$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : trailingslashit( 'minified' );
-
-			wp_register_script( WOO_ADDITIONAL_TERMS_SLUG, trailingslashit( WOO_ADDITIONAL_TERMS_DIR_URL ) . 'assets/js/' . $min . 'admin.js', array( 'jquery' ), WOO_ADDITIONAL_TERMS_VERSION, true );
+			wp_register_script( WOO_ADDITIONAL_TERMS_SLUG, trailingslashit( WOO_ADDITIONAL_TERMS_DIR_URL ) . 'assets/js/' . self::$min . 'admin.js', array( 'jquery' ), WOO_ADDITIONAL_TERMS_VERSION, true );
 			wp_localize_script( WOO_ADDITIONAL_TERMS_SLUG, 'watVars', array( 'dismiss_nonce' => wp_create_nonce( WOO_ADDITIONAL_TERMS_SLUG . '-dismiss' ) ) );
 
 			if ( ! get_transient( 'woo_additional_terms_rate' ) || ! get_transient( 'woo_additional_terms_upsell' ) ) {
 				wp_enqueue_script( WOO_ADDITIONAL_TERMS_SLUG );
 			}
+		}
+
+		/**
+		 * Enqueue static resources for the editor.
+		 *
+		 * @since     1.4.2
+		 * @return    void
+		 */
+		public function editor_enqueue(): void {
+			wp_enqueue_script( WOO_ADDITIONAL_TERMS_SLUG . '-editor', trailingslashit( WOO_ADDITIONAL_TERMS_DIR_URL ) . 'assets/js/' . self::$min . 'block.js', array( 'react', 'wp-components', 'wp-element', 'wp-i18n', 'wc-blocks-checkout' ), WOO_ADDITIONAL_TERMS_VERSION, true );
 		}
 
 		/**
@@ -302,10 +331,8 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		 * @return    void
 		 */
 		public function enqueue() {
-			$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : trailingslashit( 'minified' );
-
-			wp_register_style( WOO_ADDITIONAL_TERMS_SLUG, trailingslashit( WOO_ADDITIONAL_TERMS_DIR_URL ) . 'assets/css/' . $min . 'style.css', null, WOO_ADDITIONAL_TERMS_VERSION, 'screen' );
-			wp_register_script( WOO_ADDITIONAL_TERMS_SLUG, trailingslashit( WOO_ADDITIONAL_TERMS_DIR_URL ) . 'assets/js/' . $min . 'script.js', array( 'jquery', 'wc-checkout' ), WOO_ADDITIONAL_TERMS_VERSION, true );
+			wp_register_style( WOO_ADDITIONAL_TERMS_SLUG, trailingslashit( WOO_ADDITIONAL_TERMS_DIR_URL ) . 'assets/css/' . self::$min . 'style.css', null, WOO_ADDITIONAL_TERMS_VERSION, 'screen' );
+			wp_register_script( WOO_ADDITIONAL_TERMS_SLUG, trailingslashit( WOO_ADDITIONAL_TERMS_DIR_URL ) . 'assets/js/' . self::$min . 'script.js', array( 'jquery', 'wc-checkout' ), WOO_ADDITIONAL_TERMS_VERSION, true );
 
 			// Make sure the current screen displays plugin’s settings page.
 			if ( $this->is_woocommerce() && $this->terms_page_content() ) {
@@ -339,7 +366,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 			<?php $this->terms_page_content( $page_id, true ); ?>
 				<p class="form-row validate-required">
 					<label class="woocommerce-form__label woocommerce-form__label-for-checkbox checkbox">
-					<input type="checkbox" class="woocommerce-form__input woocommerce-form__input-checkbox input-checkbox" name="_woo_additional_terms" id="_woo_additional_terms" value="1" />
+					<input type="checkbox" class="woocommerce-form__input woocommerce-form__input-checkbox input-checkbox" name="_woo_additional_terms" id="_woo_additional_terms" value="1" aria-invalid="false" />
 						<span class="woocommerce-terms-and-conditions-checkbox-text"><?php echo wp_kses_post( $notice ); ?></span>&nbsp;<abbr class="required" title="<?php esc_attr_e( 'required', 'woo-additional-terms' ); ?>">*</abbr>
 					</label>
 				</p>
@@ -487,6 +514,32 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 			delete_transient( 'woo_additional_terms_rate' );
 			delete_transient( 'woo_additional_terms_upsell' );
 			delete_transient( 'woo_additional_terms_welcome_notice' );
+		}
+
+		/**
+		 * Returns checkbox element when shortcode is found among the post content.
+		 *
+		 * @since     1.4.2
+		 * @return    string
+		 */
+		public function return_checkbox() {
+			// Flush (erase) the output buffer.
+			if ( ob_get_length() ) {
+				ob_flush();
+			}
+
+			// Start remembering everything that would normally be outputted,
+			// but don't quite do anything with it yet.
+			ob_start();
+
+			// Output an arbitrary checkbox field if exists any.
+			$this->print_checkbox();
+
+			// Get current buffer contents and delete current output buffer.
+			$output_string = ob_get_contents();
+			ob_end_clean(); // Turn off output buffering.
+
+			return $output_string;
 		}
 
 		/**
