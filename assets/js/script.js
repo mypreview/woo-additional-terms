@@ -1,22 +1,44 @@
 /* global jQuery */
 
 ( function ( $ ) {
-	const wooTermsToggle = {
-		init() {
-			$( document.body ).on( 'click', 'a.woo-additional-terms__link', this.toggleTerms );
+	'use strict';
+
+	const wat = {
+		cache() {
+			this.vars = {};
+			this.els = {};
+			this.vars.selector = 'woo-additional-terms';
+			this.vars.embed = `${ this.vars.selector }__link`;
+			this.vars.content = `${ wat.vars.selector }__content`;
+			this.vars.openClassName = `${ this.vars.selector }__link--open`;
+			this.vars.closeClassName = `${ this.vars.selector }__link--closed`;
+			this.vars.wrapper = `.woocommerce-terms-and-conditions-wrapper.${ this.vars.selector }`;
 		},
 
-		toggleTerms() {
-			if ( $( '.woo-additional-terms__content' ).length ) {
-				$( '.woo-additional-terms__content' ).slideToggle( function () {
-					const linkToggle = $( '.woo-additional-terms__link' );
+		init() {
+			this.cache();
+			this.events();
+		},
 
-					if ( $( '.woo-additional-terms__content' ).is( ':visible' ) ) {
-						linkToggle.addClass( 'woo-additional-terms__link--open' );
-						linkToggle.removeClass( 'woo-additional-terms__link--closed' );
+		events() {
+			$( document.body ).on( 'click', `a.${ this.vars.embed }`, this.handleEmbedToggle );
+		},
+
+		handleEmbedToggle( event ) {
+			event.preventDefault();
+
+			const $this = $( this );
+			const $wrapper = $this.closest( wat.vars.wrapper );
+			const $content = $wrapper.find( `.${ wat.vars.content }` );
+
+			if ( $wrapper.length ) {
+				$content.slideToggle( function () {
+					if ( $content.is( ':visible' ) ) {
+						$this.addClass( wat.vars.openClassName );
+						$this.removeClass( wat.vars.closeClassName );
 					} else {
-						linkToggle.removeClass( 'woo-additional-terms__link--open' );
-						linkToggle.addClass( 'woo-additional-terms__link--closed' );
+						$this.removeClass( wat.vars.openClassName );
+						$this.addClass( wat.vars.closeClassName );
 					}
 				} );
 
@@ -25,5 +47,5 @@
 		},
 	};
 
-	wooTermsToggle.init();
+	wat.init();
 } )( jQuery );
