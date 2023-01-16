@@ -72,7 +72,7 @@ if ( ! class_exists( 'WAT_Checkout_Blocks_Integration' ) ) :
 		 * Returns an array containing the handles of any scripts registered by our extension.
 		 *
 		 * @since     1.5.0
-		 * @return    void
+		 * @return    array
 		 */
 		public function get_script_handles() {
 			return array( WOO_ADDITIONAL_TERMS_SLUG . '-checkout' );
@@ -82,7 +82,7 @@ if ( ! class_exists( 'WAT_Checkout_Blocks_Integration' ) ) :
 		 * Returns an array containing the handles of any editor scripts registered by our extension.
 		 *
 		 * @since     1.5.0
-		 * @return    void
+		 * @return    array
 		 */
 		public function get_editor_script_handles() {
 			return array( WOO_ADDITIONAL_TERMS_SLUG . '-editor' );
@@ -92,7 +92,7 @@ if ( ! class_exists( 'WAT_Checkout_Blocks_Integration' ) ) :
 		 * Returns an associative array containing any data we want to be available to the scripts on the front-end.
 		 *
 		 * @since     1.5.0
-		 * @return    void
+		 * @return    array
 		 */
 		public function get_script_data() {
 			$placeholder_notice = esc_html_x( 'I have read and agree to the website [additional-terms]', 'settings field default value', 'woo-additional-terms' );
@@ -125,6 +125,12 @@ if ( ! class_exists( 'WAT_Checkout_Blocks_Integration' ) ) :
 			return $data;
 		}
 
+		/**
+		 * Register editor block.
+		 *
+		 * @since     1.5.0
+		 * @return    void
+		 */
 		public function register_editor_blocks() {}
 
 		/**
@@ -164,6 +170,7 @@ if ( ! class_exists( 'WAT_Checkout_Blocks_Integration' ) ) :
 								'arg_options' => array(
 									'validate_callback' => function( $value ) {
 										if ( ! is_bool( $value ) ) {
+											/* translators: %s: Render the type of the variable. */
 											return new \WP_Error( 'api-error', sprintf( esc_html__( 'Value of field %s was posted with incorrect data type.', 'woo-additional-terms' ), gettype( $value ) ) );
 										}
 										return true;
