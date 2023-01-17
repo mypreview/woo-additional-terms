@@ -9,6 +9,7 @@
 	const { registerBlockType } = wp.blocks;
 	const { useBlockProps } = wp.blockEditor;
 	const { Disabled, Notice } = wp.components;
+	const { SVG, Path } = wp.primitives;
 	const { CheckboxControl } = wc.blocksCheckout;
 	const { ADMIN_URL, getSetting } = wc.wcSettings;
 	const { __ } = wp.i18n;
@@ -19,7 +20,13 @@
 		icon: {
 			foreground: '#ffffff',
 			background: '#7f54b3',
-			src: 'text-page',
+			src: el(
+				SVG,
+				{ xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 24 24' },
+				el( Path, {
+					d: 'M4 20h9v-1.5H4V20zm0-5.5V16h16v-1.5H4zm.8-4l.7.7 2-2V12h1V9.2l2 2 .7-.7-2-2H12v-1H9.2l2-2-.7-.7-2 2V4h-1v2.8l-2-2-.7.7 2 2H4v1h2.8l-2 2z',
+				} )
+			),
 		},
 		category: 'woocommerce',
 		parent: [ 'woocommerce/checkout-fields-block' ],
