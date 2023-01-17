@@ -21,10 +21,15 @@
 			parent: [ 'woocommerce/checkout-fields-block' ],
 		},
 		component: withInstanceId( ( { instanceId, checkoutExtensionData } ) => {
+			const { content, notice } = getSetting( '_woo_additional_terms_data', '' );
+
+			if ( ! notice ) {
+				return null;
+			}
+
 			const validationErrorId = `_woo_additional_terms_data_${ instanceId }`;
 			const { setExtensionData } = checkoutExtensionData;
 			const [ checked, setChecked ] = useState( false );
-			const { content, notice } = getSetting( '_woo_additional_terms_data', '' );
 			const { setValidationErrors, clearValidationError } = useDispatch( 'wc/store/validation' );
 			const error = useSelect( ( select ) =>
 				select( 'wc/store/validation' ).getValidationError( validationErrorId )
