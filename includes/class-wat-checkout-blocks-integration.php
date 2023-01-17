@@ -65,7 +65,7 @@ if ( ! class_exists( 'WAT_Checkout_Blocks_Integration' ) ) :
 		 * @return    void
 		 */
 		public function register_editor_scripts() {
-			wp_register_script( WOO_ADDITIONAL_TERMS_SLUG . '-editor', trailingslashit( WOO_ADDITIONAL_TERMS_DIR_URL ) . 'assets/js/' . WOO_ADDITIONAL_TERMS_MIN_DIR . 'block.js', array( 'react', 'wp-block-editor', 'wp-blocks', 'wp-components', 'wp-element', 'wp-i18n', 'wc-blocks-checkout', 'wc-settings' ), WOO_ADDITIONAL_TERMS_VERSION, true );
+			wp_register_script( WOO_ADDITIONAL_TERMS_SLUG . '-editor', trailingslashit( WOO_ADDITIONAL_TERMS_DIR_URL ) . 'assets/js/' . WOO_ADDITIONAL_TERMS_MIN_DIR . 'block.js', array( 'react', 'wp-block-editor', 'wp-blocks', 'wp-components', 'wp-element', 'wp-i18n', 'wp-primitives', 'wc-blocks-checkout', 'wc-settings' ), WOO_ADDITIONAL_TERMS_VERSION, true );
 		}
 
 		/**
