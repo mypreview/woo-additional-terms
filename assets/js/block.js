@@ -8,8 +8,9 @@
 	const el = wp.element.createElement;
 	const { registerBlockType } = wp.blocks;
 	const { useBlockProps } = wp.blockEditor;
+	const { Disabled, Notice } = wp.components;
 	const { CheckboxControl } = wc.blocksCheckout;
-	const { getSetting } = wc.wcSettings;
+	const { ADMIN_URL, getSetting } = wc.wcSettings;
 	const { __ } = wp.i18n;
 
 	registerBlockType( 'mypreview/woo-additional-terms', {
@@ -27,7 +28,7 @@
 				type: 'object',
 				default: {
 					remove: true,
-					move: true,
+					move: false,
 				},
 			},
 			checkbox: {
@@ -46,16 +47,53 @@
 			const blockProps = useBlockProps();
 			const { notice } = getSetting( '_woo_additional_terms_data', '' );
 
-			return el(
-				'div',
-				blockProps,
-				el( CheckboxControl, {
-					id: '_woo_additional_terms',
-					label: notice,
-					checked: false,
-					disabled: true,
-				} )
-			);
+			return notice
+				? el(
+						Disabled,
+						{},
+						el(
+							'div',
+							blockProps,
+							el(
+								CheckboxControl,
+								{
+									id: '_woo_additional_terms',
+									checked: false,
+								},
+								el( 'span', {
+									dangerouslySetInnerHTML: {
+										__html: notice,
+									},
+								} )
+							)
+						)
+				  )
+				: el(
+						Notice,
+						{
+							isDismissible: false,
+							status: 'warning',
+							actions: [
+								{
+									className: 'wc-block-checkout__terms_notice-button',
+									label: __(
+										'Setup an additional Terms and Conditions page',
+										'woo-additional-terms'
+									),
+									onClick: () =>
+										window.open(
+											`${ ADMIN_URL }admin.php?page=wc-settings&tab=woo-additional-terms`,
+											'_blank'
+										),
+								},
+							],
+						},
+						el(
+							'p',
+							{},
+							__( 'You don’t have additional Terms and Conditions page set up.', 'woo-additional-terms' )
+						)
+				  );
 		},
 		save: () => el( 'div', useBlockProps.save() ),
 	} );
