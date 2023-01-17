@@ -127,7 +127,6 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 			add_filter( 'plugin_row_meta', array( self::instance(), 'add_meta_links' ), 10, 2 );
 			register_activation_hook( WOO_ADDITIONAL_TERMS_FILE, array( self::instance(), 'activation' ) );
 			register_deactivation_hook( WOO_ADDITIONAL_TERMS_FILE, array( self::instance(), 'deactivation' ) );
-			add_shortcode( 'wat_checkbox', array( self::instance(), 'return_checkbox' ) );
 		}
 
 		/**
@@ -521,32 +520,6 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 			delete_transient( 'woo_additional_terms_rate' );
 			delete_transient( 'woo_additional_terms_upsell' );
 			delete_transient( 'woo_additional_terms_welcome_notice' );
-		}
-
-		/**
-		 * Returns checkbox element when shortcode is found among the post content.
-		 *
-		 * @since     1.5.0
-		 * @return    string
-		 */
-		public function return_checkbox() {
-			// Flush (erase) the output buffer.
-			if ( ob_get_length() ) {
-				ob_flush();
-			}
-
-			// Start remembering everything that would normally be outputted,
-			// but don't quite do anything with it yet.
-			ob_start();
-
-			// Output an arbitrary checkbox field if exists any.
-			$this->print_checkbox();
-
-			// Get current buffer contents and delete current output buffer.
-			$output_string = ob_get_contents();
-			ob_end_clean(); // Turn off output buffering.
-
-			return $output_string;
 		}
 
 		/**
