@@ -55,7 +55,7 @@ if ( ! class_exists( 'WAT_Checkout_Blocks_Integration' ) ) :
 		 * @return    void
 		 */
 		public function register_frontend_scripts() {
-			wp_register_script( WOO_ADDITIONAL_TERMS_SLUG . '-checkout', trailingslashit( WOO_ADDITIONAL_TERMS_DIR_URL ) . 'assets/js/' . WOO_ADDITIONAL_TERMS_MIN_DIR . 'checkout.js', array( 'react', 'wp-compose', 'wp-data', 'wp-element', 'wp-i18n', 'wc-blocks-checkout' ), WOO_ADDITIONAL_TERMS_VERSION, true );
+			wp_register_script( WOO_ADDITIONAL_TERMS_SLUG . '-checkout', trailingslashit( WOO_ADDITIONAL_TERMS_DIR_URL ) . 'assets/js/' . WOO_ADDITIONAL_TERMS_MIN_DIR . 'checkout.js', array( 'react', 'wp-compose', 'wp-data', 'wp-element', 'wp-i18n', 'wc-blocks-checkout', 'wc-settings' ), WOO_ADDITIONAL_TERMS_VERSION, true );
 		}
 
 		/**
@@ -65,7 +65,7 @@ if ( ! class_exists( 'WAT_Checkout_Blocks_Integration' ) ) :
 		 * @return    void
 		 */
 		public function register_editor_scripts() {
-			wp_register_script( WOO_ADDITIONAL_TERMS_SLUG . '-editor', trailingslashit( WOO_ADDITIONAL_TERMS_DIR_URL ) . 'assets/js/' . WOO_ADDITIONAL_TERMS_MIN_DIR . 'block.js', array( 'react', 'wp-components', 'wp-element', 'wp-i18n', 'wc-blocks-checkout' ), WOO_ADDITIONAL_TERMS_VERSION, true );
+			wp_register_script( WOO_ADDITIONAL_TERMS_SLUG . '-editor', trailingslashit( WOO_ADDITIONAL_TERMS_DIR_URL ) . 'assets/js/' . WOO_ADDITIONAL_TERMS_MIN_DIR . 'block.js', array( 'react', 'wp-block-editor', 'wp-blocks', 'wp-components', 'wp-element', 'wp-i18n', 'wc-blocks-checkout', 'wc-settings' ), WOO_ADDITIONAL_TERMS_VERSION, true );
 		}
 
 		/**
@@ -95,20 +95,20 @@ if ( ! class_exists( 'WAT_Checkout_Blocks_Integration' ) ) :
 		 * @return    array
 		 */
 		public function get_script_data() {
-			$placeholder_notice = esc_html_x( 'I have read and agree to the website [additional-terms]', 'settings field default value', 'woo-additional-terms' );
-			$notice             = (string) get_option( '_woo_additional_terms_notice' );
-			$page_id            = (int) get_option( '_woo_additional_terms_page_id', null );
+			$notice  = (string) get_option( '_woo_additional_terms_notice', '' );
+			$page_id = get_option( '_woo_additional_terms_page_id', null );
 
 			if (
-				isset( $page_id )
+				$page_id
 				&& ! empty( $page_id )
+				&& ! empty( $notice )
 				&& false !== strpos( $notice, '[additional-terms]' )
 			) {
 				$notice = str_replace( '[additional-terms]', sprintf( '<a href="%s" class="woo-additional-terms__link" target="_blank" rel="noopener noreferrer nofollow">%s</a>', esc_url( get_permalink( $page_id ) ), esc_html( get_the_title( $page_id ) ) ), $notice );
 			}
 
 			$data = array(
-				'notice'  => ! empty( $notice ) ? wp_kses(
+				'notice'  => wp_kses(
 					$notice,
 					array(
 						'a' => array(
@@ -118,7 +118,7 @@ if ( ! class_exists( 'WAT_Checkout_Blocks_Integration' ) ) :
 							'rel'    => array(),
 						),
 					)
-				) : esc_html( $placeholder_notice ),
+				),
 				'content' => Woo_Additional_Terms::terms_page_content( $page_id, false ),
 			);
 
