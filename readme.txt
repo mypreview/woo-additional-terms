@@ -5,7 +5,7 @@ Donate link: https://mypreview.one/woo-additional-terms
 Requires at least: 5.0
 Tested up to: 6.1
 Requires PHP: 7.4
-Stable tag: 1.4.1
+Stable tag: 1.5.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.txt
 
@@ -60,6 +60,9 @@ Automatic updates should work smoothly, but we still recommend you back up your 
 2. Add a new page ie. “EU Terms and Conditions” with your details.
 3. Navigate to “WooCommerce” » “Settings” » “Additional Terms” tab and select the page you created in step 2.
 
+= Is this plugin compatible with WooCommerce Checkout block? =
+Yes. The plugin fully supports the block-based checkout flow.
+
 = Does this plugin supports WPML? =
 Yes. The plugin is translation-ready and has a config file to support both WPML and Polylang plugins fully.
 
@@ -102,6 +105,10 @@ Currently, the key features offered by the premium (paid) version of the plugin 
 3. Plugin settings page.
 
 == Changelog ==
+= 1.5.0 =
+* Compatibility with WooCommerce Checkout block
+* Compatibility with WooCommerce 7.3
+
 = 1.4.1 =
 * Improved logic in displaying admin-notices.
 
