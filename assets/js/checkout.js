@@ -13,6 +13,7 @@
 	const { useEffect, useState } = wp.element;
 	const { __ } = wp.i18n;
 	const { getSetting } = wc.wcSettings;
+	const { VALIDATION_STORE_KEY } = wc.wcBlocksData;
 	const { CheckboxControl, registerCheckoutBlock } = wc.blocksCheckout;
 
 	registerCheckoutBlock( {
@@ -30,9 +31,9 @@
 			const validationErrorId = `_woo_additional_terms_data_${ instanceId }`;
 			const { setExtensionData } = checkoutExtensionData;
 			const [ checked, setChecked ] = useState( false );
-			const { setValidationErrors, clearValidationError } = useDispatch( 'wc/store/validation' );
+			const { setValidationErrors, clearValidationError } = useDispatch( VALIDATION_STORE_KEY );
 			const error = useSelect( ( select ) =>
-				select( 'wc/store/validation' ).getValidationError( validationErrorId )
+				select( VALIDATION_STORE_KEY ).getValidationError( validationErrorId )
 			);
 			const hasError = !! ( error?.message && ! error?.hidden );
 
