@@ -61,7 +61,7 @@ Automatic updates should work smoothly, but we still recommend you back up your 
 3. Navigate to “WooCommerce” » “Settings” » “Additional Terms” tab and select the page you created in step 2.
 
 = Is this plugin compatible with WooCommerce Checkout block? =
-Yes. The plugin fully supports the block-based checkout flow.
+Yes. The plugin fully supports the block-based checkout flow. You can insert the dedicated “Additional Terms” block into the “Checkout” block to display the additional T&C checkbox at your chosen location.
 
 = Does this plugin supports WPML? =
 Yes. The plugin is translation-ready and has a config file to support both WPML and Polylang plugins fully.
