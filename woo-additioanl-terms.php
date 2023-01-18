@@ -59,12 +59,13 @@ define( 'WOO_ADDITIONAL_TERMS_SLUG', 'woo-additional-terms' );
 define( 'WOO_ADDITIONAL_TERMS_FILE', __FILE__ );
 define( 'WOO_ADDITIONAL_TERMS_PLUGIN_BASENAME', plugin_basename( WOO_ADDITIONAL_TERMS_FILE ) );
 define( 'WOO_ADDITIONAL_TERMS_DIR_URL', plugin_dir_url( WOO_ADDITIONAL_TERMS_FILE ) );
+define( 'WOO_ADDITIONAL_TERMS_DIR_PATH', plugin_dir_path( WOO_ADDITIONAL_TERMS_FILE ) );
 define( 'WOO_ADDITIONAL_TERMS_MIN_DIR', defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : trailingslashit( 'minified' ) );
 
 /**
  * Loads the autoloader implementation.
  */
-require trailingslashit( plugin_dir_path( __FILE__ ) ) . 'vendor/autoload.php';
+require trailingslashit( WOO_ADDITIONAL_TERMS_DIR_PATH ) . 'vendor/autoload.php';
 
 if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 
@@ -88,7 +89,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		 * time. Also prevents needing to define globals all over the place.
 		 *
 		 * @since     1.0.0
-		 * @return    object|Woo_Additional_Terms    The one true Woo_Additional_Terms
+		 * @return    null|Woo_Additional_Terms    The one true Woo_Additional_Terms
 		 */
 		public static function instance() {
 			if ( ! isset( self::$instance ) && ! ( self::$instance instanceof Woo_Additional_Terms ) ) {
@@ -111,6 +112,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 			add_action( 'admin_notices', array( self::instance(), 'admin_notices' ) );
 			add_action( 'wp_ajax_woo_additional_terms_dismiss_upsell', array( self::instance(), 'dismiss_upsell' ) );
 			add_action( 'wp_ajax_woo_additional_terms_dismiss_rate', array( self::instance(), 'dismiss_rate' ) );
+			add_action( 'before_woocommerce_init', array( self::instance(), 'add_compatibility' ) );
 			add_filter( 'woocommerce_settings_tabs_array', array( self::instance(), 'add_settings_tab' ), 999, 1 );
 			add_action( 'woocommerce_settings_tabs_' . WOO_ADDITIONAL_TERMS_SLUG, array( self::instance(), 'render_plugin_page' ) );
 			add_action( 'woocommerce_update_options_' . WOO_ADDITIONAL_TERMS_SLUG, array( self::instance(), 'update_plugin_page' ) );
@@ -156,7 +158,11 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		 * @return    void
 		 */
 		public function textdomain() {
-			load_plugin_textdomain( 'woo-additional-terms', false, dirname( WOO_ADDITIONAL_TERMS_PLUGIN_BASENAME ) . '/languages/' );
+			$domain = 'woo-additional-terms';
+			$locale = apply_filters( 'plugin_locale', get_locale(), $domain ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+
+			load_textdomain( $domain, trailingslashit( WP_LANG_DIR ) . "{$domain}/{$domain}-{$locale}.mo" );
+			load_plugin_textdomain( $domain, false, dirname( WOO_ADDITIONAL_TERMS_PLUGIN_BASENAME ) . '/languages/' );
 		}
 
 		/**
@@ -235,6 +241,21 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 			check_ajax_referer( WOO_ADDITIONAL_TERMS_SLUG . '-dismiss' );
 			set_transient( 'woo_additional_terms_rate', true, 3 * MONTH_IN_SECONDS );
 			wp_die();
+		}
+
+		/**
+		 * Declaring compatibility with HPOS.
+		 *
+		 * This plugin has nothing to do with "High-Performance Order Storage".
+		 * However, the compatibility flag has been added to avoid WooCommerce declaring the plugin as "uncertain".
+		 *
+		 * @since     1.5.0
+		 * @return    void
+		 */
+		public function add_compatibility() {
+			if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+				\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', WOO_ADDITIONAL_TERMS_DIR_PATH, true );
+			}
 		}
 
 		/**
@@ -629,7 +650,7 @@ if ( ! function_exists( 'woo_additional_terms_init' ) ) :
 	 * not affect the page life cycle.
 	 *
 	 * @since     1.0.0
-	 * @return    object|Woo_Additional_Terms    The one true Woo_Additional_Terms Instance.
+	 * @return    null|Woo_Additional_Terms    The one true Woo_Additional_Terms Instance.
 	 */
 	function woo_additional_terms_init() {
 		return Woo_Additional_Terms::instance();
