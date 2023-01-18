@@ -37,7 +37,7 @@
 			const hasError = !! ( error?.message && ! error?.hidden );
 
 			useEffect( () => {
-				setExtensionData( '_woo_additional_terms', '_woo_additional_terms', checked );
+				setExtensionData( '_woo_additional_terms', 'wat_checkbox', checked );
 
 				if ( checked ) {
 					clearValidationError( validationErrorId );
