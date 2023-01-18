@@ -4,7 +4,7 @@
  *
  * @link          https://mypreview.one/woo-additional-terms
  * @author        MyPreview (Github: @mahdiyazdani, @gooklani, @mypreview)
- * @since         1.0.0
+ * @since         1.5.0
  *
  * @package       woo-additional-terms
  * @subpackage    woo-additional-terms/includes
@@ -46,6 +46,7 @@ if ( ! class_exists( 'WAT_Checkout_Blocks_Integration' ) ) :
 			$this->register_editor_blocks();
 			$this->extend_store_api();
 			add_filter( '__experimental_woocommerce_blocks_add_data_attributes_to_block', array( $this, 'add_attributes_to_frontend_blocks' ) );
+			add_action( 'woocommerce_store_api_checkout_update_order_from_request', array( $this, 'save_terms_acceptance' ), 10, 2 );
 		}
 
 		/**
@@ -146,6 +147,28 @@ if ( ! class_exists( 'WAT_Checkout_Blocks_Integration' ) ) :
 		}
 
 		/**
+		 * Fires after an order saved into the database.
+		 * We will update the post meta
+		 *
+		 * @since     1.5.0
+		 * @param     WC_Order        $order      Order ID or order object.
+		 * @param     WP_REST_Request $request    The API request currently being processed.
+		 * @return    void
+		 * @phpcs:disable WordPress.Security.NonceVerification.Missing
+		 */
+		public function save_terms_acceptance( $order, $request ) {
+			$acceptance = null;
+
+			if ( isset( $request['extensions'], $request['extensions']['_woo_additional_terms'], $request['extensions']['_woo_additional_terms']['wat_checkbox'] ) ) {
+				$acceptance = '1';
+			}
+
+			if ( $acceptance ) {
+				$order->update_meta_data( '_woo_additional_terms', $acceptance );
+			}
+		}
+
+		/**
 		 * Add schema Store API to support posted data.
 		 * Registers the checkout endpoint extension to inform our frontend component about the result of
 		 * the validity of the additional terms checkbox and react accordingly.
@@ -164,7 +187,7 @@ if ( ! class_exists( 'WAT_Checkout_Blocks_Integration' ) ) :
 					'namespace'       => $this->get_name(),
 					'schema_callback' => function() {
 						return array(
-							'_woo_additional_terms' => array(
+							'wat_checkbox' => array(
 								'type'        => 'boolean',
 								'context'     => array(),
 								'arg_options' => array(
