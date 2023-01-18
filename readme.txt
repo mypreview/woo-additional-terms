@@ -28,7 +28,10 @@ The plugin setup is minimal and requires no knowledge of HTML or CSS. It could n
 > * (Not) Skippable checkboxes.
 > * Unlimited T&C checkboxes.
 > * Unlimited ToS page links.
+> * Smart conditional logic.
 > * Detailed acceptance summary.
+>
+> *Smart logic conditions will allow you to define restrictions based on several complex rules, such as products in the cart, which categories, tags, shipping classes, etc., cart items belong.*
 >
 > [Upgrade to premium! &#8594;](https://mypreview.one/woo-additional-terms "Woo Additional Terms (PRO)")
 
@@ -95,6 +98,7 @@ Currently, the key features offered by the premium (paid) version of the plugin 
 * (Not) Skippable checkboxes.
 * Unlimited T&C checkboxes.
 * Unlimited ToS page links.
+* Smart conditional logic.
 * Detailed acceptance summary.
 
 [Go Premium, Be Happy! &#8594;](https://mypreview.one/woo-additional-terms "Woo Additional Terms (PRO)")
