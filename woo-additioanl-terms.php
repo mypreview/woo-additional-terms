@@ -121,7 +121,6 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 			add_action( 'woocommerce_checkout_after_terms_and_conditions', array( self::instance(), 'print_checkbox' ) );
 			add_action( 'woocommerce_checkout_process', array( self::instance(), 'checkbox_error' ), 99 );
 			add_action( 'woocommerce_checkout_update_order_meta', array( self::instance(), 'save_terms_acceptance' ) );
-			add_action( 'woocommerce_store_api_checkout_update_order_from_request', array( self::instance(), 'save_terms_acceptance' ), 10, 2 );
 			add_action( 'woocommerce_admin_order_data_after_billing_address', array( self::instance(), 'terms_acceptance' ) );
 			add_filter( 'plugin_action_links_' . WOO_ADDITIONAL_TERMS_PLUGIN_BASENAME, array( self::instance(), 'add_action_links' ) );
 			add_filter( 'plugin_row_meta', array( self::instance(), 'add_meta_links' ), 10, 2 );
@@ -379,38 +378,20 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		}
 
 		/**
-		 * Fires after an order saved into the database.
+		 * Fires after an order saved into the databse.
 		 * We will update the post meta
 		 *
 		 * @since     1.3.3
-		 * @param     WC_Order|int         $order      Order ID or order object.
-		 * @param     null|WP_REST_Request $request    The API request currently being processed.
+		 * @param     int $order_id    Order ID.
 		 * @return    void
-		 * @phpcs:disable WordPress.Security.NonceVerification.Missing
 		 */
-		public function save_terms_acceptance( $order, $request = null ) {
-			if ( ! ( $order instanceof WC_Order ) ) {
-				$order = wc_get_order( $order );
-			}
+		public function save_terms_acceptance( $order_id ) {
+			$data       = wp_unslash( $_POST ); //phpcs:ignore WordPress.VIP.SuperGlobalInputUsage.AccessDetected, WordPress.CSRF.NonceVerification.NoNonceVerification
+			$acceptance = isset( $data['_woo_additional_terms'] ) ? wc_string_to_bool( $data['_woo_additional_terms'] ) : null;
+			$order      = wc_get_order( $order_id );
 
-			$acceptance = null;
-
-			if (
-				(
-					$request
-					&& isset( $request['extensions'], $request['extensions']['_woo_additional_terms'], $request['extensions']['_woo_additional_terms']['_woo_additional_terms'] )
-				)
-				||
-				(
-					! empty( $_POST )
-					&& isset( $_POST['_woo_additional_terms'] )
-				)
-			) {
-				$acceptance = '1';
-			}
-
-			if ( $acceptance ) {
-				$order->update_meta_data( '_woo_additional_terms', $acceptance );
+			if ( $acceptance && ( $order instanceof WC_Order ) ) {
+				update_post_meta( $order_id, '_woo_additional_terms', $acceptance );
 			}
 		}
 
