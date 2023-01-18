@@ -2,7 +2,7 @@
 	"archive": {
 		"exclude": [
 			"!/languages",
-			"vendor",
+			"!vendor/*",
 			"node_modules",
 			"CONTRIBUTING.md",
 			"CODE_OF_CONDUCT.md",
