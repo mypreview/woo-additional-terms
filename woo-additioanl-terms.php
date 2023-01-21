@@ -254,7 +254,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		 */
 		public function add_compatibility() {
 			if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
-				\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', WOO_ADDITIONAL_TERMS_DIR_PATH, true );
+				\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', WOO_ADDITIONAL_TERMS_FILE, true );
 			}
 		}
 
