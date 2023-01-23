@@ -1,6 +1,6 @@
 === Woo Additional Terms ===
 Contributors: mahdiyazdani, mypreview, gookaani
-Tags: terms and conditions, I agree, age verification, terms of service, custom terms, woocommerce plugin, GDPR
+Tags: terms and conditions, I agree, age verification, terms of service, custom terms, woocommerce plugin, GDPR, terms conditions for woocommerce
 Donate link: https://mypreview.one/woo-additional-terms
 Requires at least: 5.0
 Tested up to: 6.1
@@ -107,6 +107,8 @@ Currently, the key features offered by the premium (paid) version of the plugin 
 1. Additional terms and condition checkbox on the WooCommerce checkout page.
 2. Validation error notice appears if the checkbox is not checked.
 3. Plugin settings page.
+4. Add the Additional terms block inside the WooCommerce checkout block.
+5. Display the Additional terms checkbox in the checkout.
 
 == Changelog ==
 = 1.5.0 =
