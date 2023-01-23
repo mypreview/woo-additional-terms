@@ -24,12 +24,12 @@ The plugin setup is minimal and requires no knowledge of HTML or CSS. It could n
 >
 > “Additional Terms” plugin has a premium version which comes with several extra benefits:
 >
-> * Display terms in a modal.
-> * (Not) Skippable checkboxes.
-> * Unlimited T&C checkboxes.
-> * Unlimited ToS page links.
-> * Smart conditional logic.
-> * Detailed acceptance summary.
+> * Display terms in a modal
+> * (Not) Skippable checkboxes
+> * Unlimited T&C checkboxes
+> * Unlimited ToS page links
+> * Smart conditional logic
+> * Detailed acceptance summary
 >
 > *Smart logic conditions will allow you to define restrictions based on several complex rules, such as products in the cart, which categories, tags, shipping classes, etc., cart items belong.*
 >
@@ -94,12 +94,12 @@ Yes, there is!
 
 Currently, the key features offered by the premium (paid) version of the plugin are:
 
-* Display terms in a modal.
-* (Not) Skippable checkboxes.
-* Unlimited T&C checkboxes.
-* Unlimited ToS page links.
-* Smart conditional logic.
-* Detailed acceptance summary.
+* Display terms in a modal
+* (Not) Skippable checkboxes
+* Unlimited T&C checkboxes
+* Unlimited ToS page links
+* Smart conditional logic
+* Detailed acceptance summary
 
 [Go Premium, Be Happy! &#8594;](https://mypreview.one/woo-additional-terms "Woo Additional Terms (PRO)")
 
@@ -107,8 +107,8 @@ Currently, the key features offered by the premium (paid) version of the plugin 
 1. Additional terms and condition checkbox on the WooCommerce checkout page.
 2. Validation error notice appears if the checkbox is not checked.
 3. Plugin settings page.
-4. Add the Additional terms block inside the WooCommerce checkout block.
-5. Display the Additional terms checkbox in the checkout.
+4. Inserting the Additional terms block inside the WooCommerce checkout block.
+5. Additional terms and condition checkbox on the WooCommerce checkout block page.
 
 == Changelog ==
 = 1.5.0 =
