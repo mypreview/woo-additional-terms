@@ -32,7 +32,7 @@
  * Text Domain:             woo-additional-terms
  * Domain Path:             /languages
  * WC requires at least:    4.0
- * WC tested up to:         7.3
+ * WC tested up to:         7.4
  */
 
 defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
