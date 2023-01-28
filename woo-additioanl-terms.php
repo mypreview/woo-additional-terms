@@ -346,7 +346,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		 * @return    void
 		 */
 		public function checkbox_block( $integration_registry ) {
-			$integration_registry->register( new WAT_Checkout_Blocks_Integration() );
+			$integration_registry->register( new WAT_Checkout_Block_Integration() );
 		}
 
 		/**

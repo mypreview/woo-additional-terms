@@ -17,12 +17,12 @@ use Automattic\WooCommerce\StoreApi\StoreApi;
 
 defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
 
-if ( ! class_exists( 'WAT_Checkout_Blocks_Integration' ) ) :
+if ( ! class_exists( 'WAT_Checkout_Block_Integration' ) ) :
 
 	/**
 	 * The checkout block integration class.
 	 */
-	class WAT_Checkout_Blocks_Integration implements IntegrationInterface {
+	class WAT_Checkout_Block_Integration implements IntegrationInterface {
 
 		/**
 		 * The name of the integration.
