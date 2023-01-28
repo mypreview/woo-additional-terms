@@ -1,6 +1,6 @@
 {
 	"name": "@mypreview/woo-additional-terms",
-	"version": "1.4.1",
+	"version": "1.5.0",
 	"private": true,
 	"description": "Add additional terms and condition checkbox to the WooCommerce checkout.",
 	"homepage": "https://github.com/mypreview/woo-additional-terms#readme",

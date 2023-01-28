@@ -2,7 +2,7 @@
 	"archive": {
 		"exclude": [
 			"!/languages",
-			"vendor",
+			"!vendor/*",
 			"node_modules",
 			"CONTRIBUTING.md",
 			"CODE_OF_CONDUCT.md",
@@ -22,6 +22,11 @@
 			"name": "MyPreview"
 		}
 	],
+	"autoload": {
+		"classmap": [
+			"includes"
+		]
+	},
 	"config": {
 		"allow-plugins": {
 			"dealerdirect/phpcodesniffer-composer-installer": true

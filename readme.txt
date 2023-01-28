@@ -1,11 +1,11 @@
 === Woo Additional Terms ===
 Contributors: mahdiyazdani, mypreview, gookaani
-Tags: terms and conditions, I agree, age verification, terms of service, custom terms, woocommerce plugin, GDPR
+Tags: terms and conditions, I agree, age verification, terms of service, custom terms, woocommerce plugin, GDPR, terms conditions for woocommerce
 Donate link: https://mypreview.one/woo-additional-terms
 Requires at least: 5.0
 Tested up to: 6.1
 Requires PHP: 7.4
-Stable tag: 1.4.1
+Stable tag: 1.5.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.txt
 
@@ -24,11 +24,14 @@ The plugin setup is minimal and requires no knowledge of HTML or CSS. It could n
 >
 > “Additional Terms” plugin has a premium version which comes with several extra benefits:
 >
-> * Display terms in a modal.
-> * (Not) Skippable checkboxes.
-> * Unlimited T&C checkboxes.
-> * Unlimited ToS page links.
-> * Detailed acceptance summary.
+> * Display terms in a modal
+> * (Not) Skippable checkboxes
+> * Unlimited T&C checkboxes
+> * Unlimited ToS page links
+> * Smart conditional logic
+> * Detailed acceptance summary
+>
+> *Smart logic conditions will allow you to define restrictions based on several complex rules, such as products in the cart, which categories, tags, shipping classes, etc., cart items belong.*
 >
 > [Upgrade to premium! &#8594;](https://mypreview.one/woo-additional-terms "Woo Additional Terms (PRO)")
 
@@ -60,6 +63,9 @@ Automatic updates should work smoothly, but we still recommend you back up your 
 2. Add a new page ie. “EU Terms and Conditions” with your details.
 3. Navigate to “WooCommerce” » “Settings” » “Additional Terms” tab and select the page you created in step 2.
 
+= Is this plugin compatible with WooCommerce Checkout block? =
+Yes. The plugin fully supports the block-based checkout flow. You can insert the dedicated “Additional Terms” block into the “Checkout” block to display the additional T&C checkbox at your chosen location.
+
 = Does this plugin supports WPML? =
 Yes. The plugin is translation-ready and has a config file to support both WPML and Polylang plugins fully.
 
@@ -88,11 +94,12 @@ Yes, there is!
 
 Currently, the key features offered by the premium (paid) version of the plugin are:
 
-* Display terms in a modal.
-* (Not) Skippable checkboxes.
-* Unlimited T&C checkboxes.
-* Unlimited ToS page links.
-* Detailed acceptance summary.
+* Display terms in a modal
+* (Not) Skippable checkboxes
+* Unlimited T&C checkboxes
+* Unlimited ToS page links
+* Smart conditional logic
+* Detailed acceptance summary
 
 [Go Premium, Be Happy! &#8594;](https://mypreview.one/woo-additional-terms "Woo Additional Terms (PRO)")
 
@@ -100,8 +107,14 @@ Currently, the key features offered by the premium (paid) version of the plugin 
 1. Additional terms and condition checkbox on the WooCommerce checkout page.
 2. Validation error notice appears if the checkbox is not checked.
 3. Plugin settings page.
+4. Inserting the Additional terms block inside the WooCommerce checkout block.
+5. Additional terms and condition checkbox on the WooCommerce checkout block page.
 
 == Changelog ==
+= 1.5.0 =
+* Compatibility with WooCommerce Checkout block
+* Compatibility with WooCommerce 7.3
+
 = 1.4.1 =
 * Improved logic in displaying admin-notices.
 
