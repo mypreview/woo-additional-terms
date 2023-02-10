@@ -68,6 +68,7 @@
 									checked: false,
 								},
 								el( 'span', {
+									style: { fontSize: 16 },
 									dangerouslySetInnerHTML: {
 										__html: notice,
 									},
