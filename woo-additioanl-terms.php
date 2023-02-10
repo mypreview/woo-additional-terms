@@ -196,7 +196,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 			// Query WooCommerce activation.
 			if ( ! $this->is_woocommerce() ) {
 				/* translators: 1: Dashicon, Open anchor tag, 2: Close anchor tag. */
-				$message = sprintf( esc_html_x( '%1$s requires the following plugin: %2$sWooCommerce%3$s', 'admin notice', 'woo-additional-terms' ), sprintf( '<i class="dashicons dashicons-admin-plugins" style="vertical-align:sub"></i> <strong>%s</strong>', WOO_ADDITIONAL_TERMS_NAME ), '<a href="https://wordpress.org/plugins/woocommerce" target="_blank" rel="noopener noreferrer nofollow"><em>', '</em></a>' );
+				$message = sprintf( esc_html_x( '%1$s requires the following plugin: %2$sWooCommerce%3$s', 'admin notice', 'woo-additional-terms' ), sprintf( '<i class="dashicons dashicons-admin-plugins"></i> <strong>%s</strong>', WOO_ADDITIONAL_TERMS_NAME ), '<a href="https://wordpress.org/plugins/woocommerce" target="_blank" rel="noopener noreferrer nofollow"><em>', '</em></a>' );
 				printf( '<div class="notice notice-error notice-alt"><p>%s</p></div>', wp_kses_post( $message ) );
 			} else {
 				// Display a friendly admin notice upon plugin activation.
@@ -452,18 +452,8 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		 */
 		public function add_action_links( $links ) {
 			$plugin_links = array();
-
-			if ( $this->is_woocommerce() ) {
-				$settings_url = add_query_arg(
-					array(
-						'page' => 'wc-settings',
-						'tab'  => 'woo-additional-terms',
-					),
-					admin_url( 'admin.php' )
-				);
-				/* translators: 1: Open anchor tag, 2: Close anchor tag. */
-				$plugin_links[] = sprintf( esc_html_x( '%1$sSettings%2$s', 'plugin settings page', 'woo-additional-terms' ), sprintf( '<a href="%s" target="_self">', esc_url( $settings_url ) ), '</a>' );
-			}
+			/* translators: 1: Open anchor tag, 2: Close anchor tag. */
+			$plugin_links[] = sprintf( esc_html_x( '%1$sGet PRO%2$s', 'plugin link', 'woo-additional-terms' ), sprintf( '<a href="%s" target="_blank" rel="noopener noreferrer nofollow" style="color:green;font-weight:bold;">&#10003; ', esc_url( WOO_ADDITIONAL_TERMS_URI ) ), '</a>' );
 
 			return array_merge( $plugin_links, $links );
 		}
@@ -484,10 +474,18 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 			$plugin_links = array();
 			/* translators: 1: Open anchor tag, 2: Close anchor tag. */
 			$plugin_links[] = sprintf( esc_html_x( '%1$sCommunity support%2$s', 'plugin link', 'woo-additional-terms' ), sprintf( '<a href="https://wordpress.org/support/plugin/%s" target="_blank" rel="noopener noreferrer nofollow">', esc_html( WOO_ADDITIONAL_TERMS_SLUG ) ), '</a>' );
-			/* translators: 1: Open anchor tag, 2: Close anchor tag. */
-			$plugin_links[] = sprintf( esc_html_x( '%1$sDonate%2$s', 'plugin link', 'woo-additional-terms' ), sprintf( '<a href="https://www.buymeacoffee.com/mahdiyazdani" target="_blank" rel="noopener noreferrer nofollow" title="%s">☕ ', esc_attr__( 'Donate to support this plugin', 'woo-additional-terms' ) ), '</a>' );
-			/* translators: 1: Open anchor tag, 2: Close anchor tag. */
-			$plugin_links[] = sprintf( esc_html_x( '%1$sUpgrade to PRO%2$s', 'plugin link', 'woo-additional-terms' ), sprintf( '<a href="%s" target="_blank" rel="noopener noreferrer nofollow" class="button-link-delete"><span class="dashicons dashicons-cart" style="font-size:16px;vertical-align:middle;"></span> ', esc_url( WOO_ADDITIONAL_TERMS_URI ) ), '</a>' );
+
+			if ( $this->is_woocommerce() ) {
+				$settings_url = add_query_arg(
+					array(
+						'page' => 'wc-settings',
+						'tab'  => WOO_ADDITIONAL_TERMS_SLUG,
+					),
+					admin_url( 'admin.php' )
+				);
+				/* translators: 1: Open anchor tag, 2: Close anchor tag. */
+				$plugin_links[] = sprintf( esc_html_x( '%1$sSettings%2$s', 'plugin settings page', 'woo-additional-terms' ), sprintf( '<a href="%s" style="font-weight:bold;">&#9881; ', esc_url( $settings_url ) ), '</a>' );
+			}
 
 			return array_merge( $links, $plugin_links );
 		}
@@ -508,7 +506,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 				admin_url( 'admin.php' )
 			);
 			/* translators: 1: Dashicon, 2: Plugin name, 3: Open anchor tag, 4: Close anchor tag. */
-			$welcome_notice = sprintf( esc_html_x( '%1$s Thanks for installing %2$s plugin! To get started, visit the %3$splugin’s settings page%4$s.', 'admin notice', 'woo-additional-terms' ), '<i class="dashicons dashicons-admin-settings" style="vertical-align:sub"></i>', sprintf( '<strong>%s</strong>', WOO_ADDITIONAL_TERMS_NAME ), sprintf( '<a href="%s" target="_self">', esc_url( $settings_url ) ), '</a>' );
+			$welcome_notice = sprintf( esc_html_x( '%1$s Thanks for installing %2$s plugin! To get started, visit the %3$splugin’s settings page%4$s.', 'admin notice', 'woo-additional-terms' ), '<i class="dashicons dashicons-admin-settings"></i>', sprintf( '<strong>%s</strong>', WOO_ADDITIONAL_TERMS_NAME ), sprintf( '<a href="%s" target="_self">', esc_url( $settings_url ) ), '</a>' );
 			set_transient( 'woo_additional_terms_welcome_notice', $welcome_notice, MINUTE_IN_SECONDS );
 		}
 
@@ -530,7 +528,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		 * @since     1.3.3
 		 * @return    array
 		 */
-		public static function get_settings() {
+		private static function get_settings() {
 			$settings = array(
 				'section_title' => array(
 					'name' => esc_html_x( 'Terms and Conditions', 'settings section name', 'woo-additional-terms' ),
