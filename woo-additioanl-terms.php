@@ -488,10 +488,10 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 			return sprintf(
 				/* translators: 1: Open paragraph tag, 2: Plugin name, 3: Five stars, 4: Close paragraph tag. */
 				esc_html__( '%1$sIf you like %2$s please leave us a %3$s rating to help us spread the word!%4$s', 'woo-additional-terms' ),
-				'<p>',
+				'<p class="alignleft">',
 				sprintf( '<strong>%s</strong>', esc_html( WOO_ADDITIONAL_TERMS_NAME ) ),
 				'<a href="https://wordpress.org/support/plugin/' . esc_html( WOO_ADDITIONAL_TERMS_SLUG ) . '/reviews?rate=5#new-post" target="_blank" rel="noopener noreferrer nofollow" aria-label="' . esc_attr__( 'five star', 'woo-additional-terms' ) . '">&#9733;&#9733;&#9733;&#9733;&#9733;</a>',
-				'</p><style>#wpfooter{display:block !important}</style>'
+				'</p><style>#wpfooter{display:inline !important}</style>'
 			);
 		}
 
