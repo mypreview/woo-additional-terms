@@ -5,7 +5,7 @@ Donate link: https://mypreview.one/woo-additional-terms
 Requires at least: 5.0
 Tested up to: 6.1
 Requires PHP: 7.4
-Stable tag: 1.5.0
+Stable tag: 1.5.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.txt
 
@@ -111,6 +111,10 @@ Currently, the key features offered by the premium (paid) version of the plugin 
 5. Additional terms and condition checkbox on the WooCommerce checkout block page.
 
 == Changelog ==
+= 1.5.1 =
+* Update font-size for the checkout block
+* Compatibility with WooCommerce 7.4
+
 = 1.5.0 =
 * Compatibility with WooCommerce Checkout block
 * Compatibility with WooCommerce 7.3

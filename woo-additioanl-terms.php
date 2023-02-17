@@ -22,7 +22,7 @@
  * Plugin Name:             Woo Additional Terms
  * Plugin URI:              https://mypreview.one/woo-additional-terms
  * Description:             Add additional terms and condition checkbox to the WooCommerce checkout.
- * Version:                 1.5.0
+ * Version:                 1.5.1
  * Author:                  MyPreview
  * Author URI:              https://mypreview.one/woo-additional-terms
  * Requires at least:       5.0
@@ -124,6 +124,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 			add_action( 'woocommerce_checkout_process', array( self::instance(), 'checkbox_error' ), 99 );
 			add_action( 'woocommerce_checkout_update_order_meta', array( self::instance(), 'save_terms_acceptance' ) );
 			add_action( 'woocommerce_admin_order_data_after_billing_address', array( self::instance(), 'terms_acceptance' ) );
+			add_filter( 'admin_footer_text', array( self::instance(), 'ask_to_rate' ) );
 			add_filter( 'plugin_action_links_' . WOO_ADDITIONAL_TERMS_PLUGIN_BASENAME, array( self::instance(), 'add_action_links' ) );
 			add_filter( 'plugin_row_meta', array( self::instance(), 'add_meta_links' ), 10, 2 );
 			register_activation_hook( WOO_ADDITIONAL_TERMS_FILE, array( self::instance(), 'activation' ) );
@@ -196,7 +197,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 			// Query WooCommerce activation.
 			if ( ! $this->is_woocommerce() ) {
 				/* translators: 1: Dashicon, Open anchor tag, 2: Close anchor tag. */
-				$message = sprintf( esc_html_x( '%1$s requires the following plugin: %2$sWooCommerce%3$s', 'admin notice', 'woo-additional-terms' ), sprintf( '<i class="dashicons dashicons-admin-plugins" style="vertical-align:sub"></i> <strong>%s</strong>', WOO_ADDITIONAL_TERMS_NAME ), '<a href="https://wordpress.org/plugins/woocommerce" target="_blank" rel="noopener noreferrer nofollow"><em>', '</em></a>' );
+				$message = sprintf( esc_html_x( '%1$s requires the following plugin: %2$sWooCommerce%3$s', 'admin notice', 'woo-additional-terms' ), sprintf( '<i class="dashicons dashicons-admin-plugins"></i> <strong>%s</strong>', WOO_ADDITIONAL_TERMS_NAME ), '<a href="https://wordpress.org/plugins/woocommerce" target="_blank" rel="noopener noreferrer nofollow"><em>', '</em></a>' );
 				printf( '<div class="notice notice-error notice-alt"><p>%s</p></div>', wp_kses_post( $message ) );
 			} else {
 				// Display a friendly admin notice upon plugin activation.
@@ -300,10 +301,39 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		 * @return    void
 		 */
 		public function upsell_after_settings() {
-			/* translators: 1: Open H2 tag, 2: Close H2 tag. */
-			printf( esc_html_x( '%1$sLooking to add more terms & condition checkboxes?%2$s', 'upsell', 'woo-additional-terms' ), '<h2>', '</h2>' );
-			/* translators: 1: Open anchor tag, 2: Close anchor tag. */
-			printf( esc_html_x( '%1$sBuy PRO &#8594;%2$s', 'upsell', 'woo-additional-terms' ), sprintf( '<div class="woocommerce-message"><a href="%s" class="button-primary" target="_blank" rel="noopener noreferrer nofollow" title="%s"><span class="dashicons dashicons-cart" style="vertical-align:middle;font-size:16px;"></span> ', esc_url( WOO_ADDITIONAL_TERMS_URI ), esc_attr_x( 'Upgrade to premium version to unlock more features!', 'upsell', 'woo-additional-terms' ) ), '</a></div>' );
+			?>
+			<div class="woocommerce-message" style="background:#fff;border:1px solid #dadada;padding:25px 20px;margin-top:20px;position:relative;">
+				<h3 style="margin-top:0;">
+					<?php echo esc_html_x( 'Add terms & conditions checkboxes and protect your business by requiring the acknowledgment of rules.', 'upsell', 'woo-additional-terms' ); ?>
+				</h3>
+				<p>
+					<?php echo esc_html_x( 'Add unlimited customizable “I Agree with the terms and conditions” checkboxes to the WooCommerce checkout page.', 'upsell', 'woo-additional-terms' ); ?>
+				</p>
+				<ul style="max-width:700px;columns:2;list-style-type:disclosure-closed;margin-left:15px;">
+					<li><?php echo esc_html_x( 'Display terms in a modal', 'upsell', 'woo-additional-terms' ); ?></li>
+					<li><?php echo esc_html_x( '(Non) Skippable checkboxes', 'upsell', 'woo-additional-terms' ); ?></li>
+					<li><?php echo esc_html_x( 'Unlimited T&C checkboxes', 'upsell', 'woo-additional-terms' ); ?></li>
+					<li><?php echo esc_html_x( 'Unlimited ToS page links', 'upsell', 'woo-additional-terms' ); ?></li>
+					<li><?php echo esc_html_x( 'Smart conditional logic', 'upsell', 'woo-additional-terms' ); ?></li>
+					<li><?php echo esc_html_x( 'Detailed acceptance summary', 'upsell', 'woo-additional-terms' ); ?></li>
+					<li><?php echo esc_html_x( 'Multilingual ready', 'upsell', 'woo-additional-terms' ); ?></li>
+					<li><?php echo esc_html_x( 'Easy to install', 'upsell', 'woo-additional-terms' ); ?></li>
+				</ul>
+				<p>
+					<em>
+						<?php echo esc_html_x( 'Smart logic conditions will allow you to define restrictions based on several complex rules, such as products in the cart, which categories, tags, shipping classes, etc., cart items belong.', 'upsell', 'woo-additional-terms' ); ?>
+					</em>
+				</p>
+				<p>
+					<a href="<?php echo esc_url( WOO_ADDITIONAL_TERMS_URI ); ?>" class="button-primary" target="_blank" rel="noopener noreferrer nofollow">
+						<?php
+						/* translators: 1: Open anchor tag, 2: Close anchor tag. */
+						printf( esc_html_x( 'Get %s Pro and Unlock all the Powerful Features &#8594;', 'upsell', 'woo-additional-terms' ), esc_html( WOO_ADDITIONAL_TERMS_NAME ) );
+						?>
+					</a>
+				</p>
+			</div>
+			<?php
 		}
 
 		/**
@@ -443,6 +473,29 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		}
 
 		/**
+		 * Filters the “Thank you” text displayed in the admin footer.
+		 *
+		 * @since     1.5.0
+		 * @param     string $text    The content that will be printed.
+		 * @return    string
+		 * @phpcs:disable WordPress.Security.NonceVerification.Recommended
+		 */
+		public function ask_to_rate( $text ) {
+			if ( ! ( isset( $_GET['page'], $_GET['tab'] ) && 'wc-settings' === $_GET['page'] && WOO_ADDITIONAL_TERMS_SLUG === $_GET['tab'] ) ) {
+				return $text;
+			}
+
+			return sprintf(
+				/* translators: 1: Open paragraph tag, 2: Plugin name, 3: Five stars, 4: Close paragraph tag. */
+				esc_html__( '%1$sIf you like %2$s please leave us a %3$s rating to help us spread the word!%4$s', 'woo-additional-terms' ),
+				'<p class="alignleft">',
+				sprintf( '<strong>%s</strong>', esc_html( WOO_ADDITIONAL_TERMS_NAME ) ),
+				'<a href="https://wordpress.org/support/plugin/' . esc_html( WOO_ADDITIONAL_TERMS_SLUG ) . '/reviews?rate=5#new-post" target="_blank" rel="noopener noreferrer nofollow" aria-label="' . esc_attr__( 'five star', 'woo-additional-terms' ) . '">&#9733;&#9733;&#9733;&#9733;&#9733;</a>',
+				'</p><style>#wpfooter{display:inline !important}</style>'
+			);
+		}
+
+		/**
 		 * Display additional links in plugins table page.
 		 * Filters the list of action links displayed for a specific plugin in the Plugins list table.
 		 *
@@ -452,18 +505,8 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		 */
 		public function add_action_links( $links ) {
 			$plugin_links = array();
-
-			if ( $this->is_woocommerce() ) {
-				$settings_url = add_query_arg(
-					array(
-						'page' => 'wc-settings',
-						'tab'  => 'woo-additional-terms',
-					),
-					admin_url( 'admin.php' )
-				);
-				/* translators: 1: Open anchor tag, 2: Close anchor tag. */
-				$plugin_links[] = sprintf( esc_html_x( '%1$sSettings%2$s', 'plugin settings page', 'woo-additional-terms' ), sprintf( '<a href="%s" target="_self">', esc_url( $settings_url ) ), '</a>' );
-			}
+			/* translators: 1: Open anchor tag, 2: Close anchor tag. */
+			$plugin_links[] = sprintf( esc_html_x( '%1$sGet PRO%2$s', 'plugin link', 'woo-additional-terms' ), sprintf( '<a href="%s" target="_blank" rel="noopener noreferrer nofollow" style="color:green;font-weight:bold;">&#10003; ', esc_url( WOO_ADDITIONAL_TERMS_URI ) ), '</a>' );
 
 			return array_merge( $plugin_links, $links );
 		}
@@ -484,10 +527,18 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 			$plugin_links = array();
 			/* translators: 1: Open anchor tag, 2: Close anchor tag. */
 			$plugin_links[] = sprintf( esc_html_x( '%1$sCommunity support%2$s', 'plugin link', 'woo-additional-terms' ), sprintf( '<a href="https://wordpress.org/support/plugin/%s" target="_blank" rel="noopener noreferrer nofollow">', esc_html( WOO_ADDITIONAL_TERMS_SLUG ) ), '</a>' );
-			/* translators: 1: Open anchor tag, 2: Close anchor tag. */
-			$plugin_links[] = sprintf( esc_html_x( '%1$sDonate%2$s', 'plugin link', 'woo-additional-terms' ), sprintf( '<a href="https://www.buymeacoffee.com/mahdiyazdani" target="_blank" rel="noopener noreferrer nofollow" title="%s">☕ ', esc_attr__( 'Donate to support this plugin', 'woo-additional-terms' ) ), '</a>' );
-			/* translators: 1: Open anchor tag, 2: Close anchor tag. */
-			$plugin_links[] = sprintf( esc_html_x( '%1$sUpgrade to PRO%2$s', 'plugin link', 'woo-additional-terms' ), sprintf( '<a href="%s" target="_blank" rel="noopener noreferrer nofollow" class="button-link-delete"><span class="dashicons dashicons-cart" style="font-size:16px;vertical-align:middle;"></span> ', esc_url( WOO_ADDITIONAL_TERMS_URI ) ), '</a>' );
+
+			if ( $this->is_woocommerce() ) {
+				$settings_url = add_query_arg(
+					array(
+						'page' => 'wc-settings',
+						'tab'  => WOO_ADDITIONAL_TERMS_SLUG,
+					),
+					admin_url( 'admin.php' )
+				);
+				/* translators: 1: Open anchor tag, 2: Close anchor tag. */
+				$plugin_links[] = sprintf( esc_html_x( '%1$sSettings%2$s', 'plugin settings page', 'woo-additional-terms' ), sprintf( '<a href="%s" style="font-weight:bold;">&#9881; ', esc_url( $settings_url ) ), '</a>' );
+			}
 
 			return array_merge( $links, $plugin_links );
 		}
@@ -508,7 +559,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 				admin_url( 'admin.php' )
 			);
 			/* translators: 1: Dashicon, 2: Plugin name, 3: Open anchor tag, 4: Close anchor tag. */
-			$welcome_notice = sprintf( esc_html_x( '%1$s Thanks for installing %2$s plugin! To get started, visit the %3$splugin’s settings page%4$s.', 'admin notice', 'woo-additional-terms' ), '<i class="dashicons dashicons-admin-settings" style="vertical-align:sub"></i>', sprintf( '<strong>%s</strong>', WOO_ADDITIONAL_TERMS_NAME ), sprintf( '<a href="%s" target="_self">', esc_url( $settings_url ) ), '</a>' );
+			$welcome_notice = sprintf( esc_html_x( '%1$s Thanks for installing %2$s plugin! To get started, visit the %3$splugin’s settings page%4$s.', 'admin notice', 'woo-additional-terms' ), '<i class="dashicons dashicons-admin-settings"></i>', sprintf( '<strong>%s</strong>', WOO_ADDITIONAL_TERMS_NAME ), sprintf( '<a href="%s" target="_self">', esc_url( $settings_url ) ), '</a>' );
 			set_transient( 'woo_additional_terms_welcome_notice', $welcome_notice, MINUTE_IN_SECONDS );
 		}
 
@@ -530,7 +581,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		 * @since     1.3.3
 		 * @return    array
 		 */
-		public static function get_settings() {
+		private static function get_settings() {
 			$settings = array(
 				'section_title' => array(
 					'name' => esc_html_x( 'Terms and Conditions', 'settings section name', 'woo-additional-terms' ),
@@ -548,15 +599,19 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 					'autoload' => false,
 				),
 				'notice' => array(
-					'name'        => esc_html_x( 'Notice content', 'settings field name', 'woo-additional-terms' ),
-					'desc'        => esc_html_x( 'Text for the additional terms checkbox that customers must accept.', 'settings field description', 'woo-additional-terms' ),
-					'default'     => esc_html_x( 'I have read and agree to the website [additional-terms]', 'settings field default value', 'woo-additional-terms' ),
-					'placeholder' => esc_html_x( 'I have read and agree to the website [additional-terms]', 'settings field placeholder', 'woo-additional-terms' ),
-					'type'        => 'textarea',
-					'css'         => 'min-width:300px;',
-					'id'          => '_woo_additional_terms_notice',
-					'desc_tip'    => true,
-					'autoload'    => false,
+					'name'              => esc_html_x( 'Notice content', 'settings field name', 'woo-additional-terms' ),
+					'desc'              => esc_html_x( 'Text for the additional terms checkbox that customers must accept.', 'settings field description', 'woo-additional-terms' ),
+					'default'           => esc_html_x( 'I have read and agree to the website [additional-terms]', 'settings field default value', 'woo-additional-terms' ),
+					'placeholder'       => esc_html_x( 'I have read and agree to the website [additional-terms]', 'settings field placeholder', 'woo-additional-terms' ),
+					'type'              => 'textarea',
+					'css'               => 'min-width:300px;',
+					'id'                => '_woo_additional_terms_notice',
+					'desc_tip'          => true,
+					'autoload'          => false,
+					'custom_attributes' => array(
+						'rows' => '4',
+						'cols' => '50',
+					),
 				),
 				'error' => array(
 					'name'        => esc_html_x( 'Error message', 'settings field name', 'woo-additional-terms' ),
