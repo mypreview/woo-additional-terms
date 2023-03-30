@@ -1,13 +1,15 @@
 <?php
 /**
- * Unistall Woo Additional Terms.
+ * Uninstall Woo Additional Terms.
  * Fired when the plugin is uninstalled.
  *
- * @link       https://mypreview.one/woo-additional-terms
- * @author     MyPreview (Github: @mahdiyazdani, @gooklani, @mypreview)
- * @since      1.0.0
+ * @link https://mypreview.one/woo-additional-terms
  *
- * @package    woo-additional-terms
+ * @author MyPreview (Github: @mahdiyazdani, @gooklani, @mypreview)
+ *
+ * @since 1.0.0
+ *
+ * @package woo-additional-terms
  */
 
 defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
