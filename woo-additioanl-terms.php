@@ -430,6 +430,10 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 						<i class="dashicons dashicons-yes"></i>
 						<?php echo esc_html_x( 'Choose whether or not the checkbox is checked by default', 'upsell', 'woo-additional-terms' ); ?>
 					</li>
+					<li>
+						<i class="dashicons dashicons-yes"></i>
+						<?php echo esc_html_x( 'Import and export your plugin settings and content', 'upsell', 'woo-additional-terms' ); ?>
+					</li>
 				</ul>
 				<p class="importer-title">
 					<?php echo esc_html_x( 'Why settle for the basic version when you can have access to all these advanced features?', 'upsell', 'woo-additional-terms' ); ?>
