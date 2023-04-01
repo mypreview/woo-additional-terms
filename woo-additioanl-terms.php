@@ -25,7 +25,7 @@
  * @wordpress-plugin
  * Plugin Name:          Woo Additional Terms
  * Plugin URI:           https://mypreview.one/woo-additional-terms
- * Description:          Add additional terms and condition checkbox to the WooCommerce checkout.
+ * Description:          Add an additional terms and conditions checkbox to your WooCommerce checkout page.
  * Version:              1.5.2
  * Author:               MyPreview
  * Author URI:           https://mypreview.one/woo-additional-terms
@@ -241,9 +241,9 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 			}
 
 			if ( ! WOO_ADDITIONAL_TERMS_IS_PRO && ! get_transient( 'woo_additional_terms_upsell' ) && ( time() - (int) get_site_option( 'woo_additional_terms_activation_timestamp' ) ) > DAY_IN_SECONDS ) {
-				/* translators: 1: HTML Symbol, 2: HTML symbol, 3: Open anchor tag, 4: Close anchor tag. */
-				$message = sprintf( esc_html_x( '%1$s Add unlimited “I Agree with terms & conditions” checkboxes to the WooCommerce checkout without any manual effort needed. %2$s %3$sUpgrade to PRO%4$s', 'admin notice', 'woo-additional-terms' ), '&#9745;', '&#8594;', sprintf( '<a href="%s" class="button-primary" target="_blank" rel="noopener noreferrer nofollow">', esc_url( WOO_ADDITIONAL_TERMS_URI ) ), '</a>' );
-				printf( '<div id="%s-dismiss-upsell" class="notice notice-info woocommerce-message notice-alt is-dismissible"><p>%s</p></div>', esc_attr( self::SLUG ), wp_kses_post( $message ) );
+				/* translators: 1: Dashicon, 3: Open anchor tag, 4: Close anchor tag. */
+				$message = sprintf( esc_html_x( '%1$s Upgrade to Woo Additional Terms PRO and get access to an abundance of features, including unlimited custom checkboxes and advanced conditional logic. %2$sGo PRO for More Options%3$s', 'admin notice', 'woo-additional-terms' ), '<i class="dashicons dashicons-saved" style="box-shadow:inset 0 0 0 2px currentColor;"></i>', sprintf( '<br><br><a href="%s" class="button-primary" target="_blank" rel="noopener noreferrer nofollow">', esc_url( WOO_ADDITIONAL_TERMS_URI ) ), ' &#8594;</a>' );
+				printf( '<div id="%s-dismiss-upsell" class="notice notice-info woocommerce-message notice-alt is-dismissible"><p>%s</p></div>', esc_attr( self::SLUG ), $message );
 				return;
 			}
 
@@ -365,32 +365,81 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 			?>
 			<div class="woocommerce-message" style="background:#fff;border:1px solid #dadada;padding:25px 20px;margin-top:20px;position:relative;">
 				<h3 style="margin-top:0;">
-					<?php echo esc_html_x( 'Add terms & conditions checkboxes and protect your business by requiring the acknowledgment of rules.', 'upsell', 'woo-additional-terms' ); ?>
+					<?php echo esc_html_x( 'Upgrade to Woo Additional Terms PRO for More Control Over Your Store’s Policies', 'upsell', 'woo-additional-terms' ); ?>
 				</h3>
-				<p>
-					<?php echo esc_html_x( 'Add unlimited customizable “I Agree with the terms and conditions” checkboxes to the WooCommerce checkout page.', 'upsell', 'woo-additional-terms' ); ?>
+				<p class="importer-title">
+					<?php echo esc_html_x( 'Are you looking for more advanced features to customize your WooCommerce store’s checkout process? Upgrade to Woo Additional Terms PRO and get access to a wealth of additional functionalities that will allow you to take control of your store’s policies and improve customer trust.', 'upsell', 'woo-additional-terms' ); ?>
 				</p>
-				<ul style="max-width:700px;columns:2;list-style-type:disclosure-closed;margin-left:15px;">
-					<li><?php echo esc_html_x( 'Display terms in a modal', 'upsell', 'woo-additional-terms' ); ?></li>
-					<li><?php echo esc_html_x( '(Non) Skippable checkboxes', 'upsell', 'woo-additional-terms' ); ?></li>
-					<li><?php echo esc_html_x( 'Unlimited T&C checkboxes', 'upsell', 'woo-additional-terms' ); ?></li>
-					<li><?php echo esc_html_x( 'Unlimited ToS page links', 'upsell', 'woo-additional-terms' ); ?></li>
-					<li><?php echo esc_html_x( 'Smart conditional logic', 'upsell', 'woo-additional-terms' ); ?></li>
-					<li><?php echo esc_html_x( 'Detailed acceptance summary', 'upsell', 'woo-additional-terms' ); ?></li>
-					<li><?php echo esc_html_x( 'Multilingual ready', 'upsell', 'woo-additional-terms' ); ?></li>
-					<li><?php echo esc_html_x( 'Easy to install', 'upsell', 'woo-additional-terms' ); ?></li>
+				<p class="importer-title">
+					<?php echo esc_html_x( 'With Woo Additional Terms PRO, you’ll enjoy an abundance of features that aren’t available in the free version, including:', 'upsell', 'woo-additional-terms' ); ?>
+				</p>
+				<ul style="display:grid;gap:5px 10px;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));font-size:14px;margin-block:20px;">
+					<li>
+						<i class="dashicons dashicons-yes"></i>
+						<?php echo esc_html_x( 'Unlimited custom terms and conditions checkboxes', 'upsell', 'woo-additional-terms' ); ?>
+					</li>
+					<li>
+						<i class="dashicons dashicons-yes"></i>
+						<?php echo esc_html_x( 'Create complex conditional logic to display checkboxs', 'upsell', 'woo-additional-terms' ); ?>
+					</li>
+					<li>
+						<i class="dashicons dashicons-yes"></i>
+						<?php echo esc_html_x( 'Restrict terms checkboxes by Products', 'upsell', 'woo-additional-terms' ); ?>
+					</li>
+					<li>
+						<i class="dashicons dashicons-yes"></i>
+						<?php echo esc_html_x( 'Restrict terms checkboxes by Tags', 'upsell', 'woo-additional-terms' ); ?>
+					</li>
+					<li>
+						<i class="dashicons dashicons-yes"></i>
+						<?php echo esc_html_x( 'Restrict terms checkboxes by Categories', 'upsell', 'woo-additional-terms' ); ?>
+					</li>
+					<li>
+						<i class="dashicons dashicons-yes"></i>
+						<?php echo esc_html_x( 'Restrict terms checkboxes by Types of products', 'upsell', 'woo-additional-terms' ); ?>
+					</li>
+					<li>
+						<i class="dashicons dashicons-yes"></i>
+						<?php echo esc_html_x( 'Restrict terms checkboxes by Shipping classes', 'upsell', 'woo-additional-terms' ); ?>
+					</li>
+					<li>
+						<i class="dashicons dashicons-yes"></i>
+						<?php echo esc_html_x( 'Restrict terms checkboxes by WooCommerce brands', 'upsell', 'woo-additional-terms' ); ?>
+					</li>
+					<li>
+						<i class="dashicons dashicons-yes"></i>
+						<?php echo esc_html_x( 'Restrict terms checkboxes by Locations', 'upsell', 'woo-additional-terms' ); ?>
+					</li>
+					<li>
+						<i class="dashicons dashicons-yes"></i>
+						<?php echo esc_html_x( 'Track of agreements with detailed acceptance summary', 'upsell', 'woo-additional-terms' ); ?>
+					</li>
+					<li>
+						<i class="dashicons dashicons-yes"></i>
+						<?php echo esc_html_x( 'Display the terms content in a modal', 'upsell', 'woo-additional-terms' ); ?>
+					</li>
+					<li>
+						<i class="dashicons dashicons-yes"></i>
+						<?php echo esc_html_x( 'Display the terms content in a new tab', 'upsell', 'woo-additional-terms' ); ?>
+					</li>
+					<li>
+						<i class="dashicons dashicons-yes"></i>
+						<?php echo esc_html_x( 'Embed the terms content above the checkbox', 'upsell', 'woo-additional-terms' ); ?>
+					</li>
+					<li>
+						<i class="dashicons dashicons-yes"></i>
+						<?php echo esc_html_x( 'Choose whether or not the checkbox is checked by default', 'upsell', 'woo-additional-terms' ); ?>
+					</li>
 				</ul>
-				<p>
-					<em>
-						<?php echo esc_html_x( 'Smart logic conditions will allow you to define restrictions based on several complex rules, such as products in the cart, which categories, tags, shipping classes, etc., cart items belong.', 'upsell', 'woo-additional-terms' ); ?>
-					</em>
+				<p class="importer-title">
+					<?php echo esc_html_x( 'Why settle for the basic version when you can have access to all these advanced features?', 'upsell', 'woo-additional-terms' ); ?>
 				</p>
 				<p>
 					<a href="<?php echo esc_url( WOO_ADDITIONAL_TERMS_URI ); ?>" class="button-primary" target="_blank" rel="noopener noreferrer nofollow">
 						<?php
-						/* translators: 1: Open anchor tag, 2: Close anchor tag. */
-						printf( esc_html_x( 'Get %s Pro and Unlock all the Powerful Features &#8594;', 'upsell', 'woo-additional-terms' ), esc_html( WOO_ADDITIONAL_TERMS_NAME ) );
+						printf( esc_html_x( 'Go PRO for More Options', 'upsell', 'woo-additional-terms' ), esc_html( WOO_ADDITIONAL_TERMS_NAME ) );
 						?>
+						 &#8594;
 					</a>
 				</p>
 			</div>
@@ -568,11 +617,11 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 
 			return sprintf(
 				/* translators: 1: Open paragraph tag, 2: Plugin name, 3: Five stars, 4: Close paragraph tag. */
-				esc_html__( '%1$sIf you like %2$s please leave us a %3$s rating to help us spread the word!%4$s', 'woo-additional-terms' ),
+				esc_html__( '%1$sIf you are happy with %2$s please leave us a %3$s rating to help us spread the word!%4$s', 'woo-additional-terms' ),
 				'<p class="alignleft">',
 				sprintf( '<strong>%s</strong>', esc_html( WOO_ADDITIONAL_TERMS_NAME ) ),
 				'<a href="https://wordpress.org/support/plugin/' . esc_html( self::SLUG ) . '/reviews?rate=5#new-post" target="_blank" rel="noopener noreferrer nofollow" aria-label="' . esc_attr__( 'five star', 'woo-additional-terms' ) . '">&#9733;&#9733;&#9733;&#9733;&#9733;</a>',
-				'</p><style>#wpfooter{display:inline !important}</style>'
+				'</p><style>#wpfooter{display:inline !important}.has-woocommerce-navigation #wpfooter{padding-left: 260px;}</style>'
 			);
 		}
 
