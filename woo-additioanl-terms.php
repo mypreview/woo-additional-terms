@@ -436,9 +436,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 				</p>
 				<p>
 					<a href="<?php echo esc_url( WOO_ADDITIONAL_TERMS_URI ); ?>" class="button-primary" target="_blank" rel="noopener noreferrer nofollow">
-						<?php
-						printf( esc_html_x( 'Go PRO for More Options', 'upsell', 'woo-additional-terms' ), esc_html( WOO_ADDITIONAL_TERMS_NAME ) );
-						?>
+						<?php echo esc_html_x( 'Go PRO for More Options', 'upsell', 'woo-additional-terms' ); ?>
 						 &#8594;
 					</a>
 				</p>
