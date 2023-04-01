@@ -224,9 +224,21 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 
 			// Query WooCommerce activation.
 			if ( ! $this->is_woocommerce() ) {
-				/* translators: 1: Dashicon, Open anchor tag, 2: Close anchor tag. */
-				$message = sprintf( esc_html_x( '%1$s requires the following plugin: %2$sWooCommerce%3$s', 'admin notice', 'woo-additional-terms' ), sprintf( '<i class="dashicons dashicons-admin-plugins"></i> <strong>%s</strong>', WOO_ADDITIONAL_TERMS_NAME ), '<a href="https://wordpress.org/plugins/woocommerce" target="_blank" rel="noopener noreferrer nofollow"><em>', '</em></a>' );
-				printf( '<div class="notice notice-error notice-alt"><p>%s</p></div>', wp_kses_post( $message ) );
+				$message = sprintf(
+					/* translators: 1: Dashicon, Open anchor tag, 2: Close anchor tag. */
+					esc_html_x( '%1$s requires the following plugin: %2$sWooCommerce%3$s', 'admin notice', 'woo-additional-terms' ),
+					sprintf(
+						'<i class="dashicons dashicons-admin-plugins"></i> <strong>%s</strong>',
+						WOO_ADDITIONAL_TERMS_NAME
+					),
+					'<a href="https://wordpress.org/plugins/woocommerce" target="_blank" rel="noopener noreferrer nofollow"><em>',
+					'</em></a>'
+				);
+				?>
+				<div class="notice notice-error notice-alt">
+					<p><?php echo wp_kses_post( $message ); ?></p>
+				</div>
+				<?php
 				return;
 			}
 
@@ -235,22 +247,51 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 			$welcome_notice           = get_transient( $welcome_notice_transient );
 
 			if ( $welcome_notice ) {
-				printf( '<div class="notice notice-info"><p>%s</p></div>', wp_kses_post( $welcome_notice ) );
+				?>
+				<div class="notice notice-info">
+					<p><?php echo wp_kses_post( $welcome_notice ); ?></p>
+				</div>
+				<?php
 				delete_transient( $welcome_notice_transient );
 				return;
 			}
 
 			if ( ! WOO_ADDITIONAL_TERMS_IS_PRO && ! get_transient( 'woo_additional_terms_upsell' ) && ( time() - (int) get_site_option( 'woo_additional_terms_activation_timestamp' ) ) > DAY_IN_SECONDS ) {
-				/* translators: 1: Dashicon, 3: Open anchor tag, 4: Close anchor tag. */
-				$message = sprintf( esc_html_x( '%1$s Upgrade to Woo Additional Terms PRO and get access to an abundance of features, including unlimited custom checkboxes and advanced conditional logic. %2$sGo PRO for More Options%3$s', 'admin notice', 'woo-additional-terms' ), '<i class="dashicons dashicons-saved" style="box-shadow:inset 0 0 0 2px currentColor;"></i>', sprintf( '<br><br><a href="%s" class="button-primary" target="_blank" rel="noopener noreferrer nofollow">', esc_url( WOO_ADDITIONAL_TERMS_URI ) ), ' &#8594;</a>' );
-				printf( '<div id="%s-dismiss-upsell" class="notice notice-info woocommerce-message notice-alt is-dismissible"><p>%s</p></div>', esc_attr( self::SLUG ), $message );
+				?>
+				<div id="<?php echo esc_attr( self::SLUG ); ?>-dismiss-upsell" class="notice notice-info woocommerce-message notice-alt is-dismissible">
+					<p>
+						<i class="dashicons dashicons-saved" style="box-shadow:inset 0 0 0 2px currentColor"></i>
+						<?php echo esc_html_x( 'Upgrade to Woo Additional Terms PRO and get access to an abundance of features, including unlimited custom checkboxes and advanced conditional logic.', 'admin notice', 'woo-additional-terms' ); ?>
+						<br>
+						<br>
+						<a href="<?php echo esc_url( WOO_ADDITIONAL_TERMS_URI ); ?>" class="button-primary" target="_blank" rel="noopener noreferrer nofollow">
+							<?php echo esc_html_x( 'Go PRO for More Options', 'admin notice', 'woo-additional-terms' ); ?> &#8594;
+						</a>
+					</p>
+				</div>
+				<?php
 				return;
 			}
 
 			if ( ! get_transient( 'woo_additional_terms_rate' ) && ( time() - (int) get_site_option( 'woo_additional_terms_activation_timestamp' ) ) > WEEK_IN_SECONDS ) {
-				/* translators: 1: HTML symbol, 2: Plugin name, 3: Activation duration, 4: HTML symbol, 5: Open anchor tag, 6: Close anchor tag. */
-				$message = sprintf( esc_html_x( '%1$s You have been using the %2$s plugin for %3$s now, do you like it as much as we like you? %4$s %5$sRate 5-Stars%6$s', 'admin notice', 'woo-additional-terms' ), '&#9733;', esc_html( WOO_ADDITIONAL_TERMS_NAME ), human_time_diff( (int) get_site_option( 'woo_additional_terms_activation_timestamp' ), time() ), '&#8594;', sprintf( '<a href="https://wordpress.org/support/plugin/%s/reviews?rate=5#new-post" class="button-primary" target="_blank" rel="noopener noreferrer nofollow">&#9733; ', esc_attr( self::SLUG ) ), '</a>' );
-				printf( '<div id="%s-dismiss-rate" class="notice notice-info is-dismissible"><p>%s</p></div>', esc_attr( self::SLUG ), wp_kses_post( $message ) );
+				$message = sprintf(
+					/* translators: 1: HTML symbol, 2: Plugin name, 3: Activation duration, 4: HTML symbol, 5: Open anchor tag, 6: Close anchor tag. */
+					esc_html_x( '%1$s You have been using the %2$s plugin for %3$s now, do you like it as much as we like you? %4$s %5$sRate 5-Stars%6$s', 'admin notice', 'woo-additional-terms' ),
+					'&#9733;',
+					esc_html( WOO_ADDITIONAL_TERMS_NAME ),
+					human_time_diff( (int) get_site_option( 'woo_additional_terms_activation_timestamp' ), time() ),
+					'&#8594;',
+					sprintf(
+						'<a href="https://wordpress.org/support/plugin/%s/reviews?rate=5#new-post" class="button-primary" target="_blank" rel="noopener noreferrer nofollow">&#9733; ',
+						esc_attr( self::SLUG )
+					),
+					'</a>'
+				);
+				?>
+				<div id="<?php echo esc_attr( self::SLUG ); ?>-dismiss-rate" class="notice notice-info is-dismissible">
+					<p><?php echo wp_kses_post( $message ); ?></p>
+				</div>
+				<?php
 			}
 		}
 
@@ -441,7 +482,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 				<p>
 					<a href="<?php echo esc_url( WOO_ADDITIONAL_TERMS_URI ); ?>" class="button-primary" target="_blank" rel="noopener noreferrer nofollow">
 						<?php echo esc_html_x( 'Go PRO for More Options', 'upsell', 'woo-additional-terms' ); ?>
-						 &#8594;
+						&#8594;
 					</a>
 				</p>
 			</div>
