@@ -25,7 +25,7 @@
  * @wordpress-plugin
  * Plugin Name:          Woo Additional Terms
  * Plugin URI:           https://mypreview.one/woo-additional-terms
- * Description:          Add an additional terms and conditions checkbox to your WooCommerce checkout page.
+ * Description:          Add additional terms and conditions checkbox to your WooCommerce checkout page.
  * Version:              1.5.2
  * Author:               MyPreview
  * Author URI:           https://mypreview.one/woo-additional-terms
@@ -130,7 +130,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 			add_action( 'wp_ajax_woo_additional_terms_dismiss_upsell', array( self::instance(), 'dismiss_upsell' ) );
 			add_action( 'wp_ajax_woo_additional_terms_dismiss_rate', array( self::instance(), 'dismiss_rate' ) );
 			add_action( 'before_woocommerce_init', array( self::instance(), 'add_compatibility' ) );
-			add_filter( 'woocommerce_settings_tabs_array', array( self::instance(), 'add_settings_tab' ), 999, 1 );
+			add_filter( 'woocommerce_settings_tabs_array', array( self::instance(), 'add_settings_tab' ), 999 );
 			add_action( 'woocommerce_settings_tabs_' . self::SLUG, array( self::instance(), 'render_plugin_page' ) );
 			add_action( 'woocommerce_update_options_' . self::SLUG, array( self::instance(), 'update_plugin_page' ) );
 			add_action( 'woocommerce_after_settings_' . self::SLUG, array( self::instance(), 'upsell_after_settings' ) );
@@ -343,7 +343,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 				return;
 			}
 
-			FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+			FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__ );
 		}
 
 		/**
@@ -421,7 +421,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 					</li>
 					<li>
 						<i class="dashicons dashicons-yes"></i>
-						<?php echo esc_html_x( 'Create complex conditional logic to display checkboxs', 'upsell', 'woo-additional-terms' ); ?>
+						<?php echo esc_html_x( 'Create complex conditional logic to display checkboxes', 'upsell', 'woo-additional-terms' ); ?>
 					</li>
 					<li>
 						<i class="dashicons dashicons-yes"></i>
