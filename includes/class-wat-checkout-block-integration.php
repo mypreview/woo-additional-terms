@@ -114,15 +114,24 @@ if ( ! class_exists( 'WAT_Checkout_Block_Integration' ) ) :
 		 */
 		public function get_script_data() {
 
-			$notice  = (string) get_option( '_woo_additional_terms_notice', '' );
+			$notice  = get_option( '_woo_additional_terms_notice', '' );
 			$page_id = get_option( '_woo_additional_terms_page_id', null );
 
 			if (
 				! empty( $page_id )
+				&& get_post( $page_id )
 				&& ! empty( $notice )
 				&& false !== strpos( $notice, '[additional-terms]' )
 			) {
-				$notice = str_replace( '[additional-terms]', sprintf( '<a href="%s" class="woo-additional-terms__link" target="_blank" rel="noopener noreferrer nofollow">%s</a>', esc_url( get_permalink( $page_id ) ), esc_html( get_the_title( $page_id ) ) ), $notice );
+				$notice = str_replace(
+					'[additional-terms]',
+					sprintf(
+						'<a href="%s" class="woo-additional-terms__link" target="_blank" rel="noopener noreferrer nofollow">%s</a>',
+						esc_url( get_permalink( $page_id ) ),
+						wp_kses_post( get_the_title( $page_id ) )
+					),
+					$notice
+				);
 			}
 
 			return array(
@@ -181,15 +190,18 @@ if ( ! class_exists( 'WAT_Checkout_Block_Integration' ) ) :
 		 */
 		public function save_terms_acceptance( $order, $request ) {
 
-			$acceptance = null;
-
-			if ( isset( $request['extensions'], $request['extensions']['_woo_additional_terms'], $request['extensions']['_woo_additional_terms']['wat_checkbox'] ) ) {
-				$acceptance = '1';
+			if ( ! isset( $request['extensions'], $request['extensions']['_woo_additional_terms'], $request['extensions']['_woo_additional_terms']['wat_checkbox'] ) ) {
+				return;
 			}
 
-			if ( $acceptance ) {
-				$order->update_meta_data( '_woo_additional_terms', $acceptance );
-			}
+			$order->update_meta_data(
+				'_woo_additional_terms',
+				array(
+					'id'     => wc_clean( get_option( '_woo_additional_terms_page_id', null ) ),
+					'notice' => wc_clean( get_option( '_woo_additional_terms_notice', '' ) ),
+					'error'  => wc_clean( get_option( '_woo_additional_terms_error', '' ) ),
+				)
+			);
 		}
 
 		/**

@@ -549,7 +549,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 
 		/**
 		 * Display additional terms and condition checkbox on
-		 * the checkout page before the submit (place order) button.
+		 * the checkout page before to submit (place order) button.
 		 *
 		 * @since 1.3.3
 		 *
@@ -557,26 +557,40 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		 */
 		public function print_checkbox() {
 
-			$page_id = (int) get_option( '_woo_additional_terms_page_id', null );
-			$notice  = (string) get_option( '_woo_additional_terms_notice' );
+			$page_id = get_option( '_woo_additional_terms_page_id', null );
+			$notice  = get_option( '_woo_additional_terms_notice', '' );
 
-			// Bail out, if the page ID is not defined yet!
-			if ( empty( $page_id ) ) {
-				return;
+			if (
+				! empty( $page_id )
+				&& get_post( $page_id )
+				&& ! empty( $notice )
+				&& false !== strpos( $notice, '[additional-terms]' )
+			) {
+				$notice = str_replace(
+					'[additional-terms]',
+					sprintf(
+						'<a href="%s" class="woo-additional-terms__link" target="_blank" rel="noopener noreferrer nofollow">%s</a>',
+						esc_url( get_permalink( $page_id ) ),
+						wp_kses_post( get_the_title( $page_id ) )
+					),
+					$notice
+				);
 			}
 
-			if ( false !== strpos( $notice, '[additional-terms]' ) ) {
-				$notice = str_replace( '[additional-terms]', sprintf( '<a href="%s" class="woo-additional-terms__link" target="_blank" rel="noopener noreferrer nofollow">%s</a>', esc_url( get_permalink( $page_id ) ), esc_html( get_the_title( $page_id ) ) ), $notice );
+			if ( empty( $notice ) ) {
+				return;
 			}
 
 			?>
 			<div class="woocommerce-terms-and-conditions-wrapper woo-additional-terms">
 				<?php self::terms_page_content( $page_id, true ); ?>
+
 				<p class="form-row validate-required">
 					<label class="woocommerce-form__label woocommerce-form__label-for-checkbox checkbox">
 					<input type="checkbox" class="woocommerce-form__input woocommerce-form__input-checkbox input-checkbox" name="_woo_additional_terms" id="_woo_additional_terms" value="1" />
-						<span class="woocommerce-terms-and-conditions-checkbox-text"><?php echo wp_kses_post( $notice ); ?></span>&nbsp;<abbr class="required" title="<?php esc_attr_e( 'required', 'woo-additional-terms' ); ?>">*</abbr>
-					</label>
+						<span class="woocommerce-terms-and-conditions-checkbox-text"><?php echo wp_kses_post( $notice ); ?></span>&nbsp;
+						<abbr class="required" title="<?php esc_attr_e( 'required', 'woo-additional-terms' ); ?>">*</abbr>
+				</label>
 				</p>
 			</div>
 			<?php
@@ -590,13 +604,19 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		 * @return void
 		 */
 		public function checkbox_error() {
-			$page_id = (int) get_option( '_woo_additional_terms_page_id' );
-			$error   = (string) get_option( '_woo_additional_terms_error' );
-			$data    = wp_unslash( $_POST ); // phpcs:ignore WordPress.VIP.SuperGlobalInputUsage.AccessDetected, WordPress.CSRF.NonceVerification.NoNonceVerification
 
-			if ( ! (int) isset( $data['_woo_additional_terms'], $page_id ) && ! empty( $page_id ) ) {
-				wc_add_notice( wp_kses_post( $error ), 'error' );
+			// phpcs:ignore WordPress.Security.NonceVerification.Missing
+			if ( isset( $_POST['_woo_additional_terms'] ) ) {
+				return;
 			}
+
+			$error = get_option( '_woo_additional_terms_error', '' );
+
+			if ( empty( $error ) ) {
+				return;
+			}
+
+			wc_add_notice( wp_kses_post( $error ), 'error' );
 		}
 
 		/**
@@ -611,13 +631,26 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		 */
 		public function save_terms_acceptance( $order_id ) {
 
-			$data       = wp_unslash( $_POST ); // phpcs:ignore WordPress.VIP.SuperGlobalInputUsage.AccessDetected, WordPress.CSRF.NonceVerification.NoNonceVerification
-			$acceptance = isset( $data['_woo_additional_terms'] ) ? wc_string_to_bool( $data['_woo_additional_terms'] ) : null;
-			$order      = wc_get_order( $order_id );
-
-			if ( $acceptance && ( $order instanceof WC_Order ) ) {
-				update_post_meta( $order_id, '_woo_additional_terms', $acceptance );
+			// phpcs:ignore WordPress.Security.NonceVerification.Missing
+			if ( ! isset( $_POST['_woo_additional_terms'] ) ) {
+				return;
 			}
+
+			$order = wc_get_order( $order_id );
+
+			if ( ! ( $order instanceof WC_Order ) ) {
+				return;
+			}
+
+			update_post_meta(
+				$order_id,
+				'_woo_additional_terms',
+				array(
+					'id'     => wc_clean( get_option( '_woo_additional_terms_page_id', null ) ),
+					'notice' => wc_clean( get_option( '_woo_additional_terms_notice', '' ) ),
+					'error'  => wc_clean( get_option( '_woo_additional_terms_error', '' ) ),
+				)
+			);
 		}
 
 		/**
@@ -631,20 +664,27 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		 */
 		public function terms_acceptance( $order ) {
 
-			$page_id = (int) get_option( '_woo_additional_terms_page_id', null );
+			$value = $order->get_meta( '_woo_additional_terms' );
 
-			// Bail out, if the page ID is not defined yet!
-			if ( empty( $page_id ) ) {
+			if ( ! boolval( $value ) || empty( $value ) ) {
 				return;
 			}
 
 			/* incorrect CSS class added here, so it adopts styling we want */
 			?>
 			<div class="address">
-			<?php
-			$value = $order->get_meta( '_woo_additional_terms' ) ? esc_html__( 'Accepted', 'woo-additional-terms' ) : esc_html__( 'N/A', 'woo-additional-terms' );
-			printf( '<p><strong>%s:</strong>%s</p>', wp_kses_post( get_the_title( $page_id ) ), esc_html( $value ) );
-			?>
+				<p>
+					<strong>
+						<?php
+						if ( ! is_array( $value ) ) {
+							esc_html_e( 'Additional terms and conditions:', 'woo-additional-terms' );
+						} else {
+							echo esc_html( empty( $value['id'] ) ? $value['notice'] : wp_kses_post( get_the_title( $value['id'] ) ) );
+						}
+						?>
+					</strong>
+					<?php esc_html_e( 'Accepted', 'woo-additional-terms' ); ?>
+				</p>
 			</div>
 			<?php
 		}
@@ -785,8 +825,8 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 			$settings = array(
 				'section_title' => array(
 					'name' => esc_html_x( 'Terms and Conditions', 'settings section name', 'woo-additional-terms' ),
-					'type' => 'title',
 					'desc' => esc_html_x( 'This section controls the display of your additional terms and condition fieldset.', 'settings section description', 'woo-additional-terms' ),
+					'type' => 'title',
 				),
 				'page_id' => array(
 					'name'     => esc_html_x( 'Terms page', 'settings field name', 'woo-additional-terms' ),
@@ -809,20 +849,24 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 					'desc_tip'          => true,
 					'autoload'          => false,
 					'custom_attributes' => array(
-						'rows' => '4',
-						'cols' => '50',
+						'rows'     => '4',
+						'cols'     => '50',
+						'required' => true,
 					),
 				),
 				'error' => array(
-					'name'        => esc_html_x( 'Error message', 'settings field name', 'woo-additional-terms' ),
-					'desc'        => esc_html_x( 'Display friendly notice whenever customer doesn&rsquo;t accept additional terms.', 'settings field description', 'woo-additional-terms' ),
-					'default'     => esc_html_x( 'Please read and accept the additional terms and conditions to proceed with your order. ', 'settings field default value', 'woo-additional-terms' ),
-					'placeholder' => esc_html_x( 'You must accept our additional terms.', 'setting field placeholder', 'woo-additional-terms' ),
-					'type'        => 'text',
-					'css'         => 'min-width:300px;',
-					'id'          => '_woo_additional_terms_error',
-					'desc_tip'    => true,
-					'autoload'    => false,
+					'name'              => esc_html_x( 'Error message', 'settings field name', 'woo-additional-terms' ),
+					'desc'              => esc_html_x( 'Display friendly notice whenever customer doesn&rsquo;t accept additional terms.', 'settings field description', 'woo-additional-terms' ),
+					'default'           => esc_html_x( 'Please read and accept the additional terms and conditions to proceed with your order. ', 'settings field default value', 'woo-additional-terms' ),
+					'placeholder'       => esc_html_x( 'You must accept our additional terms.', 'setting field placeholder', 'woo-additional-terms' ),
+					'type'              => 'text',
+					'css'               => 'min-width:300px;',
+					'id'                => '_woo_additional_terms_error',
+					'desc_tip'          => true,
+					'autoload'          => false,
+					'custom_attributes' => array(
+						'required' => true,
+					),
 				),
 				'section_end' => array(
 					'type' => 'sectionend',
