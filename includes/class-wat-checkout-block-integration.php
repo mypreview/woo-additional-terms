@@ -119,12 +119,12 @@ if ( ! class_exists( 'WAT_Checkout_Block_Integration' ) ) :
 
 			if (
 				! empty( $page_id )
-				&& get_post( $page_id )
 				&& ! empty( $notice )
-				&& false !== strpos( $notice, '[additional-terms]' )
+				&& false !== strpos( $notice, Woo_Additional_Terms::SHORTCODE )
+				&& get_post( $page_id )
 			) {
 				$notice = str_replace(
-					'[additional-terms]',
+					Woo_Additional_Terms::SHORTCODE,
 					sprintf(
 						'<a href="%s" class="woo-additional-terms__link" target="_blank" rel="noopener noreferrer nofollow">%s</a>',
 						esc_url( get_permalink( $page_id ) ),

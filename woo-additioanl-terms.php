@@ -89,6 +89,13 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		private static $instance;
 
 		/**
+		 * Additional terms page shortcode.
+		 *
+		 * @since 1.5.2
+		 */
+		const SHORTCODE = '[additional-terms]';
+
+		/**
 		 * Plugin slug.
 		 *
 		 * @since 1.5.2
@@ -562,12 +569,12 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 
 			if (
 				! empty( $page_id )
-				&& get_post( $page_id )
 				&& ! empty( $notice )
-				&& false !== strpos( $notice, '[additional-terms]' )
+				&& false !== strpos( $notice, self::SHORTCODE )
+				&& get_post( $page_id )
 			) {
 				$notice = str_replace(
-					'[additional-terms]',
+					self::SHORTCODE,
 					sprintf(
 						'<a href="%s" class="woo-additional-terms__link" target="_blank" rel="noopener noreferrer nofollow">%s</a>',
 						esc_url( get_permalink( $page_id ) ),
@@ -846,8 +853,10 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 				'notice' => array(
 					'name'              => esc_html_x( 'Notice content', 'settings field name', 'woo-additional-terms' ),
 					'desc'              => esc_html_x( 'Text for the additional terms checkbox that customers must accept.', 'settings field description', 'woo-additional-terms' ),
-					'default'           => esc_html_x( 'I have read and agree to the website [additional-terms]', 'settings field default value', 'woo-additional-terms' ),
-					'placeholder'       => esc_html_x( 'I have read and agree to the website [additional-terms]', 'settings field placeholder', 'woo-additional-terms' ),
+					/* translators: %s: shortcode. */
+					'default'           => sprintf( esc_html_x( 'I have read and agree to the website %s', 'settings field default value', 'woo-additional-terms' ), esc_html( self::SHORTCODE ) ),
+					/* translators: %s: shortcode. */
+					'placeholder'       => sprintf( esc_html_x( 'I have read and agree to the website %s', 'settings field placeholder', 'woo-additional-terms' ), esc_html( self::SHORTCODE ) ),
 					'type'              => 'textarea',
 					'css'               => 'min-width:300px;',
 					'id'                => '_woo_additional_terms_notice',
