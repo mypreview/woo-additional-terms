@@ -588,7 +588,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 				<p class="form-row validate-required">
 					<label class="woocommerce-form__label woocommerce-form__label-for-checkbox checkbox">
 					<input type="checkbox" class="woocommerce-form__input woocommerce-form__input-checkbox input-checkbox" name="_woo_additional_terms" id="_woo_additional_terms" value="1" />
-						<span class="woocommerce-terms-and-conditions-checkbox-text"><?php echo wp_kses_post( $notice ); ?></span>&nbsp;
+						<span class="woocommerce-terms-and-conditions-checkbox-text"><?php echo wp_kses_post( $notice ); ?></span>
 						<abbr class="required" title="<?php esc_attr_e( 'required', 'woo-additional-terms' ); ?>">*</abbr>
 				</label>
 				</p>
@@ -607,6 +607,12 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 
 			// phpcs:ignore WordPress.Security.NonceVerification.Missing
 			if ( isset( $_POST['_woo_additional_terms'] ) ) {
+				return;
+			}
+
+			$notice = get_option( '_woo_additional_terms_notice', '' );
+
+			if ( empty( $notice ) ) {
 				return;
 			}
 
@@ -648,7 +654,6 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 				array(
 					'id'     => wc_clean( get_option( '_woo_additional_terms_page_id', null ) ),
 					'notice' => wc_clean( get_option( '_woo_additional_terms_notice', '' ) ),
-					'error'  => wc_clean( get_option( '_woo_additional_terms_error', '' ) ),
 				)
 			);
 		}
@@ -851,7 +856,16 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 					'custom_attributes' => array(
 						'rows'     => '4',
 						'cols'     => '50',
-						'required' => true,
+					),
+				),
+				'notice_info' => array(
+					'type' => 'info',
+					'text' => sprintf(
+						/* translators: 1: Open paragraph tag, 2: Shortcode, 3: Close paragraph tag. */
+						esc_html_x( '%1$sAdd the %2$s shortcode to the Notice to display the page name linked to the terms page in the checkbox label.%3$s', 'settings field text', 'woo-additional-terms' ),
+						'<p class="description">',
+						'<code>[additional-terms]</code>',
+						'</p>',
 					),
 				),
 				'error' => array(
@@ -873,7 +887,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 				),
 			);
 
-			return (array) apply_filters( 'woo_additional_terms_settings_args', $settings );
+			return apply_filters( 'woo_additional_terms_settings_args', $settings );
 		}
 
 		/**

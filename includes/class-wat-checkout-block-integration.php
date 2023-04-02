@@ -199,7 +199,6 @@ if ( ! class_exists( 'WAT_Checkout_Block_Integration' ) ) :
 				array(
 					'id'     => wc_clean( get_option( '_woo_additional_terms_page_id', null ) ),
 					'notice' => wc_clean( get_option( '_woo_additional_terms_notice', '' ) ),
-					'error'  => wc_clean( get_option( '_woo_additional_terms_error', '' ) ),
 				)
 			);
 		}
