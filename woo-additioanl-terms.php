@@ -258,13 +258,21 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 
 			if ( ! WOO_ADDITIONAL_TERMS_IS_PRO && ! get_transient( 'woo_additional_terms_upsell' ) && ( time() - (int) get_site_option( 'woo_additional_terms_activation_timestamp' ) ) > DAY_IN_SECONDS ) {
 				?>
-				<div id="<?php echo esc_attr( self::SLUG ); ?>-dismiss-upsell" class="notice notice-info woocommerce-message notice-alt is-dismissible">
+				<div id="<?php echo esc_attr( self::SLUG ); ?>-dismiss-upsell" class="notice woocommerce-message notice-alt is-dismissible" style="border-left-color:#00818a">
 					<p>
-						<i class="dashicons dashicons-saved" style="box-shadow:inset 0 0 0 2px currentColor"></i>
-						<?php echo esc_html_x( 'Upgrade to Woo Additional Terms PRO and get access to an abundance of features, including unlimited custom checkboxes and advanced conditional logic.', 'admin notice', 'woo-additional-terms' ); ?>
-						<br>
-						<br>
-						<a href="<?php echo esc_url( WOO_ADDITIONAL_TERMS_URI ); ?>" class="button-primary" target="_blank" rel="noopener noreferrer nofollow">
+						<i class="dashicons dashicons-saved" style="color:#00818a;box-shadow:inset 0 0 0 2px #c62a88"></i>
+						<strong>
+							<?php echo esc_html_x( 'Upgrade to Woo Additional Terms PRO', 'admin notice', 'woo-additional-terms' ); ?>
+						</strong>
+					</p>
+					<p>
+						<?php echo esc_html_x( 'Unlock the full potential of the plugin. Enjoy unlimited custom terms and conditions checkboxes, flexible display options, advanced conditional logic, and more.', 'admin notice', 'woo-additional-terms' ); ?>
+					</p>
+					<p>
+						<?php echo esc_html_x( 'Upgrade now to access advanced features and improve customer trust!', 'admin notice', 'woo-additional-terms' ); ?>
+					</p>
+					<p>
+						<a href="<?php echo esc_url( WOO_ADDITIONAL_TERMS_URI ); ?>" class="button-primary" target="_blank" rel="noopener noreferrer nofollow" style="margin-top:10px;">
 							<?php echo esc_html_x( 'Go PRO for More Options', 'admin notice', 'woo-additional-terms' ); ?> &#8594;
 						</a>
 					</p>
