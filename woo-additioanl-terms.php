@@ -289,24 +289,33 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 			}
 
 			if ( ! get_transient( 'woo_additional_terms_rate' ) && ( time() - (int) get_site_option( 'woo_additional_terms_activation_timestamp' ) ) > WEEK_IN_SECONDS ) {
-				$message = sprintf(
-					/* translators: 1: HTML symbol, 2: Plugin name, 3: Activation duration, 4: HTML symbol, 5: Open anchor tag, 6: Close anchor tag. */
-					esc_html_x( '%1$s You have been using the %2$s plugin for %3$s now, do you like it as much as we like you? %4$s %5$sRate 5-Stars%6$s', 'admin notice', 'woo-additional-terms' ),
-					'&#9733;',
-					esc_html( WOO_ADDITIONAL_TERMS_NAME ),
-					human_time_diff( (int) get_site_option( 'woo_additional_terms_activation_timestamp' ), time() ),
-					'&#8594;',
-					sprintf(
-						'<a href="https://wordpress.org/support/plugin/%s/reviews?rate=5#new-post" class="button-primary" target="_blank" rel="noopener noreferrer nofollow">&#9733; ',
-						esc_attr( self::SLUG )
-					),
-					'</a>'
-				);
 				?>
-				<div id="<?php echo esc_attr( self::SLUG ); ?>-dismiss-rate" class="notice notice-info is-dismissible">
-					<p><?php echo wp_kses_post( $message ); ?></p>
+				<div id="<?php echo esc_attr( self::SLUG ); ?>-dismiss-rate" class="notice notice-alt is-dismissible" style="border-left-color:#00818a">
+					<p>
+						<i class="dashicons dashicons-star-filled" style="color:#c62a88;vertical-align:sub;"></i>
+						<strong>
+							<?php
+							printf(
+								/* translators: 1: Activation duration, 2: Plugin name */
+								esc_html_x( '%1$s have passed since you started using %2$s.', 'admin notice', 'woo-additional-terms' ),
+								esc_html( human_time_diff( (int) get_site_option( 'woo_additional_terms_activation_timestamp' ), time() ) ),
+								esc_html( WOO_ADDITIONAL_TERMS_NAME )
+							);
+							?>
+						</strong>
+					</p>
+					<p>
+						<?php echo esc_html_x( ' Would you kindly consider leaving a review and letting us know how the plugin has helped your business? Your feedback is greatly appreciated!', 'admin notice', 'woo-additional-terms' ); ?>
+					</p>
+					<p>
+						<a href="https://wordpress.org/support/plugin/<?php echo esc_attr( self::SLUG ); ?>/reviews?rate=5#new-post" class="button-primary" target="_blank" rel="noopener noreferrer nofollow" style="margin-top:10px;">
+							&#9733;
+							<?php echo esc_html_x( 'Give 5 Stars', 'admin notice', 'woo-additional-terms' ); ?> &#8594;
+						</a>
+					</p>
 				</div>
 				<?php
+				return;
 			}
 		}
 
@@ -480,7 +489,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 					</li>
 					<li>
 						<i class="dashicons dashicons-yes"></i>
-						<?php echo esc_html_x( 'Embed the terms content above the checkbox', 'upsell', 'woo-additional-terms' ); ?>
+						<?php echo esc_html_x( 'Choose to make the terms checkbox required or optional', 'upsell', 'woo-additional-terms' ); ?>
 					</li>
 					<li>
 						<i class="dashicons dashicons-yes"></i>
@@ -871,7 +880,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 					'type' => 'info',
 					'text' => sprintf(
 						/* translators: 1: Open paragraph tag, 2: Shortcode, 3: Close paragraph tag. */
-						esc_html_x( '%1$sAdd the %2$s shortcode to the Notice to display the page name linked to the terms page in the checkbox label.%3$s', 'settings field text', 'woo-additional-terms' ),
+						esc_html_x( '%1$sInclude the %2$s shortcode in the Notice, to display the page name linked to the terms page in the checkbox label.%3$s', 'settings field text', 'woo-additional-terms' ),
 						'<p class="description">',
 						'<code>[additional-terms]</code>',
 						'</p>',
