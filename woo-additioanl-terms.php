@@ -799,7 +799,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		 *
 		 * @return array
 		 */
-		public function add_meta_links( array $links, string $file ): array {
+		public function add_meta_links( $links, $file ) {
 
 			if ( WOO_ADDITIONAL_TERMS_PLUGIN_BASENAME !== $file ) {
 				return $links;
