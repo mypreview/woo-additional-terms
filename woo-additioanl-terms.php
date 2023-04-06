@@ -315,7 +315,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 						<?php echo esc_html_x( 'Would you kindly consider leaving a review and letting us know how the plugin has helped your business? Your feedback is greatly appreciated!', 'admin notice', 'woo-additional-terms' ); ?>
 					</p>
 					<p>
-						<a href="https://wordpress.org/support/plugin/<?php echo esc_attr( self::SLUG ); ?>/reviews?rate=5#new-post" class="button-primary notice-dismiss-later" target="_blank" rel="noopener noreferrer nofollow" style="margin-top:10px;">
+						<a href="https://wordpress.org/support/plugin/<?php echo esc_attr( self::SLUG ); ?>/reviews?filter=5#new-post" class="button-primary notice-dismiss-later" target="_blank" rel="noopener noreferrer nofollow" style="margin-top:10px;">
 							&#9733;
 							<?php echo esc_html_x( 'Give 5 Stars', 'admin notice', 'woo-additional-terms' ); ?> &#8594;
 						</a>
@@ -760,7 +760,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 				esc_html__( '%1$sIf you are happy with %2$s please leave us a %3$s rating to help us spread the word!%4$s', 'woo-additional-terms' ),
 				'<p class="alignleft">',
 				sprintf( '<strong>%s</strong>', esc_html( WOO_ADDITIONAL_TERMS_NAME ) ),
-				'<a href="https://wordpress.org/support/plugin/' . esc_html( self::SLUG ) . '/reviews?rate=5#new-post" target="_blank" rel="noopener noreferrer nofollow" aria-label="' . esc_attr__( 'five star', 'woo-additional-terms' ) . '">&#9733;&#9733;&#9733;&#9733;&#9733;</a>',
+				'<a href="https://wordpress.org/support/plugin/' . esc_html( self::SLUG ) . '/reviews?filter=5#new-post" target="_blank" rel="noopener noreferrer nofollow" aria-label="' . esc_attr__( 'five star', 'woo-additional-terms' ) . '">&#9733;&#9733;&#9733;&#9733;&#9733;</a>',
 				'</p><style>#wpfooter{display:inline !important}.has-woocommerce-navigation #wpfooter{padding-left: 260px;}</style>'
 			);
 		}
