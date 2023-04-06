@@ -64,7 +64,6 @@ define( 'WOO_ADDITIONAL_TERMS_URI', $woo_additional_terms_plugin_data['plugin_ur
 define( 'WOO_ADDITIONAL_TERMS_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 define( 'WOO_ADDITIONAL_TERMS_DIR_URL', plugin_dir_url( __FILE__ ) );
 define( 'WOO_ADDITIONAL_TERMS_DIR_PATH', plugin_dir_path( __FILE__ ) );
-define( 'WOO_ADDITIONAL_TERMS_IS_PRO', defined( 'WATPRO_META' ) && WATPRO_META );
 define( 'WOO_ADDITIONAL_TERMS_MIN_DIR', defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : trailingslashit( 'minified' ) );
 
 /**
@@ -103,6 +102,13 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		const SLUG = 'woo-additional-terms';
 
 		/**
+		 * Nonce name for Ajax requests verification.
+		 *
+		 * @since 1.5.2
+		 */
+		const NONCE = 'woo-additional-terms-dismiss';
+
+		/**
 		 * Main `Woo_Additional_Terms` instance.
 		 *
 		 * Insures that only one instance of Woo_Additional_Terms exists in memory at any one
@@ -136,6 +142,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 			add_action( 'admin_notices', array( self::instance(), 'admin_notices' ) );
 			add_action( 'wp_ajax_woo_additional_terms_dismiss_upsell', array( self::instance(), 'dismiss_upsell' ) );
 			add_action( 'wp_ajax_woo_additional_terms_dismiss_rate', array( self::instance(), 'dismiss_rate' ) );
+			add_action( 'wp_ajax_woo_additional_terms_dismiss_rated', array( self::instance(), 'dismiss_rated' ) );
 			add_action( 'before_woocommerce_init', array( self::instance(), 'add_compatibility' ) );
 			add_filter( 'woocommerce_settings_tabs_array', array( self::instance(), 'add_settings_tab' ), 999 );
 			add_action( 'woocommerce_settings_tabs_' . self::SLUG, array( self::instance(), 'render_plugin_page' ) );
@@ -230,7 +237,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		public function admin_notices() {
 
 			// Query WooCommerce activation.
-			if ( ! $this->is_woocommerce() ) {
+			if ( ! $this->is_woocommerce() ) :
 				$message = sprintf(
 					/* translators: 1: Dashicon, Open anchor tag, 2: Close anchor tag. */
 					esc_html_x( '%1$s requires the following plugin: %2$sWooCommerce%3$s', 'admin notice', 'woo-additional-terms' ),
@@ -247,13 +254,13 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 				</div>
 				<?php
 				return;
-			}
+			endif;
 
 			// Display a friendly admin notice upon plugin activation.
 			$welcome_notice_transient = 'woo_additional_terms_welcome_notice';
 			$welcome_notice           = get_transient( $welcome_notice_transient );
 
-			if ( $welcome_notice ) {
+			if ( $welcome_notice ) :
 				?>
 				<div class="notice notice-info">
 					<p><?php echo wp_kses_post( $welcome_notice ); ?></p>
@@ -261,9 +268,9 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 				<?php
 				delete_transient( $welcome_notice_transient );
 				return;
-			}
+			endif;
 
-			if ( ! WOO_ADDITIONAL_TERMS_IS_PRO && ! get_transient( 'woo_additional_terms_upsell' ) && ( time() - (int) get_site_option( 'woo_additional_terms_activation_timestamp' ) ) > DAY_IN_SECONDS ) {
+			if ( ! $this->is_pro() && ! get_transient( 'woo_additional_terms_upsell' ) && ( time() - (int) get_site_option( 'woo_additional_terms_activation_timestamp' ) ) > DAY_IN_SECONDS ) :
 				?>
 				<div id="<?php echo esc_attr( self::SLUG ); ?>-dismiss-upsell" class="notice woocommerce-message notice-alt is-dismissible" style="border-left-color:#00818a">
 					<p>
@@ -286,9 +293,9 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 				</div>
 				<?php
 				return;
-			}
+			endif;
 
-			if ( ! get_transient( 'woo_additional_terms_rate' ) && ( time() - (int) get_site_option( 'woo_additional_terms_activation_timestamp' ) ) > WEEK_IN_SECONDS ) {
+			if ( ! get_option( 'woo_additional_terms_rated' ) && ! get_transient( 'woo_additional_terms_rate' ) && ( time() - (int) get_site_option( 'woo_additional_terms_activation_timestamp' ) ) > WEEK_IN_SECONDS ) :
 				?>
 				<div id="<?php echo esc_attr( self::SLUG ); ?>-dismiss-rate" class="notice notice-alt is-dismissible" style="border-left-color:#00818a">
 					<p>
@@ -305,18 +312,23 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 						</strong>
 					</p>
 					<p>
-						<?php echo esc_html_x( ' Would you kindly consider leaving a review and letting us know how the plugin has helped your business? Your feedback is greatly appreciated!', 'admin notice', 'woo-additional-terms' ); ?>
+						<?php echo esc_html_x( 'Would you kindly consider leaving a review and letting us know how the plugin has helped your business? Your feedback is greatly appreciated!', 'admin notice', 'woo-additional-terms' ); ?>
 					</p>
 					<p>
-						<a href="https://wordpress.org/support/plugin/<?php echo esc_attr( self::SLUG ); ?>/reviews?rate=5#new-post" class="button-primary" target="_blank" rel="noopener noreferrer nofollow" style="margin-top:10px;">
+						<a href="https://wordpress.org/support/plugin/<?php echo esc_attr( self::SLUG ); ?>/reviews?rate=5#new-post" class="button-primary notice-dismiss-later" target="_blank" rel="noopener noreferrer nofollow" style="margin-top:10px;">
 							&#9733;
 							<?php echo esc_html_x( 'Give 5 Stars', 'admin notice', 'woo-additional-terms' ); ?> &#8594;
 						</a>
+						<button class="button-link notice-dismiss-later" style="margin-left:10px;">
+							<?php echo esc_html_x( 'Maybe later', 'admin notice', 'woo-additional-terms' ); ?>
+						</button>
+						<button class="button-link notice-dismiss-rated" style="margin-left:10px;">
+							<?php echo esc_html_x( 'I already did!', 'admin notice', 'woo-additional-terms' ); ?>
+						</button>
 					</p>
 				</div>
 				<?php
-				return;
-			}
+			endif;
 		}
 
 		/**
@@ -328,7 +340,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		 */
 		public function dismiss_upsell() {
 
-			check_ajax_referer( self::SLUG . '-dismiss' );
+			check_ajax_referer( self::NONCE );
 
 			set_transient( 'woo_additional_terms_upsell', true, MONTH_IN_SECONDS );
 
@@ -344,9 +356,25 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		 */
 		public function dismiss_rate() {
 
-			check_ajax_referer( self::SLUG . '-dismiss' );
+			check_ajax_referer( self::NONCE );
 
 			set_transient( 'woo_additional_terms_rate', true, 3 * MONTH_IN_SECONDS );
+
+			exit();
+		}
+
+		/**
+		 * AJAX dismiss ask-to-rate admin notice for users who already rated.
+		 *
+		 * @since 1.5.2
+		 *
+		 * @return void
+		 */
+		public function dismiss_rated() {
+
+			check_ajax_referer( self::NONCE );
+
+			add_option( 'woo_additional_terms_rated', true );
 
 			exit();
 		}
@@ -423,7 +451,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		public function upsell_after_settings() {
 
 			// Bail early, in case the PRO version of the plugin is installed.
-			if ( WOO_ADDITIONAL_TERMS_IS_PRO ) {
+			if ( $this->is_pro() ) {
 				return;
 			}
 
@@ -503,7 +531,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 				<p class="importer-title">
 					<?php echo esc_html_x( 'Why settle for the basic version when you can have access to all these advanced features?', 'upsell', 'woo-additional-terms' ); ?>
 				</p>
-				<p>
+				<p style="margin-bottom:0;">
 					<a href="<?php echo esc_url( WOO_ADDITIONAL_TERMS_URI ); ?>" class="button-primary" target="_blank" rel="noopener noreferrer nofollow">
 						<?php echo esc_html_x( 'Go PRO for More Options', 'upsell', 'woo-additional-terms' ); ?>
 						&#8594;
@@ -523,7 +551,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		public function admin_enqueue() {
 
 			wp_register_script( self::SLUG, trailingslashit( WOO_ADDITIONAL_TERMS_DIR_URL ) . 'assets/js/' . WOO_ADDITIONAL_TERMS_MIN_DIR . 'admin.js', array( 'jquery' ), WOO_ADDITIONAL_TERMS_VERSION, true );
-			wp_localize_script( self::SLUG, 'watVars', array( 'dismiss_nonce' => wp_create_nonce( self::SLUG . '-dismiss' ) ) );
+			wp_localize_script( self::SLUG, 'watVars', array( 'dismiss_nonce' => wp_create_nonce( self::NONCE ) ) );
 
 			if ( ! get_transient( 'woo_additional_terms_rate' ) || ! get_transient( 'woo_additional_terms_upsell' ) ) {
 				wp_enqueue_script( self::SLUG );
@@ -750,7 +778,7 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 		public function add_action_links( $links ) {
 
 			// Bail early, in case the PRO version of the plugin is installed.
-			if ( WOO_ADDITIONAL_TERMS_IS_PRO ) {
+			if ( $this->is_pro() ) {
 				return $links;
 			}
 
@@ -943,6 +971,18 @@ if ( ! class_exists( 'Woo_Additional_Terms' ) ) :
 			}
 
 			return false;
+		}
+
+		/**
+		 * Determine whether the pro version is active.
+		 *
+		 * @since 1.5.2
+		 *
+		 * @return bool
+		 */
+		private function is_pro() {
+
+			return class_exists( 'WATPRO', false ) && defined( 'WATPRO_META' );
 		}
 
 		/**
