@@ -15,6 +15,9 @@
 defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
 defined( 'WP_UNINSTALL_PLUGIN' ) || exit; // If uninstall not called from WordPress, then exit.
 
+// Delete the already rated option.
+delete_option( 'woo_additional_terms_rated' );
+
 // Reset the activation timestamp as the user already decided to delete the plugin.
 delete_site_option( 'woo_additional_terms_activation_timestamp' );
 
