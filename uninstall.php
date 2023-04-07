@@ -1,17 +1,22 @@
 <?php
 /**
- * Unistall Woo Additional Terms.
+ * Uninstall Woo Additional Terms.
  * Fired when the plugin is uninstalled.
  *
- * @link       https://mypreview.one/woo-additional-terms
- * @author     MyPreview (Github: @mahdiyazdani, @gooklani, @mypreview)
- * @since      1.0.0
+ * @link https://mypreview.one/woo-additional-terms
  *
- * @package    woo-additional-terms
+ * @author MyPreview (Github: @mahdiyazdani, @gooklani, @mypreview)
+ *
+ * @since 1.0.0
+ *
+ * @package woo-additional-terms
  */
 
 defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
 defined( 'WP_UNINSTALL_PLUGIN' ) || exit; // If uninstall not called from WordPress, then exit.
+
+// Delete the already rated option.
+delete_option( 'woo_additional_terms_rated' );
 
 // Reset the activation timestamp as the user already decided to delete the plugin.
 delete_site_option( 'woo_additional_terms_activation_timestamp' );
