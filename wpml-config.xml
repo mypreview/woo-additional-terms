@@ -1,6 +1,8 @@
 <wpml-config>
 	<admin-texts>
-		<key name="_woo_additional_terms_notice" />
-		<key name="_woo_additional_terms_error" />
+		<key name="woo_additional_terms_options">
+			<key name="notice" />
+			<key name="error" />
+		</key>
 	</admin-texts>
 </wpml-config>
