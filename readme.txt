@@ -5,7 +5,7 @@ Donate link: https://mypreview.one/woo-additional-terms
 Requires at least: 5.0
 Tested up to: 6.2
 Requires PHP: 7.4
-Stable tag: 1.5.2
+Stable tag: 1.6.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.txt
 
@@ -120,6 +120,9 @@ Yes, it does. The [Woo Additional Terms PRO](https://mypreview.one/woo-additiona
 5. Additional terms and condition checkbox on the WooCommerce checkout block page.
 
 == Changelog ==
+= 1.6.0 =
+* Refactor: Optimized underlying code structure.
+
 = 1.5.2 =
 * Compatibility with WordPress 6.2
 * Compatibility with WooCommerce 7.5
