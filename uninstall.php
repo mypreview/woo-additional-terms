@@ -15,7 +15,10 @@
 defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
 defined( 'WP_UNINSTALL_PLUGIN' ) || exit; // If uninstall not called from WordPress, then exit.
 
-// Delete the already rated option.
+// Delete the onboarding (welcome) notice preference.
+delete_site_option( 'woo_additional_terms_onboarding' );
+
+// Delete the already rated preference.
 delete_option( 'woo_additional_terms_rated' );
 
 // Reset the activation timestamp as the user already decided to delete the plugin.
