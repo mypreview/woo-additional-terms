@@ -30,15 +30,7 @@ delete_site_option( 'woo_additional_terms_activation_timestamp' );
  * and to ensure only the site owner can perform this action.
  */
 if ( defined( 'WC_REMOVE_ALL_DATA' ) && true === WC_REMOVE_ALL_DATA ) {
-	$woo_additional_terms_page_id = '_woo_additional_terms_page_id';
-	$woo_additional_terms_notice  = '_woo_additional_terms_notice';
-	$woo_additional_terms_error   = '_woo_additional_terms_error';
-
-	delete_option( $woo_additional_terms_page_id );
-	delete_option( $woo_additional_terms_notice );
-	delete_option( $woo_additional_terms_error );
+	delete_option( 'woo_additional_terms_options' );
 	// For site options in Multisite.
-	delete_site_option( $woo_additional_terms_page_id );
-	delete_site_option( $woo_additional_terms_notice );
-	delete_site_option( $woo_additional_terms_error );
+	delete_site_option( 'woo_additional_terms_options' );
 }
