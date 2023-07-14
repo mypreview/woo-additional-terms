@@ -13,14 +13,14 @@ defined( 'WC_VERSION' ) || exit;
 ?>
 <div id="woo-additional-terms-dismiss-rate" class="notice notice-alt is-dismissible" data-action="rate">
 	<p>
-		<i class="dashicons dashicons-palmtree"></i>
+		<i class="dashicons dashicons-star-filled"></i>
 		<strong>
 			<?php
 			printf(
 				/* translators: 1: Activation duration, 2: Plugin name */
 				esc_html_x( '%1$s have passed since you started using %2$s.', 'admin notice', 'woo-additional-terms' ),
 				esc_html( $args['usage_timestamp'] ),
-				esc_html_x( 'Woo Store Vacation', 'plugin name', 'woo-additional-terms' )
+				esc_html_x( 'Woo Additional Terms', 'plugin name', 'woo-additional-terms' )
 			);
 			?>
 		</strong>
