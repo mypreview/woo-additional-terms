@@ -54,13 +54,6 @@ abstract class Assets {
 			$version,
 			'screen'
 		);
-		wp_register_script(
-			'woo-additional-terms-admin',
-			woo_additional_terms()->service( 'file' )->asset_path( 'admin.js' ),
-			array( 'jquery' ),
-			$version,
-			true
-		);
 
 		wp_register_style(
 			'woo-additional-terms-rate',
