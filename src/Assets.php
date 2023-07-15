@@ -113,7 +113,7 @@ abstract class Assets {
 		);
 
 		wp_register_script(
-			'woo-additional-terms',
+			'woo-additional-terms-checkout',
 			woo_additional_terms()->service( 'file' )->asset_path( 'checkout.js' ),
 			array( 'react', 'wp-compose', 'wp-data', 'wp-element', 'wp-i18n', 'wc-blocks-data-store', 'wc-blocks-checkout', 'wc-settings' ),
 			$version,
