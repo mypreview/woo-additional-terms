@@ -89,7 +89,12 @@
 	</rule>
 	<rule ref="WordPress.Security.EscapeOutput">
 		<properties>
-			<property name="customEscapingFunctions" type="array" value="wc_clean" />
+			<property name="customEscapingFunctions" type="array" value="wc_clean,wc_format_content" />
+		</properties>
+	</rule>
+	<rule ref="WordPress.Security.ValidatedSanitizedInput">
+		<properties>
+			<property name="customSanitizingFunctions" type="array" value="wc_string_to_bool" />
 		</properties>
 	</rule>
 	<!-- Verify that everything in the global namespace is prefixed with a theme specific prefix.
