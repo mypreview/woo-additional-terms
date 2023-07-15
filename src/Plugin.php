@@ -136,6 +136,7 @@ class Plugin extends Container {
 		add_action( 'before_woocommerce_init', array( 'Woo_Additional_Terms\\I18n', 'textdomain' ) );
 		add_action( 'enqueue_block_editor_assets', array( 'Woo_Additional_Terms\\Assets', 'enqueue_editor' ) );
 		add_action( 'admin_enqueue_scripts', array( 'Woo_Additional_Terms\\Assets', 'enqueue_admin' ) );
+		add_action( 'wp_enqueue_scripts', array( 'Woo_Additional_Terms\\Assets', 'enqueue_frontend' ) );
 	}
 
 	/**
@@ -187,7 +188,7 @@ class Plugin extends Container {
 			'Settings\\Register' => array(
 				'condition' => $is_admin,
 			),
-			'Shortcode\\Notice' => array(
+			'WooCommerce\\Checkout' => array(
 				'condition' => $is_frontend,
 			),
 		);
