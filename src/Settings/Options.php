@@ -54,7 +54,7 @@ class Options {
 			return $options;
 		}
 
-		return isset( $options[ $key ] ) ? $options[ $key ] : $default;
+		return empty( $options[ $key ] ) ? $default : $options[ $key ];
 	}
 
 	/**
