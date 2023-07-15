@@ -11,6 +11,8 @@
 
 namespace Woo_Additional_Terms\WooCommerce;
 
+use WC_Order;
+
 /**
  * Checkout class.
  */
@@ -67,8 +69,8 @@ class Checkout {
 		add_filter( 'woocommerce_enable_order_notes_field', '__return_true' );
 		add_filter( 'woocommerce_checkout_posted_data', array( $this, 'posted_data' ) );
 		add_action( 'woocommerce_checkout_after_terms_and_conditions', array( $this, 'show_checkbox' ) );
-		add_action( 'woocommerce_after_checkout_validation', array( $this, 'errors' ), 10, 2 );
-		add_action( 'woocommerce_checkout_update_order_meta', array( $this, 'save' ), 10, 2 );
+		add_action( 'woocommerce_after_checkout_validation', array( $this, 'show_error' ), 10, 2 );
+		add_action( 'woocommerce_checkout_update_order_meta', array( $this, 'save_acceptance' ), 10, 2 );
 	}
 
 	/**
@@ -100,6 +102,7 @@ class Checkout {
 	 */
 	public function posted_data( $posted_data ) {
 
+		// Exit early, in case the additional terms checkbox is not available.
 		// @phpcs:disable WordPress.Security.NonceVerification.Missing
 		if ( ! isset( $_POST['_woo_additional_terms'] ) ) {
 			return $posted_data;
@@ -128,11 +131,81 @@ class Checkout {
 		woo_additional_terms()->service( 'template_manager' )->echo_template(
 			'checkout/checkbox.php',
 			array(
-				'is_required'    => wc_string_to_bool( woo_additional_terms()->service( 'options' )->get( 'required', false ) ),
+				'is_required'    => woo_additional_terms()->service( 'options' )->get( 'required', false ),
 				'display_action' => woo_additional_terms()->service( 'options' )->get( 'display_action', 'embed' ),
 				'page_content'   => woo_additional_terms()->service( 'terms' )->get( 'content' ),
 				'checkbox_label' => woo_additional_terms()->service( 'terms' )->get( 'label' ),
 			)
+		);
+	}
+
+	/**
+	 * In case the required additional terms checkbox is not checked upon checking out,
+	 * throw the error message to prevent checkout from being processed.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array  $fields Fields submitted via checkout form.
+	 * @param object $errors Errors object.
+	 *
+	 * @return void
+	 */
+	public function show_error( $fields, $errors ) {
+
+		$is_required = woo_additional_terms()->service( 'options' )->get( 'required', false );
+
+		// Bail early, in case the additional terms checkbox is not required.
+		if ( ! wc_string_to_bool( $is_required ) ) {
+			return;
+		}
+
+		// Bail early, in case the additional terms checkbox is already checked.
+		if ( ! empty( $fields['_woo_additional_terms'] ) ) {
+			return;
+		}
+
+		// Get the error message.
+		$error_message = woo_additional_terms()->service( 'options' )->get( 'error', __( 'Please accept the additional terms to continue.', 'woo-additional-terms' ) );
+
+		// Add the error message.
+		// Prevent the checkout process from continuing.
+		$errors->add( 'terms_error', $error_message );
+	}
+
+	/**
+	 * Stores additional terms submissions after a new order being processed.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param int   $order_id Current order id.
+	 * @param array $fields   Fields submitted via checkout form.
+	 *
+	 * @return void
+	 */
+	public function save_acceptance( $order_id, $fields ) {
+
+		// Get the order object.
+		$order = wc_get_order( $order_id );
+
+		// Verify the order object.
+		if ( ! $order instanceof WC_Order ) {
+			return;
+		}
+
+		// Save the additional terms checkbox value as order meta.
+		$order->update_meta_data( '_woo_additional_terms', wc_bool_to_string( isset( $fields['_woo_additional_terms'] ) ) );
+
+		// If the additional terms checkbox is checked, add note that customer accepted if not add note tha customer didn't accept.
+		if ( isset( $fields['_woo_additional_terms'] ) && wc_string_to_bool( $fields['_woo_additional_terms'] ) ) {
+			$order->add_order_note(
+				__( 'Customer accepted the additional terms.', 'woo-additional-terms' )
+			);
+
+			return;
+		}
+
+		$order->add_order_note(
+			__( 'Customer did not accept the additional terms.', 'woo-additional-terms' )
 		);
 	}
 }
