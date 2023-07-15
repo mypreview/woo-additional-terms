@@ -4,6 +4,13 @@
 	'use strict';
 
 	const script = {
+		/**
+		 * Cache.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @return {void}
+		 */
 		cache() {
 			this.vars = {};
 			this.els = {};
@@ -15,25 +22,55 @@
 			this.vars.wrapper = `.woocommerce-terms-and-conditions-wrapper.${ this.vars.selector }`;
 		},
 
+		/**
+		 * Initialize.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @return {void}
+		 */
 		init() {
 			this.cache();
+			this.bindEvents();
+		},
+
+		/**
+		 * Bind events.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @return {void}
+		 */
+		bindEvents() {
 			$( document.body ).on( 'click', `a.${ this.vars.embed }`, this.handleEmbedToggle );
 		},
 
+		/**
+		 * Handle embed toggle.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param {Event} event Event.
+		 *
+		 * @return {boolean} False.
+		 */
 		handleEmbedToggle( event ) {
+			// Prevent default.
 			event.preventDefault();
 
 			const $this = $( this );
 			const $wrapper = $this.closest( script.vars.wrapper );
 
+			// Exit early if the wrapper doesn't exist.
 			if ( ! $wrapper.length ) {
 				return false;
 			}
 
 			const $content = $wrapper.find( `> .${ script.vars.content }` );
 
-			$content.slideToggle( function () {
+			$content.slideToggle( () => {
 				const isVisible = $content.is( ':visible' );
+
 				$this.toggleClass( script.vars.openClassName, isVisible );
 				$this.toggleClass( script.vars.closeClassName, ! isVisible );
 			} );
