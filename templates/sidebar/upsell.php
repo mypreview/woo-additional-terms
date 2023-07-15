@@ -14,7 +14,7 @@ defined( 'WC_VERSION' ) || exit;
 <div class="woo-additional-terms-get-pro">
 	<div class="woo-additional-terms-get-pro-logo"></div>
 	<h2 class="woo-additional-terms-get-pro-title">
-		<?php echo esc_html_x( 'Get Additional Terms Pro', 'upsell', 'woo-additional-terms' ); ?>
+		<?php echo esc_html_x( 'Additional Terms Pro', 'upsell', 'woo-additional-terms' ); ?>
 	</h2>
 	<ul class="woo-additional-terms-get-pro-features">
 		<li>
@@ -27,7 +27,7 @@ defined( 'WC_VERSION' ) || exit;
 			<?php echo esc_html_x( 'Define smart conditions', 'upsell', 'woo-additional-terms' ); ?>
 		</li>
 		<li>
-			<?php echo esc_html_x( 'Detailed acceptance summary', 'upsell', 'woo-additional-terms' ); ?>
+			<?php echo esc_html_x( 'Acceptance summary', 'upsell', 'woo-additional-terms' ); ?>
 		</li>
 		<li>
 			<?php echo esc_html_x( '24/7 priority support', 'upsell', 'woo-additional-terms' ); ?>
