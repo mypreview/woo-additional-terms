@@ -102,6 +102,13 @@ class General extends Section {
 					'</p>'
 				),
 			),
+			'required' => array(
+				'name'     => _x( 'Required', 'settings field name', 'woo-additional-terms' ),
+				'desc'     => _x( 'Enable this to make the additional terms checkbox required.', 'settings field description', 'woo-additional-terms' ),
+				'type'     => 'checkbox',
+				'id'       => 'woo_additional_terms_options[required]',
+				'default'  => 'yes',
+			),
 			'error' => array(
 				'name'              => _x( 'Error Message', 'settings field name', 'woo-additional-terms' ),
 				'desc'              => _x( 'Add an error message to show if the customer does not accept the additional terms.', 'settings field description', 'woo-additional-terms' ),
