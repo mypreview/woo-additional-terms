@@ -86,7 +86,7 @@ abstract class Assets {
 	 *
 	 * @return void
 	 */
-	public static function enqueue() {
+	public static function enqueue_frontend() {
 
 		$version = woo_additional_terms()->get_version();
 
@@ -110,6 +110,21 @@ abstract class Assets {
 			woo_additional_terms()->service( 'file' )->asset_path( 'checkout.js' ),
 			array( 'react', 'wp-compose', 'wp-data', 'wp-element', 'wp-i18n', 'wc-blocks-data-store', 'wc-blocks-checkout', 'wc-settings' ),
 			$version,
+			true
+		);
+
+		wp_register_style(
+			'jquery.fancybox',
+			woo_additional_terms()->service( 'file' )->asset_path( 'jquery.fancybox.css' ),
+			array( 'woo-additional-terms' ),
+			'3.5.6',
+			'screen'
+		);
+		wp_register_script(
+			'jquery.fancybox',
+			woo_additional_terms()->service( 'file' )->asset_path( 'jquery.fancybox.js' ),
+			array( 'jquery', 'woo-additional-terms' ),
+			'3.5.6',
 			true
 		);
 	}
