@@ -14,6 +14,7 @@ namespace Woo_Additional_Terms;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 use Woo_Additional_Terms\Settings;
+use Woo_Additional_Terms\WooCommerce;
 
 /**
  * Class PluginServiceProvider.
@@ -39,5 +40,8 @@ class PluginServiceProvider implements ServiceProviderInterface {
 		$pimple['settings']         = fn() => new Settings\Settings();
 		$pimple['settings_general'] = fn() => new Settings\Sections\General();
 		$pimple['options']          = fn() => new Settings\Options();
+
+		// Plugin WooCommerce.
+		$pimple['terms'] = fn() => new WooCommerce\Terms();
 	}
 }
