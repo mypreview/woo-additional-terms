@@ -11,6 +11,7 @@
 
 namespace Woo_Additional_Terms\WooCommerce\Block;
 
+use WP_Error;
 use WC_Order;
 use WP_REST_Request;
 use Automattic\WooCommerce\Blocks;
@@ -45,7 +46,7 @@ class Block implements Blocks\Integrations\IntegrationInterface {
 		$this->extend_store_api();
 
 		add_filter( '__experimental_woocommerce_blocks_add_data_attributes_to_block', array( $this, 'add_attributes_to_frontend_blocks' ) );
-		add_action( 'woocommerce_store_api_checkout_update_order_from_request', array( $this, 'save_terms_acceptance' ), 10, 2 );
+		add_action( 'woocommerce_store_api_checkout_update_order_from_request', array( $this, 'save_acceptance' ), 10, 2 );
 	}
 
 	/**
@@ -138,11 +139,15 @@ class Block implements Blocks\Integrations\IntegrationInterface {
 			return array();
 		}
 
+		// Enqueue the frontend styles.
+		wp_enqueue_style( 'woo-additional-terms' );
+
 		return array(
-			'is_required'    => woo_additional_terms()->service( 'options' )->get( 'required', false ),
+			'is_required'    => wc_string_to_bool( woo_additional_terms()->service( 'options' )->get( 'required', 'no' ) ),
 			'display_action' => woo_additional_terms()->service( 'options' )->get( 'display_action', 'embed' ),
 			'page_content'   => woo_additional_terms()->service( 'terms' )->get( 'content' ),
 			'checkbox_label' => woo_additional_terms()->service( 'terms' )->get( 'label' ),
+			'error_message' => woo_additional_terms()->service( 'options' )->get( 'error', __( 'Please accept the additional terms to continue.', 'woo-additional-terms' ) )
 		);
 	}
 
@@ -166,13 +171,13 @@ class Block implements Blocks\Integrations\IntegrationInterface {
 				'endpoint'        => Blocks\StoreApi\Schemas\CheckoutSchema::IDENTIFIER,
 				'namespace'       => $this->get_name(),
 				'schema_callback' => fn() => array(
-					'data' => array(
-						'type'        => 'string',
+					'wat_checkbox' => array(
+						'type'        => 'boolean',
 						'context'     => array(),
 						'arg_options' => array(
 							'validate_callback' => function( $value ) {
 
-								if ( ! is_string( $value ) || ! is_array( json_decode( $value, true ) ) ) {
+								if ( ! is_bool( $value ) ) {
 									/* translators: %s: Render the type of the variable. */
 									return new WP_Error( 'api-error', sprintf( esc_html__( 'Value of field %s was posted with incorrect data type.', 'woo-additional-terms' ), gettype( $value ) ) );
 								}
