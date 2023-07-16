@@ -119,7 +119,7 @@ class Plugin extends Container {
 		foreach ( $this->get_classes() as $class => $args ) {
 
 			// Skip if the condition is not met.
-			if ( ! isset( $args['condition'] ) || ! $args['condition'] ) {
+			if ( isset( $args['condition'] ) && ! $args['condition'] ) {
 				continue;
 			}
 
@@ -152,48 +152,46 @@ class Plugin extends Container {
 		$is_admin    = is_admin();
 		$is_frontend = ! $is_admin;
 		$classes     = array(
-			'Ajax\\OnBoarding' => array(
+			'Ajax\\OnBoarding'             => array(
 				'condition' => $is_ajax,
 			),
-			'Ajax\\Rate' => array(
+			'Ajax\\Rate'                   => array(
 				'condition' => $is_ajax,
 			),
-			'Ajax\\Rated' => array(
+			'Ajax\\Rated'                  => array(
 				'condition' => $is_ajax,
 			),
-			'Compatibility\\WooCommerce' => array(
+			'Compatibility\\WooCommerce'   => array(
 				'condition' => $is_admin && class_exists( 'Automattic\\WooCommerce\\Utilities\\FeaturesUtil' ),
 			),
-			'Enhancements\\Docs' => array(
+			'Enhancements\\Docs'           => array(
 				'condition' => $is_admin,
 			),
-			'Enhancements\\Meta' => array(
+			'Enhancements\\Meta'           => array(
 				'condition' => $is_admin,
 				'params'    => array(
 					$this['file']->plugin_basename(),
 				),
 			),
-			'Enhancements\\Notices' => array(
+			'Enhancements\\Notices'        => array(
 				'condition' => $is_admin,
 			),
-			'Enhancements\\OnBoarding' => array(
+			'Enhancements\\OnBoarding'     => array(
 				'condition' => $is_admin,
 			),
-			'Enhancements\\Rate' => array(
+			'Enhancements\\Rate'           => array(
 				'condition' => $is_admin,
 			),
-			'Enhancements\\Upsell' => array(
+			'Enhancements\\Upsell'         => array(
 				'condition' => $is_admin,
 			),
-			'Settings\\Register' => array(
+			'Settings\\Register'           => array(
 				'condition' => $is_admin,
 			),
-			'WooCommerce\\Checkout' => array(
+			'WooCommerce\\Checkout'        => array(
 				'condition' => $is_frontend,
 			),
-			'WooCommerce\\Block\\Register' => array(
-				'condition' => $is_admin,
-			),
+			'WooCommerce\\Block\\Register' => array(),
 		);
 
 		return array_combine(
