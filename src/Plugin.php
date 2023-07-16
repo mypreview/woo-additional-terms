@@ -191,6 +191,9 @@ class Plugin extends Container {
 			'WooCommerce\\Checkout' => array(
 				'condition' => $is_frontend,
 			),
+			'WooCommerce\\Block\\Register' => array(
+				'condition' => $is_admin,
+			),
 		);
 
 		return array_combine(
