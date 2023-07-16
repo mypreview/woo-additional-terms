@@ -27,7 +27,7 @@ abstract class Assets {
 	 */
 	public static function enqueue_editor() {
 
-		wp_enqueue_script(
+		wp_register_script(
 			'woo-additional-terms-block',
 			woo_additional_terms()->service( 'file' )->asset_path( 'block.js' ),
 			array( 'react', 'wp-block-editor', 'wp-blocks', 'wp-components', 'wp-element', 'wp-i18n', 'wp-primitives', 'wc-blocks-checkout', 'wc-settings' ),
