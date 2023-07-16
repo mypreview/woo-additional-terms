@@ -7,12 +7,13 @@
 
 	const el = wp.element.createElement;
 	const { registerBlockType } = wp.blocks;
-	const { useBlockProps } = wp.blockEditor;
-	const { Disabled, Notice } = wp.components;
+	const { InspectorControls, useBlockProps } = wp.blockEditor;
+	const { Disabled, ExternalLink, Notice } = wp.components;
 	const { SVG, Path } = wp.primitives;
 	const { CheckboxControl } = wc.blocksCheckout;
 	const { ADMIN_URL, getSetting } = wc.wcSettings;
 	const { __ } = wp.i18n;
+	const settingsUrl = `${ ADMIN_URL }admin.php?page=wc-settings&tab=woo-additional-terms`;
 
 	registerBlockType( 'mypreview/woo-additional-terms', {
 		title: __( 'Additional Terms', 'woo-additional-terms' ),
@@ -38,10 +39,6 @@
 					move: false,
 				},
 			},
-			checkbox: {
-				type: 'boolean',
-				default: false,
-			},
 		},
 		supports: {
 			align: false,
@@ -52,9 +49,9 @@
 		edit: () => {
 			// eslint-disable-next-line react-hooks/rules-of-hooks
 			const blockProps = useBlockProps();
-			const { notice } = getSetting( '_woo_additional_terms_data', '' );
+			const { checkbox_label: checkboxLabel } = getSetting( '_woo_additional_terms_data', '' );
 
-			return notice
+			return !! checkboxLabel
 				? el(
 						Disabled,
 						{},
@@ -62,17 +59,49 @@
 							'div',
 							blockProps,
 							el(
-								CheckboxControl,
+								'div',
 								{
-									id: '_woo_additional_terms',
-									checked: false,
+									className: 'woocommerce-terms-and-conditions-wrapper woo-additional-terms',
 								},
-								el( 'span', {
-									style: { fontSize: 16 },
-									dangerouslySetInnerHTML: {
-										__html: notice,
+								el(
+									CheckboxControl,
+									{
+										id: '_woo_additional_terms',
+										name: '_woo_additional_terms',
+										className: 'wc-block-checkout__terms',
 									},
-								} )
+									el( 'span', {
+										style: { fontSize: 16 },
+										dangerouslySetInnerHTML: {
+											__html: checkboxLabel,
+										},
+									} )
+								)
+							)
+						),
+						el(
+							InspectorControls,
+							{},
+							el(
+								Notice,
+								{
+									className: 'wc-blocks-sidebar-compatibility-notice is-dismissible',
+									isDismissible: false,
+									status: 'info',
+								},
+								el(
+									'p',
+									{},
+									__(
+										'Additional terms can be customized from the plugin’s settings page.',
+										'woo-additional-terms'
+									)
+								),
+								el(
+									ExternalLink,
+									{ href: 'https://mypreview.github.io/woo-additional-terms' },
+									__( 'Visit our tutorial for full details.', 'woo-additional-terms' )
+								)
 							)
 						)
 				  )
@@ -88,18 +117,14 @@
 										'Setup an additional Terms and Conditions page',
 										'woo-additional-terms'
 									),
-									onClick: () =>
-										window.open(
-											`${ ADMIN_URL }admin.php?page=wc-settings&tab=woo-additional-terms`,
-											'_blank'
-										),
+									onClick: () => window.open( settingsUrl, '_blank' ),
 								},
 							],
 						},
 						el(
 							'p',
 							{},
-							__( 'You don’t have additional Terms and Conditions page set up.', 'woo-additional-terms' )
+							__( 'You haven’t set up an additional Terms and Conditions page.', 'woo-additional-terms' )
 						)
 				  );
 		},
