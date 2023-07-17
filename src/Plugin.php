@@ -185,6 +185,9 @@ class Plugin extends Container {
 			'Enhancements\\Upsell'         => array(
 				'condition' => $is_admin,
 			),
+			'Migration\\Migration160'      => array(
+				'condition' => $is_admin,
+			),
 			'Settings\\Register'           => array(
 				'condition' => $is_admin,
 			),
