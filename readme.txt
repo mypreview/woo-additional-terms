@@ -121,7 +121,11 @@ Yes, it does. The [Woo Additional Terms PRO](https://mypreview.one/woo-additiona
 
 == Changelog ==
 = 1.6.0 =
-* Refactor: Optimized underlying code structure.
+* Added: Ability to define the status of the additional terms checkbox.
+* Added: Customization option to choose how the terms page is displayed (modal, embed, or new tab).
+* Added: Option to make the terms and conditions checkbox skippable.
+* Added: Recording the acceptance of the additional terms in the order notes.
+* Improved: Optimized the underlying code structure for better performance and maintainability.
 
 = 1.5.2 =
 * Compatibility with WordPress 6.2
