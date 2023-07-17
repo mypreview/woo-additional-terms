@@ -147,7 +147,7 @@ class Block implements Blocks\Integrations\IntegrationInterface {
 			'display_action' => woo_additional_terms()->service( 'options' )->get( 'display_action', 'embed' ),
 			'page_content'   => woo_additional_terms()->service( 'terms' )->get( 'content' ),
 			'checkbox_label' => woo_additional_terms()->service( 'terms' )->get( 'label' ),
-			'error_message' => woo_additional_terms()->service( 'options' )->get( 'error', __( 'Please accept the additional terms to continue.', 'woo-additional-terms' ) )
+			'error_message'  => woo_additional_terms()->service( 'options' )->get( 'error', __( 'Please accept the additional terms to continue.', 'woo-additional-terms' ) ),
 		);
 	}
 
