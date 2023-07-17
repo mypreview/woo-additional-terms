@@ -21,7 +21,7 @@ class Checkout {
 	/**
 	 * Setup hooks and filters.
 	 *
-	 * @since 1.0.0
+	 * @since 1.6.0
 	 *
 	 * @return void
 	 */
@@ -34,7 +34,7 @@ class Checkout {
 	/**
 	 * Determine if the additional terms should be enforced during the checkout.
 	 *
-	 * @since 1.0.0
+	 * @since 1.6.0
 	 *
 	 * @return void
 	 */
@@ -58,7 +58,7 @@ class Checkout {
 	/**
 	 * Add the additional terms to the checkout page.
 	 *
-	 * @since 1.0.0
+	 * @since 1.6.0
 	 *
 	 * @return void
 	 */
@@ -94,7 +94,7 @@ class Checkout {
 	/**
 	 * Append additional terms data if submitted and available.
 	 *
-	 * @since 1.0.0
+	 * @since 1.6.0
 	 *
 	 * @param array $posted_data Get posted data from the checkout form.
 	 *
@@ -117,7 +117,7 @@ class Checkout {
 	/**
 	 * Show terms checkbox.
 	 *
-	 * @since 1.0.0
+	 * @since 1.3.3
 	 *
 	 * @return void
 	 */
@@ -143,7 +143,7 @@ class Checkout {
 	 * In case the required additional terms checkbox is not checked upon checking out,
 	 * throw the error message to prevent checkout from being processed.
 	 *
-	 * @since 1.0.0
+	 * @since 1.3.3
 	 *
 	 * @param array  $fields Fields submitted via checkout form.
 	 * @param object $errors Errors object.
@@ -175,7 +175,7 @@ class Checkout {
 	/**
 	 * Stores additional terms submissions after a new order being processed.
 	 *
-	 * @since 1.0.0
+	 * @since 1.3.3
 	 *
 	 * @param int   $order_id Current order id.
 	 * @param array $fields   Fields submitted via checkout form.
