@@ -48,7 +48,7 @@ class Terms {
 
 		$notice = woo_additional_terms()->service( 'options' )->get( 'notice', '' );
 
-		if ( preg_match( '/{{additional-terms|\[additional-terms\]}}/', $notice ) ) {
+		if ( preg_match( '/{{additional-terms}}|\[additional-terms\]/', $notice ) ) {
 			$notice = str_replace( array( '{{additional-terms}}', '[additional-terms]' ), $this->get_page_link(), $notice );
 		}
 
