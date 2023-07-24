@@ -39,6 +39,8 @@ To ensure that you have covered all the necessary bases, here are some examples 
 
 By including these additional terms, you can provide your customers with a clear understanding of your store’s policies and procedures, ultimately enhancing their shopping experience and building trust in your brand.
 
+For more information and setup instructions, visit the [Woo Additional Terms Plugin Documentation](https://mypreview.github.io/woo-additional-terms/ "Visit plugin documentation"). Elevate your customer experience and solidify your store's policies!
+
 ## Unlock Advanced Features for Your WooCommerce Store
 If you are looking for more advanced features to customize your WooCommerce store’s checkout process, [Woo Additional Terms PRO](https://mypreview.one/woo-additional-terms "Woo Additional Terms (PRO)") is the solution for you. With the Pro version, you get all the benefits of the free version, plus many additional features that allow you to take control of your store’s policies and improve customer trust.
 
@@ -89,7 +91,7 @@ To add an additional checkbox to the checkout page using the Woo Additional Term
 5. Click “Save Changes”.
 
 = How do I add the linked page to the additional checkbox? =
-You can add the linked page name to the checkbox label using the `{{additional-terms}}` shortcode. Insert the shortcode in the “Terms Text” field where you want the linked page name to appear. This will help your customers quickly access and review the terms and conditions by clicking the link in the checkbox.
+You can add the linked page name to the checkbox label using the `{{additional-terms}}` smart tag. Insert the smart tag in the “Terms Text” field where you want the linked page name to appear. This will help your customers quickly access and review the terms and conditions by clicking the link in the checkbox.
 
 = Is this plugin compatible with WooCommerce Checkout block? =
 Yes, the Woo Additional Terms plugin is fully compatible with the block-based checkout flow in WooCommerce. You can easily insert the dedicated “Additional Terms” block into the “Checkout” block to display the additional terms and conditions checkbox at your preferred location on the checkout page.
