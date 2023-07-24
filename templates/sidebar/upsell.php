@@ -21,9 +21,6 @@ defined( 'WC_VERSION' ) || exit;
 			<?php echo esc_html_x( 'Unlimited T&C checkboxes', 'upsell', 'woo-additional-terms' ); ?>
 		</li>
 		<li>
-			<?php echo esc_html_x( '(Non) Skippable checkboxes', 'upsell', 'woo-additional-terms' ); ?>
-		</li>
-		<li>
 			<?php echo esc_html_x( 'Define smart conditions', 'upsell', 'woo-additional-terms' ); ?>
 		</li>
 		<li>
