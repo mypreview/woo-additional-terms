@@ -132,7 +132,7 @@ class Checkout {
 			'checkout/checkbox.php',
 			array(
 				'is_required'    => woo_additional_terms()->service( 'options' )->get( 'required', false ),
-				'display_action' => woo_additional_terms()->service( 'options' )->get( 'display_action', 'embed' ),
+				'display_action' => woo_additional_terms()->service( 'options' )->get( 'action', 'embed' ),
 				'page_content'   => woo_additional_terms()->service( 'terms' )->get( 'content' ),
 				'checkbox_label' => woo_additional_terms()->service( 'terms' )->get( 'label' ),
 			)
