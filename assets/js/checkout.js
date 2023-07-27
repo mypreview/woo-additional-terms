@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/rules-of-hooks */
+/* eslint-disable camelcase, react-hooks/rules-of-hooks */
 
 ( function ( wp, wc ) {
 	'use strict';
@@ -11,7 +11,6 @@
 	const { withInstanceId } = wp.compose;
 	const { useDispatch, useSelect } = wp.data;
 	const { useEffect, useState } = wp.element;
-	const { __ } = wp.i18n;
 	const { getSetting } = wc.wcSettings;
 	const { VALIDATION_STORE_KEY } = wc.wcBlocksData;
 	const { CheckboxControl, registerCheckoutBlock } = wc.blocksCheckout;
@@ -22,12 +21,14 @@
 			parent: [ 'woocommerce/checkout-fields-block' ],
 		},
 		component: withInstanceId( ( { instanceId, checkoutExtensionData } ) => {
-			const { content, notice } = getSetting( '_woo_additional_terms_data', '' );
+			const data = getSetting( '_woo_additional_terms_data', '' );
 
-			if ( ! notice ) {
+			// Bail early if the checkbox label is empty.
+			if ( ! data?.checkbox_label ) {
 				return null;
 			}
 
+			const { checkbox_label, is_required, display_action, page_content, error_message } = data;
 			const validationErrorId = `_woo_additional_terms_data_${ instanceId }`;
 			const { setExtensionData } = checkoutExtensionData;
 			const [ checked, setChecked ] = useState( false );
@@ -40,24 +41,34 @@
 			useEffect( () => {
 				setExtensionData( '_woo_additional_terms', 'wat_checkbox', checked );
 
+				if ( ! is_required ) {
+					return;
+				}
+
 				if ( checked ) {
 					clearValidationError( validationErrorId );
-				} else {
-					setValidationErrors( {
-						[ validationErrorId ]: {
-							message: __(
-								'Please read and accept the additional terms and conditions to proceed with your order.',
-								'woo-additional-terms'
-							),
-							hidden: true,
-						},
-					} );
+					return;
 				}
+
+				setValidationErrors( {
+					[ validationErrorId ]: {
+						message: error_message,
+						hidden: true,
+					},
+				} );
 
 				return () => {
 					clearValidationError( validationErrorId );
 				};
-			}, [ setExtensionData, checked, validationErrorId, clearValidationError, setValidationErrors ] );
+			}, [
+				setExtensionData,
+				checked,
+				validationErrorId,
+				clearValidationError,
+				setValidationErrors,
+				is_required,
+				error_message,
+			] );
 
 			return el(
 				'div',
@@ -65,8 +76,10 @@
 					className: 'woocommerce-terms-and-conditions-wrapper woo-additional-terms',
 				},
 				el( 'div', {
+					id: 'woo-additional-terms-content',
+					className: `woo-additional-terms__content woo-additional-terms__content--${ display_action }`,
 					dangerouslySetInnerHTML: {
-						__html: content,
+						__html: page_content,
 					},
 				} ),
 				el(
@@ -80,7 +93,7 @@
 					},
 					el( 'span', {
 						dangerouslySetInnerHTML: {
-							__html: notice,
+							__html: checkbox_label,
 						},
 					} )
 				)

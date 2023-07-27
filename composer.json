@@ -3,10 +3,9 @@
 		"exclude": [
 			"!/languages",
 			"!vendor/*",
+			"docs",
 			"node_modules",
-			"CONTRIBUTING.md",
 			"CODE_OF_CONDUCT.md",
-			"babel.config.js",
 			"composer.json",
 			"composer.lock",
 			"package.json",
@@ -18,14 +17,14 @@
 	},
 	"authors": [
 		{
-			"homepage": "https://mypreview.one",
+			"homepage": "https://mypreview.one/woo-additional-terms",
 			"name": "MyPreview"
 		}
 	],
 	"autoload": {
-		"classmap": [
-			"includes"
-		]
+		"psr-4": {
+			"Woo_Additional_Terms\\": "src/"
+		}
 	},
 	"config": {
 		"allow-plugins": {
@@ -43,12 +42,16 @@
 	"homepage": "https://wordpress.org/plugins/woo-additional-terms",
 	"keywords": [
 		"WordPress",
+		"WooCommerce",
 		"Plugin"
 	],
 	"license": "GPL-3.0",
 	"name": "mypreview/woo-additional-terms",
 	"require": {
-		"php": ">=7.4"
+		"mahdiyazdani/wc-install-notice": "1.0.0",
+		"mahdiyazdani/wp-footer-rate": "1.0.1",
+		"php": ">=7.4",
+		"pimple/pimple": "^3.5"
 	},
 	"require-dev": {
 		"dealerdirect/phpcodesniffer-composer-installer": "0.7.2",
@@ -71,7 +74,7 @@
 		],
 		"lint:wpcbf": "phpcbf --extensions=php -p --runtime-set testVersion 7.4-",
 		"lint:wpcs": "phpcs --extensions=php -s -p --runtime-set testVersion 7.4-",
-		"make-pot": "wp i18n make-pot . languages/woo-additional-terms.pot"
+		"make-pot": "wp i18n make-pot . languages/woo-additional-terms.pot --domain=woo-additional-terms"
 	},
 	"type": "wordpress-plugin"
 }

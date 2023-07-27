@@ -1,4 +1,4 @@
-/* global jQuery, ajaxurl, watVars */
+/* global jQuery */
 
 ( function ( wp, $ ) {
 	'use strict';
@@ -7,47 +7,53 @@
 		return;
 	}
 
-	const watAdmin = {
+	const admin = {
+		/**
+		 * Cache.
+		 *
+		 * @since 1.0.0
+		 */
 		cache() {
+			this.els = {};
 			this.vars = {};
-			this.vars.rate = '#woo-additional-terms-dismiss-rate .notice-dismiss';
-			this.vars.rate += ', #woo-additional-terms-dismiss-rate .notice-dismiss-later';
-			this.vars.rated = '#woo-additional-terms-dismiss-rate .notice-dismiss-rated';
-			this.vars.upsell = '#woo-additional-terms-dismiss-upsell .notice-dismiss';
+			this.els.$required = $( '[name="woo_additional_terms_options[required]"]' );
+			this.els.$error = $( '[name="woo_additional_terms_options[error]"]' );
 		},
 
+		/**
+		 * Initialize.
+		 *
+		 * @since 1.0.0
+		 */
 		init() {
 			this.cache();
 			this.bindEvents();
+			this.handleRequiredToggle(); // Check on page load.
 		},
 
+		/**
+		 * Bind events.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @return {void}
+		 */
 		bindEvents() {
-			$( document.body )
-				.on( 'click', this.vars.rate, ( event ) => this.handleOnDismiss( event, 'rate' ) )
-				.on( 'click', this.vars.rated, ( event ) => this.handleOnDismiss( event, 'rated' ) )
-				.on( 'click', this.vars.upsell, ( event ) => this.handleOnDismiss( event, 'upsell' ) );
+			this.els.$required.on( 'change', this.handleRequiredToggle );
 		},
 
-		handleOnDismiss( event, action ) {
-			const $this = $( event.target );
-
-			if ( ! $this.attr( 'href' ) ) {
-				event.preventDefault();
-			}
-
-			$.ajax( {
-				type: 'POST',
-				url: ajaxurl,
-				dataType: 'json',
-				data: {
-					_ajax_nonce: watVars.dismiss_nonce,
-					action: `woo_additional_terms_dismiss_${ action }`,
-				},
-			} ).always( () => {
-				$this.closest( 'div.notice:visible' ).slideUp();
-			} );
+		/**
+		 * Handle required toggle.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @return {void}
+		 */
+		handleRequiredToggle() {
+			const isChecked = admin.els.$required.is( ':checked' );
+			admin.els.$error.closest( 'tr' ).toggle( isChecked );
 		},
 	};
 
-	watAdmin.init();
+	admin.init();
 } )( window.wp, jQuery );
