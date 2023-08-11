@@ -152,6 +152,9 @@ class Plugin extends Container {
 		$is_admin    = is_admin();
 		$is_frontend = ! $is_admin;
 		$classes     = array(
+			'Admin\\Order'                 => array(
+				'condition' => $is_admin,
+			),
 			'Ajax\\OnBoarding'             => array(
 				'condition' => $is_ajax,
 			),
