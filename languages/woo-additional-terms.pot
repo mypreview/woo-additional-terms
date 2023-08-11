@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: Woo Additional Terms 1.6.0\n"
+"Project-Id-Version: Woo Additional Terms 1.6.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woo-additional-terms\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-07-25T16:05:35+00:00\n"
+"POT-Creation-Date: 2023-08-11T09:10:47+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: woo-additional-terms\n"
@@ -24,7 +24,7 @@ msgid "https://mypreview.one/woo-additional-terms"
 msgstr ""
 
 #. Description of the plugin
-msgid "Add additional terms and conditions checkbox to your WooCommerce checkout page."
+msgid "Improve your checkout process by adding an extra checkbox for terms and conditions. Keep track of acceptance to ensure transparency and security."
 msgstr ""
 
 #. Author of the plugin
@@ -142,38 +142,43 @@ msgctxt "settings field placeholder"
 msgid "I have read and agree to the website {{additional-terms}}"
 msgstr ""
 
+#: src/Settings/Sections/General.php:87
+msgctxt "settings field default"
+msgid "I have read and agree to the website {{additional-terms}}"
+msgstr ""
+
 #. translators: 1: Open paragraph tag, 2: Terms smart tag, 3: Close paragraph tag.
-#: src/Settings/Sections/General.php:99
+#: src/Settings/Sections/General.php:100
 msgctxt "settings field description"
 msgid "%1$sUse the %2$s smart tag in the Terms Text to automatically display the linked terms page title in your checkbox label.%3$s"
 msgstr ""
 
-#: src/Settings/Sections/General.php:106
+#: src/Settings/Sections/General.php:107
 msgctxt "settings field name"
 msgid "Required"
 msgstr ""
 
-#: src/Settings/Sections/General.php:107
+#: src/Settings/Sections/General.php:108
 msgctxt "settings field description"
 msgid "Enable this to make the additional terms checkbox required."
 msgstr ""
 
-#: src/Settings/Sections/General.php:113
+#: src/Settings/Sections/General.php:114
 msgctxt "settings field name"
 msgid "Error Message"
 msgstr ""
 
-#: src/Settings/Sections/General.php:114
+#: src/Settings/Sections/General.php:115
 msgctxt "settings field description"
 msgid "Add an error message to show if the customer does not accept the additional terms."
 msgstr ""
 
-#: src/Settings/Sections/General.php:115
+#: src/Settings/Sections/General.php:116
 msgctxt "settings field placeholder"
 msgid "Please accept the additional terms to continue."
 msgstr ""
 
-#: src/Settings/Sections/General.php:116
+#: src/Settings/Sections/General.php:117
 msgctxt "settings field default"
 msgid "Please accept the additional terms to continue."
 msgstr ""
@@ -188,23 +193,21 @@ msgctxt "settings tab"
 msgid "General"
 msgstr ""
 
-#: src/WooCommerce/Block/Block.php:91
-#: src/WooCommerce/Checkout.php:201
+#: src/WooCommerce/Block/Block.php:120
 msgid "Customer accepted the additional terms."
 msgstr ""
 
-#: src/WooCommerce/Block/Block.php:98
-#: src/WooCommerce/Checkout.php:208
+#: src/WooCommerce/Block/Block.php:121
 msgid "Customer did not accept the additional terms."
 msgstr ""
 
-#: src/WooCommerce/Block/Block.php:150
-#: src/WooCommerce/Checkout.php:168
+#: src/WooCommerce/Block/Block.php:177
+#: src/WooCommerce/Checkout.php:173
 msgid "Please accept the additional terms to continue."
 msgstr ""
 
 #. translators: %s: Render the type of the variable.
-#: src/WooCommerce/Block/Block.php:182
+#: src/WooCommerce/Block/Block.php:209
 msgid "Value of field %s was posted with incorrect data type."
 msgstr ""
 
@@ -242,6 +245,10 @@ msgstr ""
 #: templates/notices/rate.php:40
 msgctxt "admin notice"
 msgid "I already did!"
+msgstr ""
+
+#: templates/order/terms-acceptance.php:24
+msgid "Additional terms and conditions:"
 msgstr ""
 
 #: templates/sidebar/docs.php:16
