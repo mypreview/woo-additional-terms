@@ -124,91 +124,91 @@ Yes, it does. The [Woo Additional Terms PRO](https://mypreview.one/woo-additiona
 
 == Changelog ==
 = 1.6.1 =
-- Prevented checkout error in the checkout block when additional terms & conditions are deactivated.
-- Enhanced display of additional terms acceptance below the billing address.
-- Ensured compatibility with the "WooCommerce PayPal Payments" plugin.
-- Verified compatibility with WordPress version 6.3.
-- Verified compatibility with WooCommerce version 8.0.
+* Prevented checkout error in the checkout block when additional terms & conditions are deactivated.
+* Enhanced display of additional terms acceptance below the billing address.
+* Ensured compatibility with the "WooCommerce PayPal Payments" plugin.
+* Verified compatibility with WordPress version 6.3.
+* Verified compatibility with WooCommerce version 8.0.
 
 = 1.6.0 =
-- Added: Ability to define the status of the additional terms checkbox.
-- Added: Customization option to choose how the terms page is displayed (modal, embed, or new tab).
-- Added: Option to make the terms and conditions checkbox skippable.
-- Added: Recording the acceptance of the additional terms in the order notes.
-- Improved: Optimized the underlying code structure for better performance and maintainability.
+* Added: Ability to define the status of the additional terms checkbox.
+* Added: Customization option to choose how the terms page is displayed (modal, embed, or new tab).
+* Added: Option to make the terms and conditions checkbox skippable.
+* Added: Recording the acceptance of the additional terms in the order notes.
+* Improved: Optimized the underlying code structure for better performance and maintainability.
 
 = 1.5.2 =
-- Compatibility with WordPress 6.2.
-- Compatibility with WooCommerce 7.5.
+* Compatibility with WordPress 6.2.
+* Compatibility with WooCommerce 7.5.
 
 = 1.5.1 =
-- Updated font-size for the checkout block.
-- Compatibility with WooCommerce 7.4.
+* Updated font-size for the checkout block.
+* Compatibility with WooCommerce 7.4.
 
 = 1.5.0 =
-- Compatibility with WooCommerce Checkout block.
-- Compatibility with WooCommerce 7.3.
+* Compatibility with WooCommerce Checkout block.
+* Compatibility with WooCommerce 7.3.
 
 = 1.4.1 =
-- Improved logic in displaying admin notices.
+* Improved logic in displaying admin notices.
 
 = 1.4.0 =
-- Compatibility with WooCommerce 7.2.
+* Compatibility with WooCommerce 7.2.
 
 = 1.3.6 =
-- Compatibility with WordPress 6.1.
-- Compatibility with WooCommerce 7.0.
+* Compatibility with WordPress 6.1.
+* Compatibility with WooCommerce 7.0.
 
 = 1.3.5 =
-- Compatibility with WordPress 6.0.
-- Compatibility with WooCommerce 6.9.
+* Compatibility with WordPress 6.0.
+* Compatibility with WooCommerce 6.9.
 
 = 1.3.4 =
-- Compatibility with WordPress 5.6.
-- Compatibility with WooCommerce 4.8.
+* Compatibility with WordPress 5.6.
+* Compatibility with WooCommerce 4.8.
 
 = 1.3.3 =
-- Multiple code standards improvements.
-- Compatibility with WordPress 5.5.
-- Compatibility with WooCommerce 4.4.
+* Multiple code standards improvements.
+* Compatibility with WordPress 5.5.
+* Compatibility with WooCommerce 4.4.
 
 = 1.3.2 =
-- Compatibility with WooCommerce 4.3.
+* Compatibility with WooCommerce 4.3.
 
 = 1.3.1 =
-- Display the acceptance of terms & conditions on the order edit page.
+* Display the acceptance of terms & conditions on the order edit page.
 
 = 1.3.0 =
-- Additional terms content can now open up on the page when the link is clicked, allowing customers to review without leaving checkout.
-- Compatibility with WooCommerce 4.2.0.
+* Additional terms content can now open up on the page when the link is clicked, allowing customers to review without leaving checkout.
+* Compatibility with WooCommerce 4.2.0.
 
 = 1.2.2 =
-- Added language configuration file to support WPML/Polylang.
-- Compatibility with WordPress 5.4.1.
-- Compatibility with WooCommerce 4.1.1.
+* Added language configuration file to support WPML/Polylang.
+* Compatibility with WordPress 5.4.1.
+* Compatibility with WooCommerce 4.1.1.
 
 = 1.2.1 =
-- Multiple code standards improvements.
-- Compatibility with WordPress 5.4.0.
-- Compatibility with WooCommerce 4.0.1.
+* Multiple code standards improvements.
+* Compatibility with WordPress 5.4.0.
+* Compatibility with WooCommerce 4.0.1.
 
 = 1.2.0 =
-- Updated language file.
-- Refactored and re-organized underlying code in plugin settings page/controls.
-- Compatibility with WordPress 5.3.1.
-- Compatibility with WooCommerce 3.8.1.
+* Updated language file.
+* Refactored and re-organized underlying code in plugin settings page/controls.
+* Compatibility with WordPress 5.3.1.
+* Compatibility with WooCommerce 3.8.1.
 
 = 1.1.0 =
-- Compatible with WordPress 4.9.6.
-- Compatible with WooCommerce 3.4.2.
+* Compatible with WordPress 4.9.6.
+* Compatible with WooCommerce 3.4.2.
 
 = 1.0.2 =
-- Compatible with WordPress 4.7.0.
-- Compatible with WooCommerce 2.6.9.
+* Compatible with WordPress 4.7.0.
+* Compatible with WooCommerce 2.6.9.
 
 = 1.0.1 =
-- Added screenshots.
+* Added screenshots.
 
 = 1.0.0 =
-- Initial release.
+* Initial release.
 
