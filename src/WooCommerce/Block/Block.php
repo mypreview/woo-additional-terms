@@ -123,7 +123,7 @@ class Block implements Blocks\Integrations\IntegrationInterface {
 		$order->add_order_note( $note_message );
 
 		// Save the additional terms checkbox value as order meta.
-		$order->update_meta_data( Admin\Order::META_KEY, wc_bool_to_string( $has_accepted ) );
+		update_post_meta( $order->get_id(), Admin\Order::META_KEY, wc_bool_to_string( $has_accepted ) );
 	}
 
 	/**
