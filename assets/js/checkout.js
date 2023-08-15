@@ -22,15 +22,18 @@
 		},
 		component: withInstanceId( ( { instanceId, checkoutExtensionData } ) => {
 			const data = getSetting( '_woo_additional_terms_data', '' );
+			const { setExtensionData } = checkoutExtensionData;
 
 			// Bail early if the checkbox label is empty.
 			if ( ! data?.checkbox_label ) {
+				useEffect( () => {
+					setExtensionData( '_woo_additional_terms', 'data', '' );
+				}, [] );
 				return null;
 			}
 
 			const { checkbox_label, is_required, display_action, page_content, error_message } = data;
 			const validationErrorId = `_woo_additional_terms_data_${ instanceId }`;
-			const { setExtensionData } = checkoutExtensionData;
 			const [ checked, setChecked ] = useState( false );
 			const { setValidationErrors, clearValidationError } = useDispatch( VALIDATION_STORE_KEY );
 			const error = useSelect( ( select ) =>
@@ -39,7 +42,7 @@
 			const hasError = !! ( error?.message && ! error?.hidden );
 
 			useEffect( () => {
-				setExtensionData( '_woo_additional_terms', 'wat_checkbox', checked );
+				setExtensionData( '_woo_additional_terms', 'data', checked ? 'yes' : 'no' );
 
 				if ( ! is_required ) {
 					return;

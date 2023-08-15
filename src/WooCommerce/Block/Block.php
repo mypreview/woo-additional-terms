@@ -13,9 +13,11 @@ namespace Woo_Additional_Terms\WooCommerce\Block;
 
 use WP_Error;
 use WC_Order;
+use Exception;
 use WP_REST_Request;
 use Automattic\WooCommerce\Blocks;
 use Automattic\WooCommerce\StoreApi;
+use Woo_Additional_Terms\Admin;
 
 /**
  * Checkout block class.
@@ -46,7 +48,8 @@ class Block implements Blocks\Integrations\IntegrationInterface {
 		$this->extend_store_api();
 
 		add_filter( '__experimental_woocommerce_blocks_add_data_attributes_to_block', array( $this, 'add_attributes_to_frontend_blocks' ) );
-		add_action( 'woocommerce_store_api_checkout_update_order_from_request', array( $this, 'save_acceptance' ), 10, 2 );
+		add_action( 'woocommerce_store_api_checkout_update_order_from_request', array( $this, 'process_acceptance' ), 10, 2 );
+		add_action( 'woo_additional_terms_checkout_save_acceptance', array( $this, 'save_acceptance' ), 10, 2 );
 	}
 
 	/**
@@ -67,7 +70,7 @@ class Block implements Blocks\Integrations\IntegrationInterface {
 
 	/**
 	 * Fires after an order saved into the database.
-	 * We will update the post meta
+	 * We will update the post meta.
 	 *
 	 * @since 1.5.0
 	 *
@@ -76,27 +79,51 @@ class Block implements Blocks\Integrations\IntegrationInterface {
 	 *
 	 * @return void
 	 */
-	public function save_acceptance( $order, $request ) {
+	public function process_acceptance( $order, $request ) {
 
 		if ( ! isset( $request['extensions'], $request['extensions']['_woo_additional_terms'] ) ) {
 			return;
 		}
 
-		// Save the additional terms checkbox value as order meta.
-		$order->update_meta_data( '_woo_additional_terms', wc_bool_to_string( isset( $request['extensions']['_woo_additional_terms']['wat_checkbox'] ) ) );
+		$has_accepted = empty( $request['extensions']['_woo_additional_terms']['data'] ) ? null : wc_string_to_bool( $request['extensions']['_woo_additional_terms']['data'] );
 
-		// If the additional terms checkbox is checked, add note that customer accepted if not add note tha customer didn't accept.
-		if ( isset( $request['extensions']['_woo_additional_terms']['wat_checkbox'] ) && wc_string_to_bool( $request['extensions']['_woo_additional_terms']['wat_checkbox'] ) ) {
-			$order->add_order_note(
-				__( 'Customer accepted the additional terms.', 'woo-additional-terms' )
-			);
+		/**
+		 * Fires after additional terms submissions is about to be saved.
+		 *
+		 * @since 1.6.1
+		 *
+		 * @param null|bool $has_accepted Whether the additional terms has been accepted.
+		 * @param WC_Order  $order        Order object.
+		 */
+		do_action( 'woo_additional_terms_checkout_save_acceptance', $has_accepted, $order );
+	}
 
+	/**
+	 * Stores additional terms submissions after a new order being processed.
+	 *
+	 * @since 1.6.1
+	 *
+	 * @param null|bool $has_accepted Whether the additional terms has been accepted.
+	 * @param WC_Order  $order        Order object.
+	 *
+	 * @return void
+	 */
+	public function save_acceptance( $has_accepted, $order ) {
+
+		// Leave if the order is not an instance of WC_Order.
+		if ( ! $order instanceof WC_Order || is_null( $has_accepted ) ) {
 			return;
 		}
 
-		$order->add_order_note(
-			__( 'Customer did not accept the additional terms.', 'woo-additional-terms' )
-		);
+		// Add order note based on acceptance status.
+		$note_message = $has_accepted
+			? __( 'Customer accepted the additional terms.', 'woo-additional-terms' )
+			: __( 'Customer did not accept the additional terms.', 'woo-additional-terms' );
+
+		$order->add_order_note( $note_message );
+
+		// Save the additional terms checkbox value as order meta.
+		update_post_meta( $order->get_id(), Admin\Order::META_KEY, wc_bool_to_string( $has_accepted ) );
 	}
 
 	/**
@@ -171,13 +198,13 @@ class Block implements Blocks\Integrations\IntegrationInterface {
 				'endpoint'        => Blocks\StoreApi\Schemas\CheckoutSchema::IDENTIFIER,
 				'namespace'       => $this->get_name(),
 				'schema_callback' => fn() => array(
-					'wat_checkbox' => array(
-						'type'        => 'boolean',
+					'data' => array(
+						'type'        => 'string',
 						'context'     => array(),
 						'arg_options' => array(
 							'validate_callback' => function( $value ) {
 
-								if ( ! is_bool( $value ) ) {
+								if ( ! is_string( $value ) ) {
 									/* translators: %s: Render the type of the variable. */
 									return new WP_Error( 'api-error', sprintf( esc_html__( 'Value of field %s was posted with incorrect data type.', 'woo-additional-terms' ), gettype( $value ) ) );
 								}

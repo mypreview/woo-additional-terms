@@ -13,8 +13,6 @@ namespace Woo_Additional_Terms;
 
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
-use Woo_Additional_Terms\Settings;
-use Woo_Additional_Terms\WooCommerce;
 
 /**
  * Class PluginServiceProvider.

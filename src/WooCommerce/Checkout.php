@@ -70,7 +70,7 @@ class Checkout {
 		add_filter( 'woocommerce_checkout_posted_data', array( $this, 'posted_data' ) );
 		add_action( 'woocommerce_checkout_after_terms_and_conditions', array( $this, 'show_checkbox' ) );
 		add_action( 'woocommerce_after_checkout_validation', array( $this, 'show_error' ), 10, 2 );
-		add_action( 'woocommerce_checkout_update_order_meta', array( $this, 'save_acceptance' ), 10, 2 );
+		add_action( 'woocommerce_checkout_update_order_meta', array( $this, 'process_acceptance' ), 10, 2 );
 	}
 
 	/**
@@ -82,6 +82,11 @@ class Checkout {
 	 * @return array
 	 */
 	public function body_classes( $classes ) {
+
+		// Bail early, in case the checkout page is not available.
+		if ( ! is_checkout() ) {
+			return $classes;
+		}
 
 		/**
 		 * Append a class to the body element when the additional terms are enforced.
@@ -173,7 +178,7 @@ class Checkout {
 	}
 
 	/**
-	 * Stores additional terms submissions after a new order being processed.
+	 * Processes additional terms submissions after a new order being processed.
 	 *
 	 * @since 1.3.3
 	 *
@@ -182,7 +187,7 @@ class Checkout {
 	 *
 	 * @return void
 	 */
-	public function save_acceptance( $order_id, $fields ) {
+	public function process_acceptance( $order_id, $fields ) {
 
 		// Get the order object.
 		$order = wc_get_order( $order_id );
@@ -192,20 +197,16 @@ class Checkout {
 			return;
 		}
 
-		// Save the additional terms checkbox value as order meta.
-		$order->update_meta_data( '_woo_additional_terms', wc_bool_to_string( isset( $fields['_woo_additional_terms'] ) ) );
+		$has_accepted = isset( $fields['_woo_additional_terms'] );
 
-		// If the additional terms checkbox is checked, add note that customer accepted if not add note tha customer didn't accept.
-		if ( isset( $fields['_woo_additional_terms'] ) && wc_string_to_bool( $fields['_woo_additional_terms'] ) ) {
-			$order->add_order_note(
-				__( 'Customer accepted the additional terms.', 'woo-additional-terms' )
-			);
-
-			return;
-		}
-
-		$order->add_order_note(
-			__( 'Customer did not accept the additional terms.', 'woo-additional-terms' )
-		);
+		/**
+		 * Fires after additional terms submissions is about to be saved.
+		 *
+		 * @since 1.6.1
+		 *
+		 * @param bool     $has_accepted Whether the additional terms has been accepted.
+		 * @param WC_Order $order        Order object.
+		 */
+		do_action( 'woo_additional_terms_checkout_save_acceptance', $has_accepted, $order );
 	}
 }

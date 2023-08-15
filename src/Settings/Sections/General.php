@@ -84,6 +84,7 @@ class General extends Section {
 				'name'              => _x( 'Terms Text', 'settings field name', 'woo-additional-terms' ),
 				'desc'              => _x( 'Enter the desired text that will be displayed alongside the checkbox, ensuring clarity and transparency when customers agree to the specified terms during the checkout process.', 'settings field description', 'woo-additional-terms' ),
 				'placeholder'       => _x( 'I have read and agree to the website {{additional-terms}}', 'settings field placeholder', 'woo-additional-terms' ),
+				'default'           => _x( 'I have read and agree to the website {{additional-terms}}', 'settings field default', 'woo-additional-terms' ),
 				'type'              => 'textarea',
 				'id'                => 'woo_additional_terms_options[notice]',
 				'desc_tip'          => true,
