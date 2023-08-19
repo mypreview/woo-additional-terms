@@ -5,7 +5,7 @@ Donate link: https://mypreview.one/woo-additional-terms
 Requires at least: 5.0
 Tested up to: 6.3
 Requires PHP: 7.4
-Stable tag: 1.6.1
+Stable tag: 1.6.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.txt
 
@@ -123,6 +123,9 @@ Yes, it does. The [Woo Additional Terms PRO](https://mypreview.one/woo-additiona
 5. Additional terms and condition checkbox on the WooCommerce checkout block page.
 
 == Changelog ==
+= 1.6.2 =
+* Fix: Isolated the dependency injection container package to prevent potential PHP fatal errors when utilized by other third-party plugins.
+
 = 1.6.1 =
 * Prevented checkout error in the checkout block when additional terms & conditions are deactivated.
 * Enhanced display of additional terms acceptance below the billing address.
