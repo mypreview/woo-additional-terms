@@ -3,6 +3,7 @@
 		"exclude": [
 			"!/languages",
 			"!vendor/*",
+			"!src/Dependencies/*",
 			"docs",
 			"node_modules",
 			"CODE_OF_CONDUCT.md",
@@ -62,10 +63,10 @@
 	"require": {
 		"mahdiyazdani/wc-install-notice": "1.0.0",
 		"mahdiyazdani/wp-footer-rate": "1.0.1",
-		"php": ">=7.4",
-		"pimple/pimple": "^3.5"
+		"php": ">=7.4"
 	},
 	"require-dev": {
+		"coenjacobs/mozart": "^0.7.1",
 		"dealerdirect/phpcodesniffer-composer-installer": "0.7.2",
 		"php-parallel-lint/php-parallel-lint": "1.3.2",
 		"phpcompatibility/phpcompatibility-wp": "2.1.3",
@@ -74,13 +75,14 @@
 		"woocommerce/woocommerce-git-hooks": "*",
 		"woocommerce/woocommerce-sniffs": "*",
 		"wp-cli/i18n-command": "2.4.0",
-		"wp-coding-standards/wpcs": "2.3.0"
+		"wp-coding-standards/wpcs": "2.3.0",
+		"pimple/pimple": "^3.5"
 	},
 	"scripts": {
 		"bundle": [
 			"composer lint:wpcbf",
 			"rm -rf woo-additional-terms.zip",
-			"composer install --no-dev",
+			"composer install --no-dev --no-scripts",
 			"composer archive --file=woo-additional-terms --format=zip",
 			"composer install -vvv"
 		],
@@ -88,11 +90,11 @@
 		"lint:wpcs": "phpcs --extensions=php -s -p --runtime-set testVersion 7.4-",
 		"make-pot": "wp i18n make-pot . languages/woo-additional-terms.pot --domain=woo-additional-terms",
 		"post-install-cmd": [
-			"~/.composer/vendor/bin/mozart compose",
+			"vendor/bin/mozart compose",
 			"composer dump-autoload"
 		],
 		"post-update-cmd": [
-			"~/.composer/vendor/bin/mozart compose",
+			"vendor/bin/mozart compose",
 			"composer dump-autoload"
 		]
 	},
