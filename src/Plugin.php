@@ -11,12 +11,10 @@
 
 namespace Woo_Additional_Terms;
 
-use Pimple\Container;
-
 /**
  * The plugin class.
  */
-class Plugin extends Container {
+class Plugin extends Dependencies\Pimple\Container {
 
 	/**
 	 * The plugin version.
