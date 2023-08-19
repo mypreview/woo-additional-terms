@@ -33,6 +33,18 @@
 	},
 	"description": "Add additional terms and condition checkbox to the WooCommerce checkout.",
 	"extra": {
+		"mozart": {
+			"classmap_directory": "/classes/dependencies/",
+			"delete_vendor_directories": true,
+			"dep_directory": "/src/Dependencies/",
+			"dep_namespace": "Woo_Additional_Terms\\Dependencies\\",
+			"excluded_packages": [
+				"psr/container"
+			],
+			"packages": [
+				"pimple/pimple"
+			]
+		},
 		"scripts-description": {
 			"lint:wpcbf": "Fix coding standards warnings/errors automatically with PHP Code Beautifier",
 			"lint:wpcs": "Analyze code against the WordPress coding standards with PHP_CodeSniffer",
@@ -74,7 +86,15 @@
 		],
 		"lint:wpcbf": "phpcbf --extensions=php -p --runtime-set testVersion 7.4-",
 		"lint:wpcs": "phpcs --extensions=php -s -p --runtime-set testVersion 7.4-",
-		"make-pot": "wp i18n make-pot . languages/woo-additional-terms.pot --domain=woo-additional-terms"
+		"make-pot": "wp i18n make-pot . languages/woo-additional-terms.pot --domain=woo-additional-terms",
+		"post-install-cmd": [
+			"~/.composer/vendor/bin/mozart compose",
+			"composer dump-autoload"
+		],
+		"post-update-cmd": [
+			"~/.composer/vendor/bin/mozart compose",
+			"composer dump-autoload"
+		]
 	},
 	"type": "wordpress-plugin"
 }
