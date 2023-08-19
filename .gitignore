@@ -24,6 +24,7 @@ build/Release
 node_modules/
 vendor/
 build/
+src/Dependencies/
 
 # Unit tests
 /tmp
