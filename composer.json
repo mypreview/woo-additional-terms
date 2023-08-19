@@ -5,6 +5,7 @@
 			"!vendor/*",
 			"!src/Dependencies/*",
 			"docs",
+			"classes",
 			"node_modules",
 			"CODE_OF_CONDUCT.md",
 			"composer.json",
