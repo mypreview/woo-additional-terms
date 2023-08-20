@@ -14,7 +14,7 @@ namespace Woo_Additional_Terms;
 /**
  * Class PluginServiceProvider.
  */
-class PluginServiceProvider implements Dependencies\Pimple\ServiceProviderInterface {
+class PluginServiceProvider implements Vendor\Pimple\ServiceProviderInterface {
 
 	/**
 	 * Registers services on the given container.
@@ -24,7 +24,7 @@ class PluginServiceProvider implements Dependencies\Pimple\ServiceProviderInterf
 	 *
 	 * @since 1.6.0
 	 *
-	 * @param Dependencies\Pimple\Container $pimple Container instance.
+	 * @param Vendor\Pimple\Container $pimple Container instance.
 	 */
 	public function register( $pimple ) {
 

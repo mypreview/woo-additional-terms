@@ -14,7 +14,7 @@ namespace Woo_Additional_Terms;
 /**
  * The plugin class.
  */
-class Plugin extends Dependencies\Pimple\Container {
+class Plugin extends Vendor\Pimple\Container {
 
 	/**
 	 * The plugin version.

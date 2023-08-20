@@ -3,7 +3,7 @@
 		"exclude": [
 			"!/languages",
 			"!vendor/*",
-			"!src/Dependencies/*",
+			"!src/Vendor/*",
 			"docs",
 			"classes",
 			"node_modules",
@@ -38,8 +38,8 @@
 		"mozart": {
 			"classmap_directory": "/classes/dependencies/",
 			"delete_vendor_directories": true,
-			"dep_directory": "/src/Dependencies/",
-			"dep_namespace": "Woo_Additional_Terms\\Dependencies\\",
+			"dep_directory": "/src/Vendor/",
+			"dep_namespace": "Woo_Additional_Terms\\Vendor\\",
 			"excluded_packages": [
 				"psr/container"
 			],
