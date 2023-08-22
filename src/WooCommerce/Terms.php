@@ -64,20 +64,20 @@ class Terms {
 	 */
 	private function get_page_uri() {
 
-		$terms_page_id = woo_additional_terms()->service( 'options' )->get( 'page', 0 );
-		$terms_page    = get_post( $terms_page_id );
+		$terms_page_id = woo_additional_terms()->service( 'options' )->get( 'page', false );
 
-		// Check if the terms page exists.
-		if ( ! $terms_page instanceof WP_Post ) {
+		if ( ! is_numeric( $terms_page_id ) ) {
 			return '';
 		}
 
-		// Check if the terms page is published.
-		if ( 'publish' !== $terms_page->post_status ) {
+		$terms_page = get_post( $terms_page_id );
+
+		// Check if the terms page exists, and is a page.
+		if ( ! ( $terms_page instanceof WP_Post ) || 'page' !== $terms_page->post_type ) {
 			return '';
 		}
 
-		return get_permalink( $terms_page_id );
+		return get_permalink( $terms_page );
 	}
 
 	/**
@@ -141,36 +141,22 @@ class Terms {
 			return '';
 		}
 
-		// Check if get_post() function exists.
-		if ( ! function_exists( 'get_post' ) ) {
-			return '';
-		}
+		$terms_page_id = woo_additional_terms()->service( 'options' )->get( 'page', false );
 
-		$terms_page_id = woo_additional_terms()->service( 'options' )->get( 'page', 0 );
-
-		// Bail early, in case the terms page ID is empty.
-		if ( empty( $terms_page_id ) ) {
+		// Bail early, in case the terms page ID is not valid.
+		if ( empty( $terms_page_id ) || ! function_exists( 'get_post' ) ) {
 			return '';
 		}
 
 		$terms_page = get_post( $terms_page_id );
 
-		// Check if the terms page exists.
-		if ( ! $terms_page instanceof WP_Post ) {
-			return '';
-		}
-
-		// Check if the terms page is published.
-		if ( 'publish' !== $terms_page->post_status ) {
-			return '';
-		}
-
-		// Check if the terms page has content.
-		if ( empty( $terms_page->post_content ) ) {
+		// Check if the terms page exists, and has content.
+		if ( ! ( $terms_page instanceof WP_Post ) || empty( $terms_page->post_content ) ) {
 			return '';
 		}
 
 		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 		return apply_filters( 'the_content', $terms_page->post_content );
 	}
+
 }
