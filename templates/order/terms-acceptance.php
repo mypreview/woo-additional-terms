@@ -11,7 +11,7 @@ defined( 'ABSPATH' ) || exit;
 defined( 'WC_VERSION' ) || exit;
 
 // Bailout, if no value found.
-if ( empty( $value ) ) {
+if ( empty( $args['meta'] ) ) {
 	return;
 }
 
@@ -22,7 +22,7 @@ if ( empty( $value ) ) {
 	<p>
 		<strong style="display:flex;gap:5px;">
 			<?php esc_html_e( 'Additional terms and conditions:', 'woo-additional-terms' ); ?>
-			<span class="status-<?php echo esc_attr( wc_string_to_bool( $value ) ? 'enabled' : 'disabled' ); ?>"></span>
+			<span class="status-<?php echo esc_attr( wc_string_to_bool( $args['meta'] ) ? 'enabled' : 'disabled' ); ?>"></span>
 		</strong>
 	</p>
 </div>
