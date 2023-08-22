@@ -77,6 +77,13 @@ class Terms {
 			return '';
 		}
 
+		$display_action = woo_additional_terms()->service( 'options' )->get( 'action', 'embed' );
+
+		// Bail early, in case the display action is set to "New Tab", and the terms page is not published.
+		if ( 'publish' !== $terms_page->post_status && 'newtab' === $display_action ) {
+			return '';
+		}
+
 		return get_permalink( $terms_page );
 	}
 
