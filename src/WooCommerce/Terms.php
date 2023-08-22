@@ -158,5 +158,4 @@ class Terms {
 		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 		return apply_filters( 'the_content', $terms_page->post_content );
 	}
-
 }
