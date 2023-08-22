@@ -15,6 +15,12 @@ if ( empty( $args['meta'] ) ) {
 	return;
 }
 
+// This block is intended for ensuring backward compatibility with versions older than 1.6.0.
+// It's worth noting that in previous versions, the acceptance value was stored within an array.
+if ( is_array( $args['meta'] ) ) {
+	// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
+	$args['meta'] = 'yes';
+}
 ?>
 
 <?php /* incorrect CSS class added here, so it adopts styling we want. */ ?>
