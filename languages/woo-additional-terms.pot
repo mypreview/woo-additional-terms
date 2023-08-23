@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: Woo Additional Terms 1.6.1\n"
+"Project-Id-Version: Woo Additional Terms 1.6.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woo-additional-terms\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-08-11T09:10:47+00:00\n"
+"POT-Creation-Date: 2023-08-23T10:14:46+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: woo-additional-terms\n"
@@ -247,7 +247,7 @@ msgctxt "admin notice"
 msgid "I already did!"
 msgstr ""
 
-#: templates/order/terms-acceptance.php:24
+#: templates/order/terms-acceptance.php:30
 msgid "Additional terms and conditions:"
 msgstr ""
 
@@ -329,8 +329,4 @@ msgstr ""
 #: assets/js/block.js:127
 #: assets/js/minified/block.js:1
 msgid "You haven’t set up an additional Terms and Conditions page."
-msgstr ""
-
-#: assets/js/minified/checkout.js:1
-msgid "Please read and accept the additional terms and conditions to proceed with your order."
 msgstr ""
