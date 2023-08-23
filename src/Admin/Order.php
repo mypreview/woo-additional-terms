@@ -53,7 +53,7 @@ class Order {
 		woo_additional_terms()->service( 'template_manager' )->echo_template(
 			'order/terms-acceptance.php',
 			array(
-				'value' => $order->get_meta( self::META_KEY ),
+				'meta' => get_post_meta( $order->get_id(), self::META_KEY, true ),
 			)
 		);
 	}
