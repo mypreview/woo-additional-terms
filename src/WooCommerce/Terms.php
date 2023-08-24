@@ -164,8 +164,8 @@ class Terms {
 		}
 
 		// Use Elementor to render the post content, in case the page is built with Elementor.
-		if ( class_exists( '\Elementor\Plugin' ) && Elementor\Plugin::$instance->db->is_built_with_elementor( $post_id ) ) {
-			return Elementor\Plugin::$instance->frontend->get_builder_content( $post_id );
+		if ( class_exists( '\Elementor\Plugin' ) && Elementor\Plugin::$instance->db->is_built_with_elementor( $terms_page_id ) ) {
+			return Elementor\Plugin::$instance->frontend->get_builder_content( $terms_page_id );
 		}
 
 		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
