@@ -12,6 +12,7 @@
 namespace Woo_Additional_Terms\WooCommerce;
 
 use WP_Post;
+use Elementor;
 
 /**
  * Terms class.
@@ -160,6 +161,11 @@ class Terms {
 		// Check if the terms page exists, and has content.
 		if ( ! ( $terms_page instanceof WP_Post ) || empty( $terms_page->post_content ) ) {
 			return '';
+		}
+
+		// Use Elementor to render the post content, in case the page is built with Elementor.
+		if ( class_exists( '\Elementor\Plugin' ) && Elementor\Plugin::$instance->db->is_built_with_elementor( $post_id ) ) {
+			return Elementor\Plugin::$instance->frontend->get_builder_content( $post_id );
 		}
 
 		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
