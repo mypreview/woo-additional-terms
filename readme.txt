@@ -5,7 +5,7 @@ Donate link: https://mypreview.one/woo-additional-terms
 Requires at least: 5.0
 Tested up to: 6.3
 Requires PHP: 7.4
-Stable tag: 1.6.3
+Stable tag: 1.6.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.txt
 
@@ -123,12 +123,15 @@ Yes, it does. The [Woo Additional Terms PRO](https://mypreview.one/woo-additiona
 5. Additional terms and condition checkbox on the WooCommerce checkout block page.
 
 == Changelog ==
+= 1.6.4 =
+* Compatibility for rendering terms page content created with Elementor.
+
 = 1.6.3 =
-* Fix: Resolved the issue that prevented the assignment of non-published pages as terms pages.
-* Fix: Addressed a PHP error that occurred when retrieving order meta information for display on the order page.
+* Resolved the issue that prevented the assignment of non-published pages as terms pages.
+* Addressed a PHP error that occurred when retrieving order meta information for display on the order page.
 
 = 1.6.2 =
-* Fix: Isolated the dependency injection container package to prevent potential PHP fatal errors when utilized by other third-party plugins.
+* Isolated the dependency injection container package to prevent potential PHP fatal errors when utilized by other third-party plugins.
 
 = 1.6.1 =
 * Prevented checkout error in the checkout block when additional terms & conditions are deactivated.
@@ -138,11 +141,11 @@ Yes, it does. The [Woo Additional Terms PRO](https://mypreview.one/woo-additiona
 * Verified compatibility with WooCommerce version 8.0.
 
 = 1.6.0 =
-* Added: Ability to define the status of the additional terms checkbox.
-* Added: Customization option to choose how the terms page is displayed (modal, embed, or new tab).
-* Added: Option to make the terms and conditions checkbox skippable.
-* Added: Recording the acceptance of the additional terms in the order notes.
-* Improved: Optimized the underlying code structure for better performance and maintainability.
+* Added ability to define the status of the additional terms checkbox.
+* Added customization option to choose how the terms page is displayed (modal, embed, or new tab).
+* Added new option to make the terms and conditions checkbox skippable.
+* Save the acceptance of the additional terms in the order notes.
+* Optimized the underlying code structure for better performance and maintainability.
 
 = 1.5.2 =
 * Compatibility with WordPress 6.2.
@@ -218,4 +221,3 @@ Yes, it does. The [Woo Additional Terms PRO](https://mypreview.one/woo-additiona
 
 = 1.0.0 =
 * Initial release.
-
