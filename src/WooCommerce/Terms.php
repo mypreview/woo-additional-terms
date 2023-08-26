@@ -57,6 +57,26 @@ class Terms {
 	}
 
 	/**
+	 * Get the terms error message.
+	 * Note that empty error message indicates that the terms are not required.
+	 *
+	 * @since 1.6.4
+	 *
+	 * @return string
+	 */
+	private function get_error() {
+
+		$is_required = woo_additional_terms()->service( 'options' )->get( 'required', 'no' );
+
+		// Bail early, in case the terms are not required.
+		if ( ! wc_string_to_bool( $is_required ) ) {
+			return '';
+		}
+
+		return woo_additional_terms()->service( 'options' )->get( 'error', __( 'Please accept the additional terms to continue.', 'woo-additional-terms' ) );
+	}
+
+	/**
 	 * Get the terms page URI.
 	 *
 	 * @since 1.6.0
