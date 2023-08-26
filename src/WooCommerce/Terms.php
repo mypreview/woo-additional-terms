@@ -164,7 +164,7 @@ class Terms {
 		}
 
 		// Use Elementor to render the post content, in case the page is built with Elementor.
-		if ( class_exists( '\Elementor\Plugin' ) && Elementor\Plugin::$instance->db->is_built_with_elementor( $terms_page_id ) ) {
+		if ( class_exists( Elementor\Plugin::class ) && Elementor\Plugin::$instance->db->is_built_with_elementor( $terms_page_id ) ) {
 			return Elementor\Plugin::$instance->frontend->get_builder_content_for_display( $terms_page_id, true );
 		}
 
