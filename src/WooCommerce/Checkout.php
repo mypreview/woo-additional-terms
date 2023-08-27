@@ -157,20 +157,19 @@ class Checkout {
 	 */
 	public function show_error( $fields, $errors ) {
 
-		$is_required = woo_additional_terms()->service( 'options' )->get( 'required', false );
-
-		// Bail early, in case the additional terms checkbox is not required.
-		if ( ! wc_string_to_bool( $is_required ) ) {
-			return;
-		}
-
 		// Bail early, in case the additional terms checkbox is already checked.
 		if ( ! empty( $fields['_woo_additional_terms'] ) ) {
 			return;
 		}
 
 		// Get the error message.
-		$error_message = woo_additional_terms()->service( 'options' )->get( 'error', __( 'Please accept the additional terms to continue.', 'woo-additional-terms' ) );
+		$error_message = woo_additional_terms()->service( 'terms' )->get( 'error' );
+
+		// Bail early, in case the the checkbox is not required.
+		// Empty error message means the checkbox is not required.
+		if ( empty( $error_message ) ) {
+			return;
+		}
 
 		// Add the error message.
 		// Prevent the checkout process from continuing.
