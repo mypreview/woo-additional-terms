@@ -12,6 +12,7 @@
 namespace Woo_Additional_Terms\WooCommerce;
 
 use WP_Post;
+use Elementor;
 
 /**
  * Terms class.
@@ -53,6 +54,26 @@ class Terms {
 		}
 
 		return $notice;
+	}
+
+	/**
+	 * Get the terms error message.
+	 * Note that empty error message indicates that the terms are not required.
+	 *
+	 * @since 1.6.4
+	 *
+	 * @return string
+	 */
+	private function get_error() {
+
+		$is_required = woo_additional_terms()->service( 'options' )->get( 'required', 'no' );
+
+		// Bail early, in case the terms are not required.
+		if ( ! wc_string_to_bool( $is_required ) ) {
+			return '';
+		}
+
+		return woo_additional_terms()->service( 'options' )->get( 'error', __( 'Please accept the additional terms to continue.', 'woo-additional-terms' ) );
 	}
 
 	/**
@@ -160,6 +181,11 @@ class Terms {
 		// Check if the terms page exists, and has content.
 		if ( ! ( $terms_page instanceof WP_Post ) || empty( $terms_page->post_content ) ) {
 			return '';
+		}
+
+		// Use Elementor to render the post content, in case the page is built with Elementor.
+		if ( class_exists( Elementor\Plugin::class ) && Elementor\Plugin::$instance->db->is_built_with_elementor( $terms_page_id ) ) {
+			return Elementor\Plugin::$instance->frontend->get_builder_content_for_display( $terms_page_id, true );
 		}
 
 		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound

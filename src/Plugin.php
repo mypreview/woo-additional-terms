@@ -170,9 +170,6 @@ class Plugin extends Vendor\Pimple\Container {
 			),
 			'Enhancements\\Meta'           => array(
 				'condition' => $is_admin,
-				'params'    => array(
-					$this['file']->plugin_basename(),
-				),
 			),
 			'Enhancements\\Notices'        => array(
 				'condition' => $is_admin,
