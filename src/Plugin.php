@@ -2,8 +2,6 @@
 /**
  * The core plugin class.
  *
- * @author MyPreview (Github: @mahdiyazdani, @gooklani, @mypreview)
- *
  * @since 1.6.0
  *
  * @package woo-additional-terms
@@ -192,6 +190,7 @@ class Plugin extends Vendor\Pimple\Container {
 			'WooCommerce\\Checkout'        => array(
 				'condition' => $is_frontend,
 			),
+			'WooCommerce\\Block\\Checkout' => array(),
 			'WooCommerce\\Block\\Register' => array(),
 		);
 
