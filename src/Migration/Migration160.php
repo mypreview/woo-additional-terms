@@ -2,8 +2,6 @@
 /**
  * Migration for the version 1.6.0.
  *
- * @author MyPreview (Github: @mahdiyazdani, @gooklani, @mypreview)
- *
  * @since 1.6.0
  *
  * @package woo-additional-terms
