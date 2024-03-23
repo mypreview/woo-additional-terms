@@ -2,6 +2,9 @@
 /**
  * WooCommerce checkout customizations.
  *
+ * Note: This class is intended to be used with the WooCommerce checkout shortcode,
+ * in the future it will be deprecated in favor of the new WooCommerce Blocks.
+ *
  * @since 1.6.0
  *
  * @package woo-additional-terms

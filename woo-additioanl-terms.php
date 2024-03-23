@@ -49,10 +49,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * Loads the PSR-4 autoloader implementation.
- *
- * @since 1.6.0
- *
- * @return void
  */
 require_once untrailingslashit( plugin_dir_path( __FILE__ ) ) . '/vendor/autoload.php';
 
@@ -61,7 +57,7 @@ require_once untrailingslashit( plugin_dir_path( __FILE__ ) ) . '/vendor/autoloa
  *
  * @since 1.6.0
  *
- * @return mixed|Plugin
+ * @return null|Plugin
  */
 function woo_additional_terms() {
 
@@ -82,7 +78,7 @@ function woo_additional_terms() {
  *
  * @return void
  */
-function woo_additional_terms_load(): void {
+function woo_additional_terms_load() {
 
 	// Fetch the instance.
 	woo_additional_terms();
