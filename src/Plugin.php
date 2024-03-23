@@ -47,8 +47,8 @@ class Plugin extends Vendor\Pimple\Container {
 		// Register services early.
 		$this->register_services();
 
-		// Register assets.
-		$this->register_assets();
+		// Hooks.
+		$this->hooks();
 
 		// Load the plugin.
 		$this->load();
@@ -70,13 +70,14 @@ class Plugin extends Vendor\Pimple\Container {
 	/**
 	 * Register assets.
 	 *
-	 * @since 1.6.0
+	 * @since 1.6.5
 	 *
 	 * @return void
 	 */
-	private function register_assets() {
+	private function hooks() {
 
-		add_action( 'before_woocommerce_init', array( __NAMESPACE__ . '\\Assets', 'enqueue_editor' ) );
+		add_action( 'before_woocommerce_init', array( __NAMESPACE__ . '\\I18n', 'textdomain' ) );
+		add_action( 'enqueue_block_editor_assets', array( __NAMESPACE__ . '\\Assets', 'enqueue_editor' ) );
 		add_action( 'admin_enqueue_scripts', array( __NAMESPACE__ . '\\Assets', 'enqueue_admin' ) );
 		add_action( 'wp_enqueue_scripts', array( __NAMESPACE__ . '\\Assets', 'enqueue_frontend' ) );
 	}
