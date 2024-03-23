@@ -3,9 +3,9 @@ Contributors: mahdiyazdani, mypreview, gookaani
 Tags: terms and conditions, I agree, age verification, terms of service, custom terms, woocommerce plugin, GDPR, terms conditions for woocommerce
 Donate link: https://mypreview.one/woo-additional-terms
 Requires at least: 5.0
-Tested up to: 6.3
+Tested up to: 6.5
 Requires PHP: 7.4
-Stable tag: 1.6.4
+Stable tag: 1.6.5
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.txt
 
@@ -123,6 +123,10 @@ Yes, it does. The [Woo Additional Terms PRO](https://mypreview.one/woo-additiona
 5. Additional terms and condition checkbox on the WooCommerce checkout block page.
 
 == Changelog ==
+= 1.6.5 =
+* Compatibility with WordPress 6.5.
+* Compatibility with WooCommerce 8.7.
+
 = 1.6.4 =
 * Compatibility for rendering terms page content created with Elementor.
 
