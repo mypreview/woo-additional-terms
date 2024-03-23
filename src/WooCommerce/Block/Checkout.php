@@ -51,11 +51,13 @@ class Checkout {
 		woocommerce_store_api_register_endpoint_data(
 			array(
 				'endpoint'        => CheckoutSchema::IDENTIFIER,
-				'namespace'       => '_woo_additional_terms',
+				'namespace'       => Block::NAME,
+				'data_callback'   => null,
+				'schema_type'     => ARRAY_A,
 				'schema_callback' => fn() => array(
 					'data' => array(
 						'type'        => 'string',
-						'context'     => array(),
+						'context'     => array( 'view', 'edit' ),
 						'arg_options' => array(
 							'validate_callback' => function( $value ) {
 
@@ -86,13 +88,11 @@ class Checkout {
 	 */
 	public function process_acceptance( $order, $request ) {
 
-		if ( ! isset( $request['extensions'], $request['extensions']['_woo_additional_terms'] ) ) {
+		if ( ! isset( $request['extensions'], $request['extensions'][ Block::NAME ] ) ) {
 			return;
 		}
 
-		set_transient( '__woo_additional_terms', $request['extensions'], 60 );
-
-		$has_accepted = empty( $request['extensions']['_woo_additional_terms']['data'] ) ? null : wc_string_to_bool( $request['extensions']['_woo_additional_terms']['data'] );
+		$has_accepted = empty( $request['extensions'][ Block::NAME ]['data'] ) ? null : wc_string_to_bool( $request['extensions'][ Block::NAME ]['data'] );
 
 		/**
 		 * Fires after additional terms submissions is about to be saved.

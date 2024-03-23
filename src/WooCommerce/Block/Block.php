@@ -23,9 +23,18 @@ class Block implements IntegrationInterface {
 	 *
 	 * @return string
 	 */
+	const NAME = '_woo_additional_terms';
+
+	/**
+	 * The name of the integration.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @return string
+	 */
 	public function get_name() {
 
-		return '_woo_additional_terms';
+		return self::NAME;
 	}
 
 	/**
