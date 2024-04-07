@@ -124,6 +124,7 @@ Yes, it does. The [Woo Additional Terms PRO](https://mypreview.one/woo-additiona
 
 == Changelog ==
 = 1.6.5 =
+* Fixed compatibility issues with WooCommerce checkout block.
 * Compatibility with WordPress 6.5.
 * Compatibility with WooCommerce 8.7.
 
