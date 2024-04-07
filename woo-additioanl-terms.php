@@ -35,7 +35,7 @@
  * Domain Path: /languages
  *
  * WC requires at least: 5.5
- * WC tested up to: 8.7
+ * WC tested up to: 8.8
  */
 
 use Woo_Additional_Terms\Plugin;
