@@ -2,8 +2,6 @@
 /**
  * The WooCommerce order extensions.
  *
- * @author MyPreview (Github: @mahdiyazdani, @gooklani, @mypreview)
- *
  * @since 1.6.1
  *
  * @package woo-additional-terms

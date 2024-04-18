@@ -56,7 +56,6 @@
 	</rule>
 	<!-- Check for WooCommerce standards. -->
 	<rule ref="WooCommerce-Core">
-		<exclude name="WooCommerce.Commenting.CommentTags.AuthorTag" />
 		<exclude name="WooCommerce.Commenting.CommentTags.CopyrightTag" />
 		<exclude name="WooCommerce.Commenting.CommentHooks.MissingHookComment" />
 	</rule>

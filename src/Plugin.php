@@ -2,8 +2,6 @@
 /**
  * The core plugin class.
  *
- * @author MyPreview (Github: @mahdiyazdani, @gooklani, @mypreview)
- *
  * @since 1.6.0
  *
  * @package woo-additional-terms
@@ -49,6 +47,9 @@ class Plugin extends Vendor\Pimple\Container {
 		// Register services early.
 		$this->register_services();
 
+		// Hooks.
+		$this->hooks();
+
 		// Load the plugin.
 		$this->load();
 	}
@@ -64,6 +65,21 @@ class Plugin extends Vendor\Pimple\Container {
 
 		$provider = new PluginServiceProvider();
 		$provider->register( $this );
+	}
+
+	/**
+	 * Register assets.
+	 *
+	 * @since 1.6.5
+	 *
+	 * @return void
+	 */
+	private function hooks() {
+
+		add_action( 'before_woocommerce_init', array( __NAMESPACE__ . '\\I18n', 'textdomain' ) );
+		add_action( 'enqueue_block_editor_assets', array( __NAMESPACE__ . '\\Assets', 'enqueue_editor' ) );
+		add_action( 'admin_enqueue_scripts', array( __NAMESPACE__ . '\\Assets', 'enqueue_admin' ) );
+		add_action( 'wp_enqueue_scripts', array( __NAMESPACE__ . '\\Assets', 'enqueue_frontend' ) );
 	}
 
 	/**
@@ -130,11 +146,6 @@ class Plugin extends Vendor\Pimple\Container {
 			// Initialize the class.
 			( new $class() )->setup();
 		}
-
-		add_action( 'before_woocommerce_init', array( 'Woo_Additional_Terms\\I18n', 'textdomain' ) );
-		add_action( 'enqueue_block_editor_assets', array( 'Woo_Additional_Terms\\Assets', 'enqueue_editor' ) );
-		add_action( 'admin_enqueue_scripts', array( 'Woo_Additional_Terms\\Assets', 'enqueue_admin' ) );
-		add_action( 'wp_enqueue_scripts', array( 'Woo_Additional_Terms\\Assets', 'enqueue_frontend' ) );
 	}
 
 	/**
@@ -192,6 +203,7 @@ class Plugin extends Vendor\Pimple\Container {
 			'WooCommerce\\Checkout'        => array(
 				'condition' => $is_frontend,
 			),
+			'WooCommerce\\Block\\Checkout' => array(),
 			'WooCommerce\\Block\\Register' => array(),
 		);
 

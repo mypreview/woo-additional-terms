@@ -18,25 +18,24 @@
  *
  * @package woo-additional-terms
  *
- * @author MyPreview (Github: @mahdiyazdani, @gooklani, @mypreview)
- *
  * @copyright © 2015 - 2023 MyPreview. All Rights Reserved.
  *
  * @wordpress-plugin
- * Plugin Name:          Woo Additional Terms
- * Plugin URI:           https://mypreview.one/woo-additional-terms
- * Description:          Improve your checkout process by adding an extra checkbox for terms and conditions. Keep track of acceptance to ensure transparency and security.
- * Version:              1.6.4
- * Author:               MyPreview
- * Author URI:           https://mypreview.one/woo-additional-terms
- * Requires at least:    5.9
- * Requires PHP:         7.4
- * License:              GPL-3.0
- * License URI:          http://www.gnu.org/licenses/gpl-3.0.txt
- * Text Domain:          woo-additional-terms
- * Domain Path:          /languages
+ * Plugin Name: Woo Additional Terms
+ * Plugin URI: https://mypreview.one/woo-additional-terms
+ * Description: Improve your checkout process by adding an extra checkbox for terms and conditions. Keep track of acceptance to ensure transparency and security.
+ * Version: 1.6.5
+ * Author: MyPreview
+ * Author URI: https://mypreview.one/woo-additional-terms
+ * Requires at least: 5.9
+ * Requires PHP: 7.4
+ * License: GPL-3.0
+ * License URI: http://www.gnu.org/licenses/gpl-3.0.txt
+ * Text Domain: woo-additional-terms
+ * Domain Path: /languages
+ *
  * WC requires at least: 5.5
- * WC tested up to:      8.0
+ * WC tested up to: 8.8
  */
 
 use Woo_Additional_Terms\Plugin;
@@ -50,10 +49,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * Loads the PSR-4 autoloader implementation.
- *
- * @since 1.6.0
- *
- * @return void
  */
 require_once untrailingslashit( plugin_dir_path( __FILE__ ) ) . '/vendor/autoload.php';
 
@@ -62,7 +57,7 @@ require_once untrailingslashit( plugin_dir_path( __FILE__ ) ) . '/vendor/autoloa
  *
  * @since 1.6.0
  *
- * @return mixed|Plugin
+ * @return null|Plugin
  */
 function woo_additional_terms() {
 
@@ -83,7 +78,7 @@ function woo_additional_terms() {
  *
  * @return void
  */
-function woo_additional_terms_load(): void {
+function woo_additional_terms_load() {
 
 	// Fetch the instance.
 	woo_additional_terms();

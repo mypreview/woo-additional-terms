@@ -2,8 +2,6 @@
 /**
  * The plugin rate class.
  *
- * @author MyPreview (Github: @mahdiyazdani, @gooklani, @mypreview)
- *
  * @since 1.4.1
  *
  * @package woo-additional-terms

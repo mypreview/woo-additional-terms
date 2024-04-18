@@ -2,8 +2,6 @@
 /**
  * The plugin settings.
  *
- * @author MyPreview (Github: @mahdiyazdani, @gooklani, @mypreview)
- *
  * @since 1.4.0
  *
  * @package woo-additional-terms

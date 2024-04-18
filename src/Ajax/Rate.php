@@ -2,8 +2,6 @@
 /**
  * Dismiss rate the plugin admin notice.
  *
- * @author MyPreview (Github: @mahdiyazdani, @gooklani, @mypreview)
- *
  * @since 1.4.1
  *
  * @package woo-additional-terms
