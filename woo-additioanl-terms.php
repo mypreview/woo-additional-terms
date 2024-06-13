@@ -18,13 +18,13 @@
  *
  * @package woo-additional-terms
  *
- * @copyright © 2015 - 2023 MyPreview. All Rights Reserved.
+ * @copyright © 2015 - 2024 MyPreview. All Rights Reserved.
  *
  * @wordpress-plugin
  * Plugin Name: Woo Additional Terms
  * Plugin URI: https://mypreview.one/woo-additional-terms
  * Description: Improve your checkout process by adding an extra checkbox for terms and conditions. Keep track of acceptance to ensure transparency and security.
- * Version: 1.6.5
+ * Version: 1.6.6
  * Author: MyPreview
  * Author URI: https://mypreview.one/woo-additional-terms
  * Requires at least: 5.9
@@ -35,7 +35,7 @@
  * Domain Path: /languages
  *
  * WC requires at least: 5.5
- * WC tested up to: 8.8
+ * WC tested up to: 8.9
  */
 
 use Woo_Additional_Terms\Plugin;
