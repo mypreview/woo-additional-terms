@@ -45,7 +45,7 @@ abstract class Links {
 	public static function pro_uri( $path = '', $args = array() ) {
 
 		return path_join(
-			'https://mypreview.one/woo-additional-terms/',
+			'https://woocommerce.com/products/additional-terms-pro/',
 			add_query_arg( $args, $path )
 		);
 	}

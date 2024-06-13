@@ -1,7 +1,7 @@
 # Woo Additional Terms
-[![Woo Additional Terms Downloads](https://img.shields.io/wordpress/plugin/dt/woo-additional-terms.svg)](https://wordpress.org/plugins/woo-additional-terms) [![Woo Additional Terms Active Installs](https://img.shields.io/wordpress/plugin/installs/woo-additional-terms.svg)](https://wordpress.org/plugins/woo-additional-terms) [![Woo Additional Terms Ratings](https://img.shields.io/wordpress/plugin/r/woo-additional-terms.svg)](https://wordpress.org/plugins/woo-additional-terms) [![Woo Additional Terms Tested](https://img.shields.io/wordpress/plugin/tested/woo-additional-terms.svg)](https://wordpress.org/plugins/woo-additional-terms) [![Woo Additional Terms Version](https://img.shields.io/wordpress/plugin/v/woo-additional-terms.svg)](https://wordpress.org/plugins/woo-additional-terms) [![Woo Additional Terms License](https://img.shields.io/github/license/mypreview/woo-additional-terms)](https://wordpress.org/plugins/woo-additional-terms) [![Upgrade to premium version to unlock more features](https://img.shields.io/badge/💰-Upgrade%20to%20PRO-%23fedd04)](https://mypreview.one/woo-additional-terms)
+[![Woo Additional Terms Downloads](https://img.shields.io/wordpress/plugin/dt/woo-additional-terms.svg)](https://wordpress.org/plugins/woo-additional-terms) [![Woo Additional Terms Active Installs](https://img.shields.io/wordpress/plugin/installs/woo-additional-terms.svg)](https://wordpress.org/plugins/woo-additional-terms) [![Woo Additional Terms Ratings](https://img.shields.io/wordpress/plugin/r/woo-additional-terms.svg)](https://wordpress.org/plugins/woo-additional-terms) [![Woo Additional Terms Tested](https://img.shields.io/wordpress/plugin/tested/woo-additional-terms.svg)](https://wordpress.org/plugins/woo-additional-terms) [![Woo Additional Terms Version](https://img.shields.io/wordpress/plugin/v/woo-additional-terms.svg)](https://wordpress.org/plugins/woo-additional-terms) [![Woo Additional Terms License](https://img.shields.io/github/license/mypreview/woo-additional-terms)](https://wordpress.org/plugins/woo-additional-terms) [![Upgrade to premium version to unlock more features](https://img.shields.io/badge/💰-Upgrade%20to%20PRO-%23fedd04)](https://woocommerce.com/products/additional-terms-pro)
 
-[![Woo Additional Terms](https://ps.w.org/woo-additional-terms/assets/banner-1544x500.jpg?rev=1542924)](https://mypreview.one/woo-additional-terms)
+[![Woo Additional Terms](https://ps.w.org/woo-additional-terms/assets/banner-1544x500.jpg?rev=1542924)](https://woocommerce.com/products/additional-terms-pro)
 
 > ⚠️ If you are not a developer, please use the official [plugin post page](https://wordpress.org/plugins/woo-additional-terms "Download Woo Additional Terms plugin") on wordpress.org.
 
@@ -16,8 +16,8 @@
 
 * PHP version 7.4 or greater.
 * MySQL version 5.6 or greater OR MariaDB version 10.0 or greater.
-* WordPress version 5.0 or greater.
-* WooCommerce version 4.0 or greater.
+* WordPress version 5.9 or greater.
+* WooCommerce version 5.5 or greater.
 
 ## Description
 
@@ -47,4 +47,4 @@ Don't forget to rate this plugin [5 shining stars](https://wordpress.org/support
 
 ## Go premium 💰
 
-The premium (paid) version of the plugin is available to purchase! &#8594; [Upgrade to PRO](https://mypreview.one/woo-additional-terms)
+The premium (paid) version of the plugin is available to purchase! &#8594; [Upgrade to PRO](https://woocommerce.com/products/additional-terms-pro)
