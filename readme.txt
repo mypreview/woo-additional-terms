@@ -1,11 +1,11 @@
 === Woo Additional Terms ===
 Contributors: mahdiyazdani, mypreview, gookaani
-Tags: terms and conditions, I agree, age verification, terms of service, custom terms, woocommerce plugin, GDPR, terms conditions for woocommerce
-Donate link: https://mypreview.one/woo-additional-terms
+Tags: terms and conditions, I agree, age verification, terms of service, GDPR
+Donate link: https://woocommerce.com/products/additional-terms-pro
 Requires at least: 5.0
 Tested up to: 6.5
 Requires PHP: 7.4
-Stable tag: 1.6.5
+Stable tag: 1.6.6
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.txt
 
@@ -42,7 +42,7 @@ By including these additional terms, you can provide your customers with a clear
 For more information and setup instructions, visit the [Woo Additional Terms Plugin Documentation](https://mypreview.github.io/woo-additional-terms/ "Visit plugin documentation"). Elevate your customer experience and solidify your store's policies!
 
 ## Unlock Advanced Features for Your WooCommerce Store
-If you are looking for more advanced features to customize your WooCommerce store’s checkout process, [Woo Additional Terms PRO](https://mypreview.one/woo-additional-terms "Woo Additional Terms (PRO)") is the solution for you. With the Pro version, you get all the benefits of the free version, plus many additional features that allow you to take control of your store’s policies and improve customer trust.
+If you are looking for more advanced features to customize your WooCommerce store’s checkout process, [Woo Additional Terms PRO](https://woocommerce.com/products/additional-terms-pro "Woo Additional Terms (PRO)") is the solution for you. With the Pro version, you get all the benefits of the free version, plus many additional features that allow you to take control of your store’s policies and improve customer trust.
 
 With the PRO version, you can enjoy an abundance of functionalities, including:
 
@@ -51,15 +51,15 @@ With the PRO version, you can enjoy an abundance of functionalities, including:
 * **Flexible Display Options**: You can select which action displays the entire page content after clicking on a linked terms page. You can choose to embed the content above the checkbox, open the page content in a modal, or open the linked page in a new tab. This gives you more control over how your terms and conditions are displayed to customers.
 * **Advanced Conditional Logic**: With Woo Additional Terms PRO, you can set rules and conditions that alter terms and conditions checkboxes based on the cart and checkout details. You can create complex logic to display a terms checkbox by adding multiple conditional rules. You can restrict terms checkboxes by Products, Tags, Categories, Types of products, Shipping classes, WooCommerce brands, and Locations. This feature enables you to tailor your terms and conditions to specific products, locations, or customer group.
 
-Why settle for the basic version when you can have the advanced features of Woo Additional Terms Pro? [Upgrade to the PRO](https://mypreview.one/woo-additional-terms "Woo Additional Terms (PRO)") version now and take your store to the next level.
+Why settle for the basic version when you can have the advanced features of Woo Additional Terms Pro? [Upgrade to the PRO](https://woocommerce.com/products/additional-terms-pro "Woo Additional Terms (PRO)") version now and take your store to the next level.
 
 == Installation ==
 = Minimum Requirements =
 
 * PHP version 7.4 or greater.
 * MySQL version 5.6 or greater or MariaDB version 10.0 or greater.
-* WordPress version 5.0 or greater.
-* WooCommerce version 4.0 or greater.
+* WordPress version 5.9 or greater.
+* WooCommerce version 5.5 or greater.
 
 = Automatic installation =
 
@@ -113,7 +113,7 @@ We welcome contributions in various forms, such as bug reporting, testing, and p
 If you enjoyed using this plugin, we would greatly appreciate your feedback in the form of a [5-star rating](https://wordpress.org/support/plugin/woo-additional-terms/reviews/ "Rate Woo Additional Terms 5 stars"). Your rating will help us improve and continue providing high-quality services. Thank you!
 
 = Does Woo Additional Terms have a pro or premium version? =
-Yes, it does. The [Woo Additional Terms PRO](https://mypreview.one/woo-additional-terms "Woo Additional Terms (PRO)") is available as an upgrade and offers additional features and third-party integrations.
+Yes, it does. The [Woo Additional Terms PRO](https://woocommerce.com/products/additional-terms-pro "Woo Additional Terms (PRO)") is available as an upgrade and offers additional features and third-party integrations.
 
 == Screenshots ==
 1. Additional terms and condition checkbox on the WooCommerce checkout page.
@@ -123,6 +123,9 @@ Yes, it does. The [Woo Additional Terms PRO](https://mypreview.one/woo-additiona
 5. Additional terms and condition checkbox on the WooCommerce checkout block page.
 
 == Changelog ==
+= 1.6.6 =
+* Compatibility with WooCommerce 8.9.
+
 = 1.6.5 =
 * Fixed compatibility issues with WooCommerce checkout block.
 * Compatibility with WordPress 6.5.
