@@ -1,3 +1,11 @@
+= 1.6.6 =
+* Compatibility with WooCommerce 8.9.
+
+= 1.6.5 =
+* Fixed compatibility issues with WooCommerce checkout block.
+* Compatibility with WordPress 6.5.
+* Compatibility with WooCommerce 8.7.
+
 = 1.6.4 =
 * Compatibility for rendering terms page content created with Elementor.
 
