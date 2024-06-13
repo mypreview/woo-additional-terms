@@ -3,8 +3,6 @@
  * Uninstall Woo Additional Terms.
  * Fired when the plugin is uninstalled.
  *
- * @link https://mypreview.one/woo-additional-terms
- *
  * @since 1.0.0
  *
  * @package woo-additional-terms
