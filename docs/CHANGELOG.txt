@@ -1,3 +1,8 @@
+= 1.6.7 =
+* Improved escaping of terms page content on the checkout shortcode.
+* Compatibility with WordPress 6.6
+* Compatibility with WooCommerce 9.2
+
 = 1.6.6 =
 * Compatibility with WooCommerce 8.9.
 
