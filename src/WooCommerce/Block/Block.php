@@ -26,6 +26,15 @@ class Block implements IntegrationInterface {
 	const NAME = '_woo_additional_terms';
 
 	/**
+	 * The name of the block.
+	 *
+	 * @since 1.6.7
+	 *
+	 * @return string
+	 */
+	const IDENTIFIER = 'mypreview/woo-additional-terms';
+
+	/**
 	 * The name of the integration.
 	 *
 	 * @since 1.5.0
@@ -60,7 +69,7 @@ class Block implements IntegrationInterface {
 	 */
 	public function add_attributes_to_frontend_blocks( $allowed_blocks ) {
 
-		$allowed_blocks[] = 'mypreview/woo-additional-terms';
+		$allowed_blocks[] = self::IDENTIFIER;
 
 		return $allowed_blocks;
 	}
