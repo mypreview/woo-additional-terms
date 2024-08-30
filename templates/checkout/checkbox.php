@@ -32,7 +32,7 @@ $allowed_anchor_attributes = array(
 	<div
 		id="woo-additional-terms-content"
 		class="woo-additional-terms__content woo-additional-terms__content--<?php echo esc_attr( $args['display_action'] ); ?>"
-	><?php echo wc_format_content( $args['page_content'] ); ?></div>
+	><?php echo wp_kses_post( $args['page_content'] ); ?></div>
 	<?php endif; ?>
 	<p class="form-row <?php echo esc_attr( wc_string_to_bool( $args['is_required'] ) ? 'validate-required' : 'novalidate' ); ?>">
 		<label class="woocommerce-form__label woocommerce-form__label-for-checkbox checkbox">

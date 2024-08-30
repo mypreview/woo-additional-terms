@@ -186,7 +186,6 @@ class Terms {
 			return Elementor\Plugin::$instance->frontend->get_builder_content_for_display( $terms_page_id, true );
 		}
 
-		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
-		return apply_filters( 'the_content', $terms_page->post_content );
+		return wc_format_content( $terms_page->post_content );
 	}
 }
