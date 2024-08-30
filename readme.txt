@@ -5,7 +5,7 @@ Donate link: https://woocommerce.com/products/additional-terms-pro
 Requires at least: 5.0
 Tested up to: 6.6
 Requires PHP: 7.4
-Stable tag: 1.6.7
+Stable tag: 1.6.8
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.txt
 
@@ -123,6 +123,9 @@ Yes, it does. The [Woo Additional Terms PRO](https://woocommerce.com/products/ad
 5. Additional terms and condition checkbox on the WooCommerce checkout block page.
 
 == Changelog ==
+= 1.6.8 =
+* Fix empty page terms content shown in Divi theme.
+
 = 1.6.7 =
 * Improved escaping of terms page content on the checkout shortcode.
 * Compatibility with WordPress 6.6
