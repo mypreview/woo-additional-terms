@@ -1,4 +1,4 @@
-=== Woo Additional Terms ===
+=== Additional Terms for WooCommerce ===
 Contributors: mahdiyazdani, mypreview, gookaani
 Tags: terms and conditions, I agree, age verification, terms of service, GDPR
 Donate link: https://woocommerce.com/products/additional-terms-pro
