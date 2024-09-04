@@ -109,13 +109,11 @@ class Checkout {
 	public function posted_data( $posted_data ) {
 
 		// Exit early, in case the additional terms checkbox is not available.
-		// @phpcs:disable WordPress.Security.NonceVerification.Missing
-		if ( ! isset( $_POST['_woo_additional_terms'] ) ) {
+		if ( ! filter_has_var( INPUT_POST, '_woo_additional_terms' ) ) {
 			return $posted_data;
 		}
 
-		$posted_data['_woo_additional_terms'] = wc_string_to_bool( wp_unslash( $_POST['_woo_additional_terms'] ) );
-		// @phpcs:enable WordPress.Security.NonceVerification.Missing
+		$posted_data['_woo_additional_terms'] = wc_string_to_bool( filter_input( INPUT_POST, '_woo_additional_terms' ) );
 
 		return apply_filters( 'woo_additional_terms_checkout_posted_data', $posted_data );
 	}
