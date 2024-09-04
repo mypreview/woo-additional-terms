@@ -29,8 +29,8 @@ class General extends Section {
 			'section_title' => array(
 				'id'   => 'woo-additional-terms-general',
 				'type' => 'title',
-				'name' => _x( 'Woo Additional Terms', 'settings section name', 'woo-additional-terms' ),
-				'desc' => _x( 'Add an extra “I agree” checkbox to your checkout page, giving users the opportunity to explicitly agree to specific terms before completing their purchase. Save time, reduce disputes, and create a better shopping experience.', 'settings field description', 'woo-additional-terms' ),
+				'name' => _x( 'Additional Terms', 'settings section name', 'woo-additional-terms' ),
+				'desc' => _x( 'Add an extra “I agree” checkbox to your checkout page, giving users the opportunity to explicitly agree to specific terms before completing their purchase.', 'settings field description', 'woo-additional-terms' ),
 			),
 			'status' => array(
 				'name'     => _x( 'Status', 'settings field name', 'woo-additional-terms' ),
