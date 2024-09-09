@@ -113,7 +113,7 @@ class Checkout {
 			return $posted_data;
 		}
 
-		$posted_data['_woo_additional_terms'] = wc_string_to_bool( filter_input( INPUT_POST, '_woo_additional_terms' ) );
+		$posted_data['_woo_additional_terms'] = wc_string_to_bool( filter_input( INPUT_POST, '_woo_additional_terms', FILTER_SANITIZE_SPECIAL_CHARS ) );
 
 		return apply_filters( 'woo_additional_terms_checkout_posted_data', $posted_data );
 	}
