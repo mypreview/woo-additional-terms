@@ -1,4 +1,7 @@
-*** Woo Additional Terms Changelog ***
+*** Additional Terms for WooCommerce Changelog ***
+= 2024-09-09 1.6.8.1 =
+* Fix - Renamed the plugin to comply with WooCommerce branding guidelines.
+
 = 2024-09-02 - Version 1.6.8 =
 * Fix - Empty page terms content shown in Divi theme.
 

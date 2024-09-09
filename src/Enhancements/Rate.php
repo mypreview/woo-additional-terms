@@ -106,7 +106,7 @@ class Rate {
 		new WP_Footer_Rate\Rate(
 			woo_additional_terms()->service( 'file' )->plugin_basename(),
 			woo_additional_terms()->get_slug(),
-			_x( 'Woo Additional Terms', 'plugin name', 'woo-additional-terms' ),
+			_x( 'Additional Terms for WooCommerce', 'plugin name', 'woo-additional-terms' ),
 			Helper\Settings::is_page()
 		);
 	}

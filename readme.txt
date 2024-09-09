@@ -5,14 +5,14 @@ Donate link: https://woocommerce.com/products/additional-terms-pro
 Requires at least: 5.0
 Tested up to: 6.6
 Requires PHP: 7.4
-Stable tag: 1.6.8
+Stable tag: 1.6.8.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.txt
 
 Improve your checkout process by adding an extra checkbox for terms and conditions. Keep track of acceptance to ensure transparency and security.
 
 == Description ==
-The Woo Additional Terms plugin is a crucial tool for any WooCommerce store as it allows you to add custom terms and conditions that customers must accept prior to checking out on your store. The additional terms and conditions checkbox serves as a valuable resource for tailoring your store’s policies, safeguarding your business, and promoting transparency with your clients. This feature enables you to provide your customers with more comprehensive details about your policies, procedures, or any additional terms that they must agree to before making a purchase. By doing so, you can cultivate a trusting relationship with your customers and minimize the likelihood of conflicts or misunderstandings.
+The Additional Terms for WooCommerce plugin is a crucial tool for any WooCommerce store as it allows you to add custom terms and conditions that customers must accept prior to checking out on your store. The additional terms and conditions checkbox serves as a valuable resource for tailoring your store’s policies, safeguarding your business, and promoting transparency with your clients. This feature enables you to provide your customers with more comprehensive details about your policies, procedures, or any additional terms that they must agree to before making a purchase. By doing so, you can cultivate a trusting relationship with your customers and minimize the likelihood of conflicts or misunderstandings.
 
 With the plugin’s user-friendly settings, you can effortlessly link your terms page to the checkbox text and select how you want your customers to view the terms content. Whether you prefer directing them to a new tab, embedding the content above the checkbox, or showing it in a modal pop-up, the choice is yours.
 
@@ -39,19 +39,19 @@ To ensure that you have covered all the necessary bases, here are some examples 
 
 By including these additional terms, you can provide your customers with a clear understanding of your store’s policies and procedures, ultimately enhancing their shopping experience and building trust in your brand.
 
-For more information and setup instructions, visit the [Woo Additional Terms Plugin Documentation](https://mypreview.github.io/woo-additional-terms/ "Visit plugin documentation"). Elevate your customer experience and solidify your store's policies!
+For more information and setup instructions, visit the [Additional Terms for WooCommerce Plugin Documentation](https://mypreview.github.io/woo-additional-terms/ "Visit plugin documentation"). Elevate your customer experience and solidify your store's policies!
 
 ## Unlock Advanced Features for Your WooCommerce Store
-If you are looking for more advanced features to customize your WooCommerce store’s checkout process, [Woo Additional Terms PRO](https://woocommerce.com/products/additional-terms-pro "Woo Additional Terms (PRO)") is the solution for you. With the Pro version, you get all the benefits of the free version, plus many additional features that allow you to take control of your store’s policies and improve customer trust.
+If you are looking for more advanced features to customize your WooCommerce store’s checkout process, [Additional Terms for WooCommerce PRO](https://woocommerce.com/products/additional-terms-pro "Additional Terms (PRO)") is the solution for you. With the Pro version, you get all the benefits of the free version, plus many additional features that allow you to take control of your store’s policies and improve customer trust.
 
 With the PRO version, you can enjoy an abundance of functionalities, including:
 
 * **Unlimited Custom Terms and Conditions Checkboxes**: With the PRO version, you can add unlimited custom terms and conditions checkboxes to your store’s checkout process. That means you can create special terms and conditions for different products or services and require customers to agree to them before purchasing.
 * **Default Checked Checkbox**: You can choose whether or not the checkbox is checked by default on checkout. That allows you to set the default value of the checkbox to either checked or unchecked, depending on your preference.
 * **Flexible Display Options**: You can select which action displays the entire page content after clicking on a linked terms page. You can choose to embed the content above the checkbox, open the page content in a modal, or open the linked page in a new tab. This gives you more control over how your terms and conditions are displayed to customers.
-* **Advanced Conditional Logic**: With Woo Additional Terms PRO, you can set rules and conditions that alter terms and conditions checkboxes based on the cart and checkout details. You can create complex logic to display a terms checkbox by adding multiple conditional rules. You can restrict terms checkboxes by Products, Tags, Categories, Types of products, Shipping classes, WooCommerce brands, and Locations. This feature enables you to tailor your terms and conditions to specific products, locations, or customer group.
+* **Advanced Conditional Logic**: With Additional Terms PRO, you can set rules and conditions that alter terms and conditions checkboxes based on the cart and checkout details. You can create complex logic to display a terms checkbox by adding multiple conditional rules. You can restrict terms checkboxes by Products, Tags, Categories, Types of products, Shipping classes, WooCommerce brands, and Locations. This feature enables you to tailor your terms and conditions to specific products, locations, or customer group.
 
-Why settle for the basic version when you can have the advanced features of Woo Additional Terms Pro? [Upgrade to the PRO](https://woocommerce.com/products/additional-terms-pro "Woo Additional Terms (PRO)") version now and take your store to the next level.
+Why settle for the basic version when you can have the advanced features of Additional Terms Pro? [Upgrade to the PRO](https://woocommerce.com/products/additional-terms-pro "Additional Terms (PRO)") version now and take your store to the next level.
 
 == Installation ==
 = Minimum Requirements =
@@ -65,7 +65,7 @@ Why settle for the basic version when you can have the advanced features of Woo 
 
 Automatic installation is the easiest option — WordPress will handle the file transfer, and you won’t need to leave your web browser. To do an automatic install of the plugin, log in to your WordPress dashboard, navigate to the Plugins menu, and click “Add New.”
 
-In the search field type “Woo Additional Terms”, then click “Search Plugins.” Once you’ve found the plugin, you can view details about it such as the point release, rating, and description. Click “Install Now,” and WordPress will take it from there.
+In the search field type “Additional Terms for WooCommerce”, then click “Search Plugins.” Once you’ve found the plugin, you can view details about it such as the point release, rating, and description. Click “Install Now,” and WordPress will take it from there.
 
 = Manual installation =
 
@@ -76,14 +76,14 @@ The manual installation method requires downloading the plugin and uploading it 
 Automatic updates should work smoothly, but we still recommend you back up your site.
 
 == Frequently Asked Questions ==
-= Why should you use the Woo Additional Terms plugin? =
-You may want to use the Woo Additional Terms plugin if you need to add customized terms and conditions to your online store’s checkout process. This plugin can be particularly helpful in ensuring that customers are aware of important policies, such as your return or privacy policy, that they must agree to before purchasing. By clearly communicating this information, you can enhance the user experience and increase customer satisfaction, leading to positive reviews and repeat business.
+= Why should you use the Additional Terms plugin? =
+You may want to use the the plugin if you need to add customized terms and conditions to your online store’s checkout process. This plugin can be particularly helpful in ensuring that customers are aware of important policies, such as your return or privacy policy, that they must agree to before purchasing. By clearly communicating this information, you can enhance the user experience and increase customer satisfaction, leading to positive reviews and repeat business.
 
 = Where can I find the plugin’s settings page? =
 To access the plugin’s settings page, log into your WordPress website dashboard, and navigate to “WooCommerce” » “Settings” » “Additional Terms”.
 
 = How do I add the additional checkbox to the checkout page? =
-To add an additional checkbox to the checkout page using the Woo Additional Terms plugin, follow these steps:
+To add an additional checkbox to the checkout page using the Additional Terms plugin, follow these steps:
 1. Navigate to “WooCommerce” » “Settings” » “Additional Terms”.
 2. Select the “Terms page” where you have published the terms and conditions you want customers to agree to.
 3. Enter a “Terms Text” (label) for the checkbox input field.
@@ -94,10 +94,10 @@ To add an additional checkbox to the checkout page using the Woo Additional Term
 You can add the linked page name to the checkbox label using the `{{additional-terms}}` smart tag. Insert the smart tag in the “Terms Text” field where you want the linked page name to appear. This will help your customers quickly access and review the terms and conditions by clicking the link in the checkbox.
 
 = Is this plugin compatible with WooCommerce Checkout block? =
-Yes, the Woo Additional Terms plugin is fully compatible with the block-based checkout flow in WooCommerce. You can easily insert the dedicated “Additional Terms” block into the “Checkout” block to display the additional terms and conditions checkbox at your preferred location on the checkout page.
+Yes, the plugin is fully compatible with the block-based checkout flow in WooCommerce. You can easily insert the dedicated “Additional Terms” block into the “Checkout” block to display the additional terms and conditions checkbox at your preferred location on the checkout page.
 
 = How can I get help with the plugin? =
-The easiest way to receive support is to visit the [Community Forums page](https://wordpress.org/support/plugin/woo-additional-terms "Woo Additional Terms Support Forum") and create a new topic. Be sure to check the “Notify me of follow-up replies via email” checkbox to receive notifications as soon as a reply is posted to your question or inquiry.
+The easiest way to receive support is to visit the [Community Forums page](https://wordpress.org/support/plugin/woo-additional-terms "Additional Terms for WooCommerce Support Forum") and create a new topic. Be sure to check the “Notify me of follow-up replies via email” checkbox to receive notifications as soon as a reply is posted to your question or inquiry.
 
 = Is the plugin compatible with multilingual websites? =
 Yes, absolutely. The plugin has been designed to be translation-ready and comes with a configuration file that fully supports WPML and Polylang plugins.
@@ -110,10 +110,10 @@ Yes, certainly! The plugin has been made translation-ready and localized using t
 We welcome contributions in various forms, such as bug reporting, testing, and providing detailed feedback. You can check out our [GitHub development repository](https://github.com/mypreview/woo-additional-terms "GitHub development repository") for more information.
 
 = What is your opinion about the concept behind this plugin? =
-If you enjoyed using this plugin, we would greatly appreciate your feedback in the form of a [5-star rating](https://wordpress.org/support/plugin/woo-additional-terms/reviews/ "Rate Woo Additional Terms 5 stars"). Your rating will help us improve and continue providing high-quality services. Thank you!
+If you enjoyed using this plugin, we would greatly appreciate your feedback in the form of a [5-star rating](https://wordpress.org/support/plugin/woo-additional-terms/reviews/ "Rate Additional Terms for WooCommerce 5 stars"). Your rating will help us improve and continue providing high-quality services. Thank you!
 
-= Does Woo Additional Terms have a pro or premium version? =
-Yes, it does. The [Woo Additional Terms PRO](https://woocommerce.com/products/additional-terms-pro "Woo Additional Terms (PRO)") is available as an upgrade and offers additional features and third-party integrations.
+= Does Additional Terms have a pro or premium version? =
+Yes, it does. The [Additional Terms PRO](https://woocommerce.com/products/additional-terms-pro "Additional Terms (PRO)") is available as an upgrade and offers additional features and third-party integrations.
 
 == Screenshots ==
 1. Additional terms and condition checkbox on the WooCommerce checkout page.
@@ -123,6 +123,9 @@ Yes, it does. The [Woo Additional Terms PRO](https://woocommerce.com/products/ad
 5. Additional terms and condition checkbox on the WooCommerce checkout block page.
 
 == Changelog ==
+= 1.6.8.1 =
+* Renamed the plugin to comply with WooCommerce branding guidelines.
+
 = 1.6.8 =
 * Fix empty page terms content shown in Divi theme.
 

@@ -20,7 +20,7 @@ defined( 'WC_VERSION' ) || exit;
 				/* translators: 1: Activation duration, 2: Plugin name */
 				esc_html_x( '%1$s have passed since you started using %2$s.', 'admin notice', 'woo-additional-terms' ),
 				esc_html( $args['usage_timestamp'] ),
-				esc_html_x( 'Woo Additional Terms', 'plugin name', 'woo-additional-terms' )
+				esc_html_x( 'Additional Terms for WooCommerce', 'plugin name', 'woo-additional-terms' )
 			);
 			?>
 		</strong>

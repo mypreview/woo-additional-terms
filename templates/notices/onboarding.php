@@ -21,7 +21,7 @@ defined( 'WC_VERSION' ) || exit;
 			esc_html_x( 'Thanks for installing %1$s plugin! To get started, visit the %2$sdocumentation%3$s or %4$splugin’s settings page%5$s.', 'admin notice', 'woo-additional-terms' ),
 			sprintf(
 				'<strong>%s</strong>',
-				esc_html_x( 'Woo Additional Terms', 'plugin name', 'woo-additional-terms' )
+				esc_html_x( 'Additional Terms for WooCommerce', 'plugin name', 'woo-additional-terms' )
 			),
 			sprintf(
 				'<a href="%s" target="_blank" rel="noopener noreferrer nofollow">',

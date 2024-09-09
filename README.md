@@ -1,9 +1,9 @@
-# Woo Additional Terms
+# Additional Terms for WooCommerce
 [![Woo Additional Terms Downloads](https://img.shields.io/wordpress/plugin/dt/woo-additional-terms.svg)](https://wordpress.org/plugins/woo-additional-terms) [![Woo Additional Terms Active Installs](https://img.shields.io/wordpress/plugin/installs/woo-additional-terms.svg)](https://wordpress.org/plugins/woo-additional-terms) [![Woo Additional Terms Ratings](https://img.shields.io/wordpress/plugin/r/woo-additional-terms.svg)](https://wordpress.org/plugins/woo-additional-terms) [![Woo Additional Terms Tested](https://img.shields.io/wordpress/plugin/tested/woo-additional-terms.svg)](https://wordpress.org/plugins/woo-additional-terms) [![Woo Additional Terms Version](https://img.shields.io/wordpress/plugin/v/woo-additional-terms.svg)](https://wordpress.org/plugins/woo-additional-terms) [![Woo Additional Terms License](https://img.shields.io/github/license/mypreview/woo-additional-terms)](https://wordpress.org/plugins/woo-additional-terms) [![Upgrade to premium version to unlock more features](https://img.shields.io/badge/💰-Upgrade%20to%20PRO-%23fedd04)](https://woocommerce.com/products/additional-terms-pro)
 
 [![Woo Additional Terms](https://ps.w.org/woo-additional-terms/assets/banner-1544x500.jpg?rev=1542924)](https://woocommerce.com/products/additional-terms-pro)
 
-> ⚠️ If you are not a developer, please use the official [plugin post page](https://wordpress.org/plugins/woo-additional-terms "Download Woo Additional Terms plugin") on wordpress.org.
+> ⚠️ If you are not a developer, please use the official [plugin post page](https://wordpress.org/plugins/woo-additional-terms "Download Additional Terms for WooCommerce plugin") on wordpress.org.
 
 ## Installation
 
