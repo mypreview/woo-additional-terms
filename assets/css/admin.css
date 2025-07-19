@@ -11,6 +11,8 @@
 
 .woo-additional-terms-docs-title {
 	font-size: 18px;
+	padding-top: 20px;
+	margin: 0;
 }
 
 .woo-additional-terms-docs-cta a {
@@ -109,6 +111,21 @@
 	margin-inline-start: 5px;
 }
 
+.woocommerce_page_wc-settings-woo-additional-terms #wpfooter {
+	position: relative;
+}
+
+.woo-additional-terms-page #mainform,
+.woo-additional-terms-page .notice {
+	box-sizing: border-box;
+	float: left;
+	width: 100%;
+}
+
+.woocommerce_page_wc-settings-woo-additional-terms #message {
+	clear: both;
+}
+
 @media (min-width: 1200px) {
 
 	.woo-additional-terms-page .form-table,
@@ -123,13 +140,18 @@
 		margin-left: 20px;
 		width: 300px;
 	}
+
+	body.woo-additional-terms-page #mainform::after {
+		content: "";
+		display: table;
+		width: 100%;
+	}
 }
 
 @media (max-width: 1199px) {
 
 	.woo-additional-terms-page #mainform {
 		display: table;
-		width: 100%;
 	}
 
 	.woo-additional-terms-page .woocommerce nav.woo-nav-tab-wrapper {
