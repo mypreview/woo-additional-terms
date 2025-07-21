@@ -1,4 +1,7 @@
 *** Additional Terms for WooCommerce Changelog ***
+= 1.6.9 =
+* Compatibility: WooCommerce 10.0
+
 = 2024-09-09 1.6.8.1 =
 * Fix - Renamed the plugin to comply with WooCommerce branding guidelines.
 
