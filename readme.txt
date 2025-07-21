@@ -3,9 +3,9 @@ Contributors: mahdiyazdani, mypreview, gookaani
 Tags: terms and conditions, I agree, age verification, terms of service, GDPR
 Donate link: https://woocommerce.com/products/additional-terms-pro
 Requires at least: 5.0
-Tested up to: 6.6
+Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 1.6.8.1
+Stable tag: 1.6.9
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.txt
 
@@ -123,6 +123,9 @@ Yes, it does. The [Additional Terms PRO](https://woocommerce.com/products/additi
 5. Additional terms and condition checkbox on the WooCommerce checkout block page.
 
 == Changelog ==
+= 1.6.9 =
+* Compatibility: WooCommerce 10.0
+
 = 1.6.8.1 =
 * Renamed the plugin to comply with WooCommerce branding guidelines.
 
