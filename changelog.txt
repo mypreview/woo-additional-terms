@@ -1,4 +1,7 @@
 *** Additional Terms for WooCommerce Changelog ***
+= 2025-08-19 1.7.0 =
+* Fix – Added support for translating settings fields
+
 = 2025-07-21 1.6.9 =
 * Compatibility: WooCommerce 10.0
 

@@ -1,7 +1,11 @@
 <wpml-config>
 	<admin-texts>
 		<key name="woo_additional_terms_options">
+			<key name="status" />
+			<key name="page" />
+			<key name="action" />
 			<key name="notice" />
+			<key name="required" />
 			<key name="error" />
 		</key>
 	</admin-texts>
